@@ -255,6 +255,80 @@ section.block{padding-block:96px}
 @media (max-width:900px){.styles-grid{grid-template-columns:1fr}}
 @media (max-width:420px){.looks{grid-template-columns:1fr}}
 
+/* ---------- Aventuras: Pradera / Espacio exterior / Dinosaurios ---------- */
+.pick-label{margin:20px 0 8px;font-weight:800;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.advs{grid-template-columns:repeat(3,1fr)}
+.advs .look-btn b{font-size:1.08rem}
+.scene-story{margin-top:6px;color:var(--ink);font-size:1.06rem;line-height:1.45}
+.scene .set>div{position:relative}
+.ov{position:absolute;left:0;top:0;width:100%;height:auto;overflow:visible;pointer-events:none}
+.ov .ov-space,.ov .ov-dino{opacity:0;transition:opacity .35s}
+.scene.theme-espacio .ov .ov-space,.scene.theme-dinos .ov .ov-dino{opacity:1}
+.ov .flame{transform-origin:100px 206px;animation:flick .18s ease-in-out infinite alternate}
+@keyframes flick{from{transform:scaleY(.8)}to{transform:scaleY(1.15)}}
+.bg-space,.bg-dino,.dinos{position:absolute;inset:0;opacity:0;transition:opacity .45s;pointer-events:none}
+.bg-space,.bg-dino{z-index:0}
+.scene .ground{z-index:1}
+.dinos{z-index:3}
+.scene.theme-espacio .bg-space,.scene.theme-dinos .bg-dino{opacity:1}
+.scene.theme-dinos.look-acuarela .dinos-wc,.scene.theme-dinos.look-comic .dinos-cm{opacity:1}
+.scene.theme-espacio .inset,.scene.theme-dinos .inset{opacity:0}
+.scene.look-acuarela .bg-space,.scene.look-acuarela .bg-dino{filter:url(#wc-edge) saturate(.85)}
+/* espacio */
+.scene.theme-espacio.look-acuarela{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(55% 45% at 25% 30%,#7E8FD6 0,transparent 70%),radial-gradient(45% 40% at 75% 22%,#C2A3E8 0,transparent 70%),#2F3B72}
+.scene.theme-espacio.look-comic{background:radial-gradient(circle,rgba(255,255,255,.16) 1.5px,transparent 2px) 0 0/12px 12px,repeating-conic-gradient(from 0deg at 50% 62%,#3B1E8C 0 9deg,#2A1468 9deg 18deg)}
+.bg-space{background-image:radial-gradient(2px 2px at 8% 30%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 28% 12%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 46% 34%,#fff 50%,transparent 51%),radial-gradient(2.5px 2.5px at 62% 8%,#FFE49A 50%,transparent 51%),radial-gradient(2px 2px at 84% 40%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 92% 14%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 38% 52%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 70% 56%,#fff 50%,transparent 51%)}
+.planet{position:absolute;left:12%;top:20%;width:16%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFC6DA,#E8638D 60%,#B83D6A)}
+.planet::after{content:"";position:absolute;left:-32%;right:-32%;top:40%;height:22%;border:4px solid #FFD43B;border-radius:50%;transform:rotate(-14deg)}
+.moonlet{position:absolute;right:34%;top:12%;width:7%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFFFFF,#CFD6E4)}
+.scene.look-comic .planet,.scene.look-comic .moonlet{outline:4px solid #111;outline-offset:-2px}
+.rocket{position:absolute;left:0;top:60%;width:8%;animation:fly 7s linear infinite}
+@keyframes fly{0%{transform:translate(-150%,40%) rotate(60deg)}100%{transform:translate(1300%,-300%) rotate(60deg)}}
+.scene.theme-espacio.look-acuarela .ground{background:radial-gradient(12% 30% at 22% 60%,rgba(60,70,100,.18) 0 60%,transparent 62%),radial-gradient(9% 24% at 74% 50%,rgba(60,70,100,.18) 0 60%,transparent 62%),radial-gradient(70% 100% at 50% 100%,#D9DEEA,transparent 80%)}
+.scene.theme-espacio.look-comic .ground{background:radial-gradient(12% 30% at 22% 60%,#97A3BF 0 60%,transparent 62%),radial-gradient(9% 24% at 74% 50%,#97A3BF 0 60%,transparent 62%),#C7CEDE}
+/* dinosaurios */
+.scene.theme-dinos.look-acuarela{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .42 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(55% 45% at 25% 25%,#FFE1B5 0,transparent 70%),radial-gradient(45% 40% at 72% 28%,#F9C9A8 0,transparent 70%),radial-gradient(70% 55% at 50% 100%,#D3EBB4 0,transparent 70%),#FBF1DE}
+.scene.theme-dinos.look-comic{background:radial-gradient(circle,rgba(17,17,17,.14) 1.5px,transparent 2px) 0 0/12px 12px,repeating-conic-gradient(from 0deg at 50% 62%,#A3E635 0 9deg,#84CC16 9deg 18deg)}
+.scene.theme-dinos.look-acuarela .ground{background:radial-gradient(5% 10% at 30% 55%,rgba(120,80,40,.25) 0 60%,transparent 62%),radial-gradient(5% 10% at 38% 70%,rgba(120,80,40,.25) 0 60%,transparent 62%),radial-gradient(60% 100% at 50% 100%,#D9B98A,transparent 75%)}
+.scene.theme-dinos.look-comic .ground{background:radial-gradient(5% 10% at 30% 55%,#8A5A2B 0 60%,transparent 62%),radial-gradient(5% 10% at 38% 70%,#8A5A2B 0 60%,transparent 62%),#C08A4A}
+.volcano{position:absolute;right:8%;bottom:16%;width:36%;height:46%;background:linear-gradient(#9A6644,#6E4630);clip-path:polygon(0 100%,38% 10%,62% 10%,100% 100%)}
+.volcano::after{content:"";position:absolute;left:36%;right:36%;top:8%;height:18%;background:#FF8A1F;clip-path:polygon(0 0,100% 0,82% 100%,64% 40%,46% 100%,30% 30%,14% 90%)}
+.smoke{position:absolute;right:23%;bottom:58%;width:7%;aspect-ratio:1;border-radius:50%;background:#E9E4DC;opacity:0;animation:smoke 4.5s ease-out infinite}
+.sm2{animation-delay:1.5s}.sm3{animation-delay:3s}
+@keyframes smoke{0%{transform:translate(0,0) scale(.5);opacity:0}15%{opacity:.9}100%{transform:translate(-40%,-240%) scale(1.8);opacity:0}}
+.ferns{position:absolute;bottom:14%;width:19%}
+.ferns.fl{left:-3%}.ferns.fr{right:-3%;transform:scaleX(-1)}
+.dn{position:absolute}
+.dn svg{display:block;width:100%;height:auto}
+.dn-egg{left:0;bottom:1%;width:16%}
+.dn-egg .egg{position:absolute;left:0;top:0}
+.dn-egg .dino{animation:peek 3.2s ease-in-out infinite}
+@keyframes peek{0%,100%{transform:translateY(28%)}35%,70%{transform:translateY(0)}52%{transform:translateY(-5%) rotate(-5deg)}}
+.dn-back{left:45%;bottom:10%;width:12%}
+.dn-back .dino{animation:dhop 1.4s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes dhop{0%,100%{transform:translateY(0) scale(1.04,.96)}45%{transform:translateY(-28%) scale(.97,1.04)}}
+.dn-run{bottom:0;left:52%;width:13%;animation:dinorun 6s ease-in-out infinite}
+.dn-run .dino{animation:dhop .45s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes dinorun{0%{left:48%;transform:scaleX(1)}46%{left:80%;transform:scaleX(1)}50%{left:80%;transform:scaleX(-1)}96%{left:48%;transform:scaleX(-1)}100%{left:48%;transform:scaleX(1)}}
+.dino .dtail{animation:wag .4s ease-in-out infinite alternate}
+/* movimientos según la aventura */
+.scene.theme-espacio .set .ch .sway,.scene.theme-espacio .set .ch .pop,.scene.theme-dinos .set .ch .sway,.scene.theme-dinos .set .ch .pop{animation:none}
+.scene.theme-espacio .set>div{animation:zerog 5.5s ease-in-out infinite}
+.scene.theme-espacio .set>.d{animation-delay:-1s}.scene.theme-espacio .set>.a{animation-delay:-2.6s}.scene.theme-espacio .set>.s{animation-delay:-4s}
+.scene.theme-espacio .set>.p{animation:spinfloat 9s linear infinite}
+@keyframes zerog{0%,100%{transform:translateY(-4%) rotate(-5deg)}50%{transform:translateY(-22%) rotate(6deg)}}
+@keyframes spinfloat{0%{transform:translateY(-12%) rotate(0)}50%{transform:translateY(-26%) rotate(180deg)}100%{transform:translateY(-12%) rotate(360deg)}}
+.scene.theme-dinos .set>div{animation:stomp 1.6s ease-in-out infinite;transform-origin:50% 100%}
+.scene.theme-dinos .set>.a{animation-delay:-.4s}.scene.theme-dinos .set>.p{animation-delay:-.8s}.scene.theme-dinos .set>.s{animation-delay:-1.2s}
+@keyframes stomp{0%,60%,100%{transform:translateY(0) scale(1,1)}25%{transform:translateY(-9%) scale(.97,1.04)}45%{transform:translateY(0) scale(1.05,.95)}}
+/* transformación al cambiar de aventura */
+.poof{position:absolute;left:50%;top:58%;width:70%;aspect-ratio:1;transform:translate(-50%,-50%) scale(0);border-radius:50%;background:radial-gradient(circle,#fff 0 28%,rgba(255,255,255,.65) 45%,transparent 70%);opacity:0;z-index:5;pointer-events:none}
+.scene.morph .poof{animation:poof .75s ease-out}
+@keyframes poof{0%{transform:translate(-50%,-50%) scale(.1);opacity:0}35%{opacity:1}100%{transform:translate(-50%,-50%) scale(1.7);opacity:0}}
+.scene.morph .set{animation:morph .75s ease-in-out}
+@keyframes morph{0%{transform:scale(1)}40%{transform:scale(.5) rotate(-10deg)}75%{transform:scale(1.07) rotate(2deg)}100%{transform:scale(1)}}
+@media (max-width:560px){.advs .look-btn span{display:none}.advs .look-btn{padding:12px 10px;text-align:center}.advs .look-btn b{font-size:.98rem}}
+
 /* Libro */
 .book-show{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 .cover-wrap{position:relative;max-width:470px;justify-self:center;width:100%}
@@ -466,11 +540,18 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
         <div class="sec-head" style="margin-bottom:24px">
           <p class="eyebrow">Línea gráfica</p>
           <h2>¿Cómo imaginas su cuento?</h2>
-          <p>Ilustramos a tu peque a partir de sus fotos y de lo que nos cuentes sobre colores y estilo. Mira cómo cambia todo el equipo de David en cada uno.</p>
+          <p>Ilustramos a tu peque a partir de sus fotos y de lo que nos cuentes sobre colores, estilo y aventura. Combina las opciones y mira cómo se transforma el equipo de David.</p>
         </div>
+        <p class="pick-label">1. Elige el estilo</p>
         <div class="looks" role="radiogroup" aria-label="Estilo de ilustración" id="looks">
           <button class="look-btn" role="radio" aria-checked="true" data-look="acuarela"><b>Caricatura acuarela</b><span>Nuestro estilo: ilustrada y suave, como el libro de David.</span></button>
           <button class="look-btn" role="radio" aria-checked="false" data-look="comic"><b>Cómic brillante</b><span>Personajes tipo cómic, con colores vivos y más energía.</span></button>
+        </div>
+        <p class="pick-label">2. Elige la aventura</p>
+        <div class="looks advs" role="radiogroup" aria-label="Aventura del cuento" id="advs">
+          <button class="look-btn" role="radio" aria-checked="true" data-adv="pradera"><b>Pradera</b><span>El cuento de David, tal cual.</span></button>
+          <button class="look-btn" role="radio" aria-checked="false" data-adv="espacio"><b>Espacio exterior</b><span>Cascos, estrellas y gravedad cero.</span></button>
+          <button class="look-btn" role="radio" aria-checked="false" data-adv="dinos"><b>Dinosaurios</b><span>Dino bebés que juegan con el equipo.</span></button>
         </div>
         <div class="ref-card">
           <b>¿Tienes un referente?</b>
@@ -478,15 +559,28 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
         </div>
       </div>
       <div>
-        <div class="scene look-acuarela" id="scene">
-          <span class="scene-label" id="scene-label">Caricatura acuarela</span>
-          <span class="pow" aria-hidden="true">¡A la aventura!</span>
+        <div class="scene look-acuarela theme-pradera" id="scene">
+          <div class="bg-space" aria-hidden="true">
+            <span class="planet"></span><span class="moonlet"></span>
+            <svg class="rocket" viewBox="0 0 60 120"><path d="M30 4 C46 22 48 52 44 80 L16 80 C12 52 14 22 30 4 Z" fill="#F4F1F6" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"/><circle cx="30" cy="40" r="9" fill="#62C3F2" stroke="#2A2340" stroke-width="4"/><path d="M16 62 L4 86 L18 80 Z M44 62 L56 86 L42 80 Z" fill="#E8638D" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"/><path d="M20 82 Q30 116 40 82 Z" fill="#FFB020"/><path d="M25 82 Q30 102 35 82 Z" fill="#FFE14D"/></svg>
+          </div>
+          <div class="bg-dino" aria-hidden="true">
+            <span class="volcano"></span><span class="smoke sm1"></span><span class="smoke sm2"></span><span class="smoke sm3"></span>
+            <svg class="ferns fl" viewBox="0 0 100 100"><path d="M50 100 C46 70 30 50 6 40 M50 100 C52 66 64 40 92 26 M50 100 C50 70 48 40 50 6" stroke="#4E9A38" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M30 56 l-8 -10 M22 48 l-10 -4 M66 50 l8 -12 M76 40 l12 -4 M49 40 l-9 -8 M50 24 l9 -8" stroke="#6DB44E" stroke-width="7" stroke-linecap="round"/></svg>
+            <svg class="ferns fr" viewBox="0 0 100 100"><path d="M50 100 C46 70 30 50 6 40 M50 100 C52 66 64 40 92 26 M50 100 C50 70 48 40 50 6" stroke="#4E9A38" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M30 56 l-8 -10 M22 48 l-10 -4 M66 50 l8 -12 M76 40 l12 -4 M49 40 l-9 -8 M50 24 l9 -8" stroke="#6DB44E" stroke-width="7" stroke-linecap="round"/></svg>
+          </div>
+          <span class="scene-label" id="scene-label">Caricatura acuarela · Pradera</span>
+          <span class="pow" id="pow" aria-hidden="true">¡A la aventura!</span>
           <figure class="inset"><img src="img/portada-david.jpg" alt="" width="590" height="615">Así se ve en el libro real</figure>
           <div class="ground"></div>
-          <div class="set set-wc"><div class="a"><span class="ch-slot" data-ch="wc-ainhoa"></span></div><div class="d"><span class="ch-slot" data-ch="wc-david"></span></div><div class="p"><span class="ch-slot" data-ch="wc-panda"></span></div><div class="s"><span class="ch-slot" data-ch="wc-speed"></span></div></div>
-          <div class="set set-cm"><div class="a"><span class="ch-slot" data-ch="cm-ainhoa"></span></div><div class="d"><span class="ch-slot" data-ch="cm-david"></span></div><div class="p"><span class="ch-slot" data-ch="cm-panda"></span></div><div class="s"><span class="ch-slot" data-ch="cm-speed"></span></div></div>
+          <div class="dinos dinos-wc" aria-hidden="true"><div class="dn dn-back"><span class="ch-slot" data-ch="dino-wc-b"></span></div><div class="dn dn-egg"><span class="ch-slot" data-ch="dino-wc-a"></span><span class="ch-slot" data-ch="egg-wc"></span></div><div class="dn dn-run"><span class="ch-slot" data-ch="dino-wc-c"></span></div></div>
+          <div class="dinos dinos-cm" aria-hidden="true"><div class="dn dn-back"><span class="ch-slot" data-ch="dino-cm-b"></span></div><div class="dn dn-egg"><span class="ch-slot" data-ch="dino-cm-a"></span><span class="ch-slot" data-ch="egg-cm"></span></div><div class="dn dn-run"><span class="ch-slot" data-ch="dino-cm-c"></span></div></div>
+          <div class="set set-wc"><div class="a"><span class="ch-slot" data-ch="wc-ainhoa"></span><span class="ch-slot" data-ch="ov-wc-ainhoa"></span></div><div class="d"><span class="ch-slot" data-ch="wc-david"></span><span class="ch-slot" data-ch="ov-wc-david"></span></div><div class="p"><span class="ch-slot" data-ch="wc-panda"></span><span class="ch-slot" data-ch="ov-wc-panda"></span></div><div class="s"><span class="ch-slot" data-ch="wc-speed"></span><span class="ch-slot" data-ch="ov-wc-speed"></span></div></div>
+          <div class="set set-cm"><div class="a"><span class="ch-slot" data-ch="cm-ainhoa"></span><span class="ch-slot" data-ch="ov-cm-ainhoa"></span></div><div class="d"><span class="ch-slot" data-ch="cm-david"></span><span class="ch-slot" data-ch="ov-cm-david"></span></div><div class="p"><span class="ch-slot" data-ch="cm-panda"></span><span class="ch-slot" data-ch="ov-cm-panda"></span></div><div class="s"><span class="ch-slot" data-ch="cm-speed"></span><span class="ch-slot" data-ch="ov-cm-speed"></span></div></div>
+          <span class="poof" aria-hidden="true"></span>
         </div>
         <p class="scene-caption" id="scene-caption">Formas redondas, trazos suaves sin línea negra, colores lavados y caritas felices. Es el estilo de “David y la magia de su equipo”.</p>
+        <p class="scene-story story" id="scene-story">Así es el libro de David: un día de campo en la pradera con Ainhoa, Speed y Panda.</p>
       </div>
     </div>
   </section>
@@ -839,6 +933,59 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       '<path d="M88 124 Q100 137 112 124 Z" fill="#7F1D1D" stroke="#111" stroke-width="3" stroke-linejoin="round"/>'+
     '</g></g></svg>';
 
+  /* ---------- Aventuras: disfraces que se superponen a cada personaje ---------- */
+  function helmet(cx, cy, r, kind){
+    var cm = kind === 'cm';
+    return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="rgba(190,230,255,.22)"'+(cm ? ' stroke="#111" stroke-width="5"' : ' stroke="#8FC1E3" stroke-width="2.5"')+'/>'+
+      '<path d="M'+(cx-r*.62).toFixed(1)+' '+(cy-r*.42).toFixed(1)+' A'+(r*.78).toFixed(1)+' '+(r*.78).toFixed(1)+' 0 0 1 '+(cx-r*.08).toFixed(1)+' '+(cy-r*.78).toFixed(1)+'" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/>'+
+      '<ellipse cx="'+cx+'" cy="'+(cy+r*.93).toFixed(1)+'" rx="'+(r*.62).toFixed(1)+'" ry="7" fill="'+(cm ? '#CBD5E1' : '#DCE3EC')+'"'+(cm ? ' stroke="#111" stroke-width="4"' : '')+'/>';
+  }
+  function flame(kind){
+    var st = kind === 'cm' ? ' stroke="#111" stroke-width="3" stroke-linejoin="round"' : '';
+    return '<g class="flame"><path d="M82 206 Q91 240 100 208 Q109 240 118 206 Z" fill="#FF8A1F"'+st+'/><path d="M89 207 Q95 228 100 209 Q105 228 111 207 Z" fill="#FFE14D"/></g>';
+  }
+  function hat(kind){
+    if (kind === 'wc') return '<g filter="url(#wc-edge)"><ellipse cx="100" cy="31" rx="56" ry="9" fill="#D8B77E"/><path d="M70 30 C70 6 130 6 130 30 Z" fill="#E6C890"/><path d="M70 25 Q100 19 130 25 L131 30 Q100 24 69 30 Z" fill="#8A6440"/></g>';
+    return '<ellipse cx="100" cy="25" rx="58" ry="10" fill="#E8C27A" stroke="#111" stroke-width="4"/><path d="M70 24 C70 -2 130 -2 130 24 Z" fill="#D6A85A" stroke="#111" stroke-width="4" stroke-linejoin="round"/><path d="M71 17 Q100 11 129 17 L130 23 Q100 17 70 23 Z" fill="#7C2D12" stroke="#111" stroke-width="3" stroke-linejoin="round"/>';
+  }
+  var HELM = { david:{wc:[100,84,62], cm:[100,80,64]}, ainhoa:{wc:[100,82,58], cm:[100,80,62]}, panda:{wc:[100,86,56], cm:[100,84,60]}, speed:{wc:[100,78,58], cm:[100,76,62]} };
+  ['wc','cm'].forEach(function(k){
+    Object.keys(HELM).forEach(function(n){
+      var h = HELM[n][k];
+      CH['ov-'+k+'-'+n] = '<svg viewBox="0 0 200 210" class="ov" aria-hidden="true"><g class="ov-space">'+helmet(h[0], h[1], h[2], k)+(n === 'speed' ? flame(k) : '')+'</g><g class="ov-dino">'+(n === 'david' ? hat(k) : '')+'</g></svg>';
+    });
+  });
+
+  /* Dino bebés originales (acuarela suave o cómic) */
+  function dino(kind, body, belly, spike){
+    var cm = kind === 'cm', ln = cm ? ' stroke="#111" stroke-width="4" stroke-linejoin="round"' : '';
+    var eyeM = cm ? '<circle cx="88" cy="42" r="7.5" fill="#fff" stroke="#111" stroke-width="3"/><circle cx="90" cy="43" r="3.6" fill="#111"/><circle cx="91.5" cy="41" r="1.3" fill="#fff"/>'
+                  : '<path d="M83 44 q5 -6 10 0" stroke="#3A2A26" stroke-width="3" fill="none" stroke-linecap="round"/>';
+    return '<svg viewBox="0 0 120 110" class="dino" aria-hidden="true"><g'+(cm ? '' : ' filter="url(#wc-edge)"')+'>'+
+      '<g class="dtail" style="transform-origin:44px 80px"><path d="M44 70 C26 74 12 86 4 100 C20 98 34 92 48 86 Z" fill="'+body+'"'+ln+'/></g>'+
+      '<path d="M62 32 L66 20 L74 28 L80 16 L86 26 L94 18 L98 30 Z" fill="'+spike+'"'+ln+'/>'+
+      '<ellipse cx="50" cy="101" rx="9" ry="6" fill="'+body+'"'+ln+'/><ellipse cx="72" cy="101" rx="9" ry="6" fill="'+body+'"'+ln+'/>'+
+      '<ellipse cx="60" cy="78" rx="26" ry="23" fill="'+body+'"'+ln+'/>'+
+      '<ellipse cx="65" cy="84" rx="15" ry="14" fill="'+belly+'"/>'+
+      '<ellipse cx="82" cy="48" rx="25" ry="21" fill="'+body+'"'+ln+'/>'+
+      (cm ? '<path d="M76 74 l9 5" stroke="#111" stroke-width="10" stroke-linecap="round"/>' : '')+'<path d="M76 74 l9 5" stroke="'+body+'" stroke-width="6" stroke-linecap="round"/>'+
+      eyeM+'<ellipse cx="97" cy="54" rx="4.5" ry="2.6" fill="#F2948C" opacity=".6"/>'+
+      '<path d="M92 60 q7 5 12 -2" stroke="'+(cm ? '#111' : '#3A5A2A')+'" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="103" cy="45" r="1.4" fill="#3A2A26"/>'+
+      '</g></svg>';
+  }
+  function egg(kind){
+    var cm = kind === 'cm';
+    return '<svg viewBox="0 0 120 110" class="egg" aria-hidden="true"><g'+(cm ? '' : ' filter="url(#wc-edge)"')+'><path d="M26 74 L34 64 L42 74 L50 62 L58 74 L66 62 L74 74 L82 64 L90 74 L96 70 C98 96 82 108 61 108 C40 108 24 96 26 74 Z" fill="#FFF6E0"'+(cm ? ' stroke="#111" stroke-width="4" stroke-linejoin="round"' : ' stroke="#D9CBA8" stroke-width="2"')+'/><circle cx="44" cy="92" r="5" fill="#F6C66B" opacity=".8"/><circle cx="74" cy="96" r="4" fill="#9BD38A" opacity=".8"/></g></svg>';
+  }
+  CH['dino-wc-a'] = dino('wc', '#9BD38A', '#EEF7D8', '#F6C66B');
+  CH['dino-wc-b'] = dino('wc', '#C3A8F0', '#F3EEFB', '#F59AB8');
+  CH['dino-wc-c'] = dino('wc', '#8FD0D9', '#E8F7F8', '#F6C66B');
+  CH['dino-cm-a'] = dino('cm', '#22C55E', '#D9F99D', '#FACC15');
+  CH['dino-cm-b'] = dino('cm', '#A855F7', '#F5D0FE', '#FB7185');
+  CH['dino-cm-c'] = dino('cm', '#06B6D4', '#CFFAFE', '#F97316');
+  CH['egg-wc'] = egg('wc');
+  CH['egg-cm'] = egg('cm');
+
   document.querySelectorAll('.ch-slot').forEach(function(s){ s.outerHTML = CH[s.dataset.ch]; });
 
   /* Ojos que siguen el puntero */
@@ -912,24 +1059,54 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
 
   /* ---------- Estilos ---------- */
   var scene = document.getElementById('scene'), sLabel = document.getElementById('scene-label'), sCap = document.getElementById('scene-caption');
+  var sStory = document.getElementById('scene-story'), pow = document.getElementById('pow');
   var LOOKS = {
     acuarela:['Caricatura acuarela','Formas redondas, trazos suaves sin línea negra, colores lavados y caritas felices. Es el estilo de “David y la magia de su equipo”.'],
     comic:['Cómic brillante','Tinta negra gruesa, sombras marcadas con trama, ojos grandes con brillo, colores intensos y poses de acción.']
   };
-  var lookBtns = document.querySelectorAll('.look-btn');
-  function setLook(key, btn){
-    lookBtns.forEach(function(x){ x.setAttribute('aria-checked', 'false'); x.tabIndex = -1; });
-    btn.setAttribute('aria-checked', 'true'); btn.tabIndex = 0;
-    scene.className = 'scene look-' + key; sLabel.textContent = LOOKS[key][0]; sCap.textContent = LOOKS[key][1];
+  var ADVS = {
+    pradera:['Pradera','Así es el libro de David: un día de campo en la pradera con Ainhoa, Speed y Panda.','¡A la aventura!'],
+    espacio:['Espacio exterior','Ejemplo: “David y el viaje a la luna”. El equipo se pone sus cascos, despega y flota entre estrellas buscando la más brillante.','¡Despegue!'],
+    dinos:['Dinosaurios','Ejemplo: “David y los dino bebés”. Un huevo se mueve en el jardín, de él sale un nuevo amigo y Ainhoa, Speed y Panda le enseñan a jugar.','¡ROAR!']
+  };
+  var view = { look:'acuarela', adv:'pradera' };
+  function render(){
+    scene.className = 'scene look-'+view.look+' theme-'+view.adv+(scene.classList.contains('morph') ? ' morph' : '');
+    sLabel.textContent = LOOKS[view.look][0]+' · '+ADVS[view.adv][0];
+    sCap.textContent = LOOKS[view.look][1];
+    sStory.textContent = ADVS[view.adv][1];
+    pow.textContent = ADVS[view.adv][2];
   }
-  lookBtns.forEach(function(b, i){
-    b.tabIndex = i === 0 ? 0 : -1;
-    b.addEventListener('click', function(){ setLook(b.dataset.look, b); });
-    b.addEventListener('keydown', function(e){
-      var d = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
-      if (!d) return; e.preventDefault();
-      var n = lookBtns[(i + d + lookBtns.length) % lookBtns.length]; n.focus(); setLook(n.dataset.look, n);
+  function radios(group, attr, onPick){
+    var btns = group.querySelectorAll('.look-btn');
+    function pick(b){
+      btns.forEach(function(x){ x.setAttribute('aria-checked', 'false'); x.tabIndex = -1; });
+      b.setAttribute('aria-checked', 'true'); b.tabIndex = 0; onPick(b.dataset[attr]);
+    }
+    btns.forEach(function(b, i){
+      b.tabIndex = b.getAttribute('aria-checked') === 'true' ? 0 : -1;
+      b.addEventListener('click', function(){ pick(b); });
+      b.addEventListener('keydown', function(e){
+        var d = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
+        if (!d) return; e.preventDefault();
+        var n = btns[(i + d + btns.length) % btns.length]; n.focus(); pick(n);
+      });
     });
+  }
+  /* Si la escena no se ve completa (en celular queda más abajo), llevarla a la vista */
+  function showScene(){
+    var r = scene.getBoundingClientRect();
+    if (r.top < 80 || r.bottom > innerHeight) scene.scrollIntoView({behavior: calm ? 'auto' : 'smooth', block: 'center'});
+  }
+  radios(document.getElementById('looks'), 'look', function(v){ view.look = v; render(); showScene(); });
+  /* Al cambiar de aventura: destello y giro, y a mitad del giro aparecen los disfraces */
+  radios(document.getElementById('advs'), 'adv', function(v){
+    if (v === view.adv) return;
+    view.adv = v;
+    scene.classList.remove('morph'); void scene.offsetWidth; scene.classList.add('morph');
+    clearTimeout(scene._r); scene._r = setTimeout(render, calm ? 0 : 280);
+    clearTimeout(scene._m); scene._m = setTimeout(function(){ scene.classList.remove('morph'); }, 760);
+    showScene();
   });
 
   /* ---------- Copiar número ---------- */
