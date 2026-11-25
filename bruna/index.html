@@ -72,6 +72,33 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;backgroun
 @keyframes tilt{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
 @keyframes hop{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(-16%) rotate(-5deg)}55%{transform:translateY(0) rotate(2deg)}72%{transform:translateY(-5%)}100%{transform:translateY(0)}}
 @keyframes dash{0%{transform:translateX(0)}25%{transform:translateX(14%) rotate(4deg)}50%{transform:translateX(-10%) rotate(-3deg)}100%{transform:translateX(0)}}
+/* Saludo tipo "hola": el antebrazo se mueve desde el codo, la mano abierta, cuerpo y cabeza acompañan */
+.ch .lean{transform-origin:100px 206px}
+.ch .dhead{transform-origin:100px 134px}
+.ch .arm-up{transform-origin:136px 156px}
+.ch .forearm{transform-origin:160px 134px}
+.ch.greet{--gt:1.1s}
+.ch.wc.greet{--gt:1.6s}
+.ch.cm.greet{--gt:.75s}
+.ch.greet .lean{animation:lean var(--gt) ease-in-out infinite}
+.ch.greet .dhead{animation:htilt var(--gt) ease-in-out infinite}
+.ch.greet .arm-up{animation:armup var(--gt) ease-in-out infinite}
+.ch.greet .forearm{animation:forearm var(--gt) cubic-bezier(.45,0,.55,1) infinite}
+@keyframes lean{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(2.5deg)}}
+@keyframes htilt{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}
+@keyframes armup{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(3deg)}}
+@keyframes forearm{0%,100%{transform:rotate(-22deg)}50%{transform:rotate(18deg)}}
+.ch{--pt:5s}
+.ch.wc{--pt:6.5s}
+.ch.cm{--pt:3.8s}
+.ch .paw{animation:pawwave var(--pt) ease-in-out infinite}
+.ch.ainhoa .paw,.ch.wc-ainhoa .paw,.ch.cm-ainhoa .paw{animation-delay:-1.4s}
+.ch.speed .paw,.ch.wc-speed .paw,.ch.cm-speed .paw{animation-delay:-3.2s}
+.ch.panda .paw,.ch.wc-panda .paw,.ch.cm-panda .paw{animation-delay:-.2s}
+@keyframes pawwave{0%,55%,100%{transform:rotate(0)}62%{transform:rotate(16deg)}69%{transform:rotate(-12deg)}76%{transform:rotate(16deg)}83%{transform:rotate(-12deg)}90%{transform:rotate(0)}}
+@keyframes pawquick{from{transform:rotate(-14deg)}to{transform:rotate(18deg)}}
+.actor.trick .ch.greet{--gt:.45s}
+.actor.trick .ch .paw{animation:pawquick .28s ease-in-out 4 alternate}
 .actor{position:relative;background:none;border:0;padding:0;cursor:pointer;color:inherit;font:inherit;-webkit-tap-highlight-color:transparent}
 .actor.trick .ch{animation:hop .8s cubic-bezier(.3,.7,.4,1)}
 .actor.trick .ch.speed{animation:dash .8s ease-in-out}
@@ -569,15 +596,42 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   function limb(d, color, w){ return '<path d="'+d+'" fill="none" stroke="'+L+'" stroke-width="'+(w+9)+'" stroke-linecap="round"/><path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="'+w+'" stroke-linecap="round"/>'; }
   function eye(cx, cy, rx, ry){ return '<g class="pupil" data-cx="'+cx+'" data-cy="'+cy+'"><ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="'+L+'" class="keep"/><circle cx="'+(cx+2.4)+'" cy="'+(cy-3.2)+'" r="2.4" fill="#fff" class="keep"/></g>'; }
 
+  /* Saludo: mano abierta con dedos, brazo con codo (el antebrazo es el que se mueve) */
+  function hand(cx, cy, skin, line, lw){
+    var out = '', fill = '', fingers = [[-28,13],[-9,15.5],[10,15.5],[28,13]];
+    function seg(d){ if (line) out += '<path d="'+d+'" stroke="'+line+'" stroke-width="'+(6+lw*1.6)+'" stroke-linecap="round" fill="none"/>'; fill += '<path d="'+d+'" stroke="'+skin+'" stroke-width="6" stroke-linecap="round" fill="none"/>'; }
+    fingers.forEach(function(f){
+      var r = f[0]*Math.PI/180, s = Math.sin(r), c = Math.cos(r);
+      seg('M'+(cx+s*6).toFixed(1)+' '+(cy-c*6).toFixed(1)+' L'+(cx+s*f[1]).toFixed(1)+' '+(cy-c*f[1]).toFixed(1));
+    });
+    seg('M'+(cx-5)+' '+(cy+3)+' L'+(cx-15)+' '+(cy-3));
+    return out + '<circle cx="'+cx+'" cy="'+cy+'" r="10" fill="'+skin+'"'+(line ? ' stroke="'+line+'" stroke-width="'+lw+'"' : '')+'/>' + fill;
+  }
+  function greetArm(sleeve, skin, line, lw, w, o){
+    function part(d){ return (line ? '<path d="'+d+'" fill="none" stroke="'+line+'" stroke-width="'+(w+o)+'" stroke-linecap="round"/>' : '') + '<path d="'+d+'" fill="none" stroke="'+sleeve+'" stroke-width="'+w+'" stroke-linecap="round"/>'; }
+    return '<g class="arm-up">'+part('M136 156 L160 134')+'<g class="forearm">'+part('M160 134 L173 106')+hand(176, 93, skin, line, lw)+'</g></g>';
+  }
+  /* Patita levantada que saluda (perros y gato) */
+  function paw(kind, sx, sy, ex, ey, leg, pad){
+    var d = 'M'+sx+' '+sy+' L'+ex+' '+ey, line = kind === 'cm' ? '#111' : L;
+    var legM = kind === 'wc' ? '<path d="'+d+'" stroke="'+leg+'" stroke-width="14" stroke-linecap="round" fill="none"/>'
+      : '<path d="'+d+'" stroke="'+line+'" stroke-width="'+(kind === 'cm' ? 23 : 22)+'" stroke-linecap="round" fill="none"/><path d="'+d+'" stroke="'+leg+'" stroke-width="13" stroke-linecap="round" fill="none"/>';
+    var px = ex - 2, py = ey - 5;
+    var st = kind === 'wc' ? '' : ' stroke="'+line+'" stroke-width="4"';
+    var toes = kind === 'wc' ? '' : '<path d="M'+(px-5)+' '+(py-4)+' l1 4 M'+px+' '+(py-6)+' l0 4 M'+(px+5)+' '+(py-4)+' l-1 4" stroke="'+line+'" stroke-width="2.2" stroke-linecap="round"/>';
+    return '<g class="paw" style="transform-origin:'+sx+'px '+sy+'px">'+legM+'<ellipse cx="'+px+'" cy="'+py+'" rx="11" ry="9" fill="'+pad+'"'+st+'/>'+toes+'</g>';
+  }
+
   var SKIN = '#F2B48A', SHIRT = '#5DB043';
   var CH = {
-    david: '<svg viewBox="0 0 200 210" class="ch david" aria-hidden="true"><g class="bob">'+
-      '<circle cx="57" cy="94" r="10" fill="'+SKIN+'"'+O+'/><circle cx="143" cy="94" r="10" fill="'+SKIN+'"'+O+'/>'+
+    david: '<svg viewBox="0 0 200 210" class="ch david greet" aria-hidden="true"><g class="bob"><g class="lean">'+
       '<path d="M56 206 C56 158 72 136 100 136 C128 136 144 158 144 206 Z" fill="'+SHIRT+'"'+O+'/>'+
       '<path d="M80 140 L86 206 M120 140 L114 206" stroke="#8B5A33" stroke-width="8" stroke-linecap="round" fill="none"/>'+
       '<circle cx="86" cy="176" r="4" fill="#F4B92E"/><circle cx="114" cy="176" r="4" fill="#F4B92E"/>'+
       limb('M64 158 C50 168 46 184 52 192', SHIRT, 10)+'<circle cx="53" cy="195" r="9" fill="'+SKIN+'"'+O+'/>'+
-      '<g class="wave" style="transform-origin:138px 156px">'+limb('M136 156 C150 146 160 130 163 116', SHIRT, 10)+'<circle cx="165" cy="106" r="11" fill="'+SKIN+'"'+O+'/></g>'+
+      
+      '<g class="dhead">'+
+      '<circle cx="57" cy="94" r="10" fill="'+SKIN+'"'+O+'/><circle cx="143" cy="94" r="10" fill="'+SKIN+'"'+O+'/>'+
       '<circle cx="100" cy="90" r="44" fill="'+SKIN+'"'+O+'/>'+
       '<path d="M56 86 C46 52 68 32 86 40 C92 24 118 22 124 40 C144 32 158 54 146 86 C140 70 128 62 116 66 C108 56 92 58 86 68 C74 62 62 70 56 86 Z" fill="#3A2A22"'+O+'/>'+
       '<path d="M60 58 Q100 34 142 58" stroke="'+L+'" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M60 58 Q100 34 142 58" stroke="#3FA7E6" stroke-width="6" fill="none" stroke-linecap="round"/>'+
@@ -585,13 +639,13 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       '<g class="eyes">'+eye(84,95,6.5,8.5)+eye(116,95,6.5,8.5)+'</g>'+
       '<circle cx="70" cy="110" r="7" fill="#F08A8A" opacity=".55"/><circle cx="130" cy="110" r="7" fill="#F08A8A" opacity=".55"/>'+
       '<path d="M86 113 Q100 131 114 113 Z" fill="#C2414B" stroke="'+L+'" stroke-width="4" stroke-linejoin="round"/><path d="M93 122 Q100 117 107 122 Q100 127 93 122Z" fill="#F38BA0"/>'+
-      '</g></svg>',
+      '</g>'+greetArm(SHIRT, SKIN, L, 5, 10, 9)+'</g></g></svg>',
 
     ainhoa: '<svg viewBox="0 0 200 210" class="ch ainhoa" aria-hidden="true"><g class="bob">'+
       '<g class="tail" style="transform-origin:136px 160px"><path d="M134 176 C166 172 186 146 178 110 C170 132 156 146 136 152 Z" fill="#B8612C"'+O+'/><path d="M178 112 C177 124 172 132 166 138 C174 134 181 124 178 112Z" fill="#FFF8EE"/></g>'+
       '<path d="M58 206 C54 160 70 128 100 126 C130 128 146 160 142 206 Z" fill="#B8612C"'+O+'/>'+
       '<path d="M72 130 L79 146 L86 134 L93 150 L100 136 L107 150 L114 134 L121 146 L128 130 C124 170 110 190 100 206 C90 190 76 170 72 130 Z" fill="#FFF8EE"/>'+
-      '<ellipse cx="80" cy="200" rx="15" ry="9" fill="#FFF8EE"'+O+'/><ellipse cx="120" cy="200" rx="15" ry="9" fill="#FFF8EE"'+O+'/>'+
+      paw('flat', 80, 158, 60, 130, '#B8612C', '#FFF8EE')+'<ellipse cx="120" cy="200" rx="15" ry="9" fill="#FFF8EE"'+O+'/>'+
       '<g class="head">'+
         '<path d="M64 72 C56 54 52 40 56 26 C70 28 84 42 88 54 Z" fill="#8E4520"'+O+'/><path d="M56 26 C64 28 72 34 76 40 L62 46 Z" fill="#6E3315" stroke="'+L+'" stroke-width="3" stroke-linejoin="round"/>'+
         '<path d="M136 72 C144 54 148 40 144 26 C130 28 116 42 112 54 Z" fill="#8E4520"'+O+'/><path d="M144 26 C136 28 128 34 124 40 L138 46 Z" fill="#6E3315" stroke="'+L+'" stroke-width="3" stroke-linejoin="round"/>'+
@@ -608,7 +662,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       '<g class="tail" style="transform-origin:132px 186px">'+limb('M132 186 C164 186 178 158 172 128', '#E6C99A', 7)+'</g>'+
       '<path d="M68 206 C64 162 78 132 100 130 C122 132 136 162 132 206 Z" fill="#E6C99A"'+O+'/>'+
       '<circle cx="84" cy="174" r="7" fill="#A8703F"/><circle cx="114" cy="188" r="5" fill="#A8703F"/><circle cx="110" cy="164" r="4" fill="#A8703F"/>'+
-      '<ellipse cx="84" cy="201" rx="13" ry="8" fill="#E6C99A"'+O+'/><ellipse cx="116" cy="201" rx="13" ry="8" fill="#E6C99A"'+O+'/>'+
+      paw('flat', 84, 162, 64, 134, '#E6C99A', '#E6C99A')+'<ellipse cx="116" cy="201" rx="13" ry="8" fill="#E6C99A"'+O+'/>'+
       '<path d="M74 134 Q100 150 126 134 L126 144 Q100 160 74 144 Z" fill="#5DB043" stroke="'+L+'" stroke-width="4" stroke-linejoin="round" class="o"/><circle cx="100" cy="158" r="6" fill="#F4B92E" stroke="'+L+'" stroke-width="3"/>'+
       '<g class="head">'+
         '<path d="M70 62 L50 22 C66 26 82 36 88 50 Z" fill="#C79A63"'+O+'/><path d="M130 62 L150 22 C134 26 118 36 112 50 Z" fill="#C79A63"'+O+'/>'+
@@ -623,7 +677,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       '<g class="tail" style="transform-origin:128px 188px">'+limb('M128 188 C166 192 178 158 160 138', '#2E2A3A', 8)+'</g>'+
       '<ellipse cx="100" cy="172" rx="40" ry="34" fill="#2E2A3A"'+O+'/>'+
       '<ellipse cx="100" cy="180" rx="22" ry="24" fill="#FFFFFF"/>'+
-      '<ellipse cx="84" cy="202" rx="12" ry="8" fill="#FFFFFF"'+O+'/><ellipse cx="116" cy="202" rx="12" ry="8" fill="#FFFFFF"'+O+'/>'+
+      paw('flat', 78, 170, 60, 144, '#2E2A3A', '#FFFFFF')+'<ellipse cx="116" cy="202" rx="12" ry="8" fill="#FFFFFF"'+O+'/>'+
       '<g class="head">'+
         '<path d="M62 80 L60 34 L94 58 Z" fill="#2E2A3A"'+O+'/><path d="M138 80 L140 34 L106 58 Z" fill="#2E2A3A"'+O+'/>'+
         '<path d="M68 66 L67 46 L84 58 Z" fill="#F39BB3"/><path d="M132 66 L133 46 L116 58 Z" fill="#F39BB3"/>'+
@@ -640,11 +694,12 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   /* --- Caricatura acuarela: sin tinta negra, lavados de color, ojos felices cerrados --- */
   var hairCurls = [[60,80,13],[66,62,15],[80,48,16],[98,42,17],[116,44,16],[132,54,15],[142,70,13],[146,86,9],[56,96,8],[74,64,11],[92,58,11],[110,58,11],[126,64,11]]
     .map(function(c){ return '<circle cx="'+c[0]+'" cy="'+c[1]+'" r="'+c[2]+'" fill="url(#wc-hair)"/>'; }).join('');
-  CH['wc-david'] = '<svg viewBox="0 0 200 210" class="ch wc wc-david" aria-hidden="true"><g class="sway"><g filter="url(#wc-edge)">'+
+  CH['wc-david'] = '<svg viewBox="0 0 200 210" class="ch wc wc-david greet" aria-hidden="true"><g class="sway"><g filter="url(#wc-edge)">'+
     '<path d="M58 208 C58 164 74 142 100 142 C126 142 142 164 142 208 Z" fill="url(#wc-shirt)" stroke="#5E8F4A" stroke-width="2" stroke-opacity=".6"/>'+
     '<path d="M80 146 L85 208 M120 146 L115 208" stroke="#A0704A" stroke-width="6" stroke-linecap="round" fill="none" opacity=".85"/>'+
     '<path d="M66 160 C52 170 50 186 56 194" stroke="#86C46B" stroke-width="13" stroke-linecap="round" fill="none"/><circle cx="57" cy="196" r="9" fill="url(#wc-skin)"/>'+
-    '<g class="wave" style="transform-origin:136px 158px"><path d="M134 158 C148 148 158 132 161 118" stroke="#86C46B" stroke-width="13" stroke-linecap="round" fill="none"/><circle cx="163" cy="108" r="10" fill="url(#wc-skin)"/></g>'+
+    
+    '<g class="dhead">'+
     '<circle cx="56" cy="98" r="9" fill="url(#wc-skin)"/><circle cx="144" cy="98" r="9" fill="url(#wc-skin)"/>'+
     '<circle cx="100" cy="96" r="45" fill="url(#wc-skin)" stroke="#C98A66" stroke-width="2" stroke-opacity=".5"/>'+
     hairCurls+
@@ -654,12 +709,12 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     '<ellipse cx="70" cy="112" rx="10" ry="6.5" fill="#F2948C" opacity=".45"/><ellipse cx="130" cy="112" rx="10" ry="6.5" fill="#F2948C" opacity=".45"/>'+
     '<circle cx="66" cy="106" r="1.3" fill="#C27C5A"/><circle cx="71" cy="104" r="1.3" fill="#C27C5A"/><circle cx="134" cy="106" r="1.3" fill="#C27C5A"/><circle cx="129" cy="104" r="1.3" fill="#C27C5A"/>'+
     '<path d="M82 110 Q100 140 118 110 Q100 116 82 110 Z" fill="#B5464E"/><ellipse cx="100" cy="127" rx="9" ry="5" fill="#EE8F98"/><path d="M86 111 Q100 117 114 111 L112 115 Q100 120 88 115 Z" fill="#fff"/>'+
-    '</g></g></svg>';
+    '</g>'+greetArm('#86C46B', '#F3B994', null, 0, 13, 0)+'</g></g></svg>';
   CH['wc-panda'] = '<svg viewBox="0 0 200 210" class="ch wc wc-panda" aria-hidden="true"><g class="sway"><g filter="url(#wc-edge)">'+
     '<path d="M130 190 C164 192 172 160 158 142" stroke="#4A4553" stroke-width="11" stroke-linecap="round" fill="none"/>'+
     '<ellipse cx="100" cy="174" rx="38" ry="32" fill="url(#wc-cat)"/>'+
     '<ellipse cx="100" cy="182" rx="21" ry="22" fill="url(#wc-white)"/>'+
-    '<ellipse cx="85" cy="203" rx="12" ry="7" fill="url(#wc-white)"/><ellipse cx="115" cy="203" rx="12" ry="7" fill="url(#wc-white)"/>'+
+    paw('wc', 78, 170, 60, 144, '#4A4553', '#F4F1F6')+'<ellipse cx="115" cy="203" rx="12" ry="7" fill="url(#wc-white)"/>'+
     '<path d="M64 84 C60 66 62 50 66 40 C78 46 90 54 96 62 Z" fill="url(#wc-cat)"/><path d="M136 84 C140 66 138 50 134 40 C122 46 110 54 104 62 Z" fill="url(#wc-cat)"/>'+
     '<path d="M70 72 C68 62 69 54 71 49 C78 53 84 57 87 62 Z" fill="#F5B5C6" opacity=".75"/><path d="M130 72 C132 62 131 54 129 49 C122 53 116 57 113 62 Z" fill="#F5B5C6" opacity=".75"/>'+
     '<ellipse cx="100" cy="96" rx="44" ry="38" fill="url(#wc-cat)"/>'+
@@ -675,7 +730,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     '<g class="tail" style="transform-origin:136px 160px"><path d="M134 176 C166 172 186 146 178 110 C170 132 156 146 136 152 Z" fill="url(#wc-fur)"/><path d="M178 112 C177 124 172 132 166 138 C174 134 181 124 178 112Z" fill="#FFF8EE"/></g>'+
     '<path d="M58 206 C54 160 70 128 100 126 C130 128 146 160 142 206 Z" fill="url(#wc-fur)"/>'+
     '<path d="M72 130 C80 146 86 136 92 150 C96 140 104 140 108 150 C114 136 120 146 128 130 C124 170 110 190 100 206 C90 190 76 170 72 130 Z" fill="url(#wc-white)"/>'+
-    '<ellipse cx="80" cy="201" rx="15" ry="8" fill="url(#wc-white)"/><ellipse cx="120" cy="201" rx="15" ry="8" fill="url(#wc-white)"/>'+
+    paw('wc', 80, 158, 60, 130, '#C47234', '#FBF6EE')+'<ellipse cx="120" cy="201" rx="15" ry="8" fill="url(#wc-white)"/>'+
     '<path d="M64 74 C56 56 54 42 58 30 C72 32 84 44 88 56 Z" fill="url(#wc-ear)"/><path d="M136 74 C144 56 146 42 142 30 C128 32 116 44 112 56 Z" fill="url(#wc-ear)"/>'+
     '<path d="M54 90 C54 62 74 48 100 48 C126 48 146 62 146 90 C150 98 150 106 142 110 C132 124 116 130 100 130 C84 130 68 124 58 110 C50 106 50 98 54 90 Z" fill="url(#wc-fur)"/>'+
     '<path d="M100 50 C95 64 90 78 78 96 C82 120 118 120 122 96 C110 78 105 64 100 50 Z" fill="url(#wc-white)"/>'+
@@ -690,7 +745,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     '<g class="tail" style="transform-origin:132px 186px"><path d="M132 186 C164 186 178 158 172 128" stroke="#D9B887" stroke-width="9" stroke-linecap="round" fill="none"/></g>'+
     '<path d="M68 206 C64 162 78 132 100 130 C122 132 136 162 132 206 Z" fill="url(#wc-tan)"/>'+
     '<circle cx="84" cy="174" r="7" fill="#B07D4E" opacity=".55"/><circle cx="114" cy="188" r="5" fill="#B07D4E" opacity=".55"/><circle cx="110" cy="164" r="4" fill="#B07D4E" opacity=".55"/>'+
-    '<ellipse cx="84" cy="201" rx="13" ry="7" fill="url(#wc-tan)"/><ellipse cx="116" cy="201" rx="13" ry="7" fill="url(#wc-tan)"/>'+
+    paw('wc', 84, 162, 64, 134, '#E4C79A', '#EED9B4')+'<ellipse cx="116" cy="201" rx="13" ry="7" fill="url(#wc-tan)"/>'+
     '<path d="M74 134 Q100 150 126 134 L126 144 Q100 160 74 144 Z" fill="#8FCB6B"/><circle cx="100" cy="157" r="5" fill="#F4C766"/>'+
     '<path d="M68 64 C56 50 50 36 52 26 C66 30 80 42 86 52 Z" fill="#CFA673"/><path d="M132 64 C144 50 150 36 148 26 C134 30 120 42 114 52 Z" fill="#CFA673"/>'+
     '<path d="M62 74 C62 42 138 42 138 74 C138 96 122 104 118 120 C112 134 88 134 82 120 C78 104 62 96 62 74 Z" fill="url(#wc-tan)"/>'+
@@ -706,13 +761,14 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   function ink(d, c, w, o){ return '<path d="'+d+'" fill="none" stroke="#111" stroke-width="'+(w+o)+'" stroke-linecap="round"/><path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="'+w+'" stroke-linecap="round"/>'; }
   function cmEye(cx, cy){ return '<ellipse cx="'+cx+'" cy="'+cy+'" rx="10" ry="12" fill="#fff" stroke="#111" stroke-width="3.5"/><g class="pupil" data-cx="'+cx+'" data-cy="'+cy+'"><circle cx="'+cx+'" cy="'+(cy+1)+'" r="6.5" fill="#7C4A1E"/><circle cx="'+cx+'" cy="'+(cy+1)+'" r="3.2" fill="#111"/><circle cx="'+(cx+2.5)+'" cy="'+(cy-2.5)+'" r="2.2" fill="#fff"/></g>'; }
   function catEye(cx, cy){ return '<ellipse cx="'+cx+'" cy="'+cy+'" rx="11" ry="13" fill="#fff" stroke="#111" stroke-width="3.5"/><g class="pupil" data-cx="'+cx+'" data-cy="'+cy+'"><ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="7.5" ry="9" fill="#84CC16"/><ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="2.4" ry="7" fill="#111"/><circle cx="'+(cx+3)+'" cy="'+(cy-4)+'" r="2.4" fill="#fff"/></g>'; }
-  CH['cm-david'] = '<svg viewBox="0 0 200 210" class="ch cm cm-david" aria-hidden="true"><g class="pop">'+
+  CH['cm-david'] = '<svg viewBox="0 0 200 210" class="ch cm cm-david greet" aria-hidden="true"><g class="pop">'+
     '<path d="M52 208 L60 160 C64 147 80 140 100 140 C120 140 136 147 140 160 L148 208 Z" fill="#22C55E"'+K+'/>'+
     '<path d="M120 143 C132 148 138 156 140 166 L148 208 L126 208 C130 182 128 160 120 143 Z" fill="#15803D"/><path d="M120 143 C132 148 138 156 140 166 L148 208 L126 208 C130 182 128 160 120 143 Z" fill="url(#dots)"/>'+
     ink('M80 146 L86 206', '#7C4A1E', 6, 6)+ink('M120 146 L114 206', '#7C4A1E', 6, 6)+
     '<path d="M100 158 L104.5 168 L115 169 L107 176 L109.5 186 L100 180.5 L90.5 186 L93 176 L85 169 L95.5 168 Z" fill="#FACC15" stroke="#111" stroke-width="3" stroke-linejoin="round"/>'+
     ink('M64 160 C50 170 50 184 62 188', '#22C55E', 11, 10)+'<circle cx="64" cy="189" r="10" fill="#F2B48A"'+K4+'/>'+
-    '<g class="wave" style="transform-origin:136px 158px">'+ink('M134 158 C148 142 154 124 154 108', '#22C55E', 11, 10)+'<rect x="141" y="84" width="26" height="25" rx="8" fill="#F2B48A"'+K4+'/><path d="M147 93 L161 93 M147 100 L161 100" stroke="#111" stroke-width="2.5" stroke-linecap="round"/></g>'+
+    
+    '<g class="dhead">'+
     '<circle cx="56" cy="96" r="9" fill="#F2B48A"'+K4+'/><circle cx="144" cy="96" r="9" fill="#F2B48A"'+K4+'/>'+
     '<path d="M56 88 C56 58 76 44 100 44 C124 44 144 58 144 88 C144 114 128 132 100 134 C72 132 56 114 56 88 Z" fill="#F2B48A"'+K+'/>'+
     '<path d="M126 60 C140 72 143 92 140 110 C134 124 122 131 110 133 C127 117 133 92 126 60 Z" fill="#D98E63"/>'+
@@ -724,14 +780,14 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     '<path d="M101 104 L96 113 L103 113" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
     '<path d="M78 116 Q100 136 122 116 Z" fill="#7F1D1D" stroke="#111" stroke-width="4" stroke-linejoin="round"/><path d="M81 117 Q100 124 119 117 L118 121 Q100 128 82 121 Z" fill="#fff"/>'+
     '<path d="M62 112 l7 -5 M67 116 l7 -5 M126 107 l7 5 M131 104 l7 5" stroke="#E11D48" stroke-width="2.5" stroke-linecap="round"/>'+
-    '</g></svg>';
+    '</g>'+greetArm('#22C55E', '#F2B48A', '#111', 4, 11, 10)+'</g></svg>';
   CH['cm-panda'] = '<svg viewBox="0 0 200 210" class="ch cm cm-panda" aria-hidden="true"><g class="pop">'+
     '<g class="tail" style="transform-origin:128px 188px">'+ink('M128 188 C168 192 178 156 158 134', '#1F1B2C', 9, 10)+'</g>'+
     '<path d="M168 120 L180 112 M174 134 L188 130 M160 108 L164 96" stroke="#111" stroke-width="3" stroke-linecap="round"/>'+
     '<ellipse cx="100" cy="172" rx="40" ry="34" fill="#1F1B2C"'+K+'/>'+
     '<path d="M66 160 C68 148 78 142 86 140" stroke="#5B5280" stroke-width="4" stroke-linecap="round" fill="none"/>'+
     '<ellipse cx="100" cy="180" rx="22" ry="24" fill="#fff"/><path d="M112 162 C122 172 122 192 110 202 C116 188 116 174 112 162 Z" fill="#D9D3E8"/><path d="M112 162 C122 172 122 192 110 202 C116 188 116 174 112 162 Z" fill="url(#dots)"/>'+
-    '<ellipse cx="84" cy="202" rx="12" ry="8" fill="#fff"'+K4+'/><ellipse cx="116" cy="202" rx="12" ry="8" fill="#fff"'+K4+'/>'+
+    paw('cm', 78, 170, 60, 144, '#1F1B2C', '#fff')+'<ellipse cx="116" cy="202" rx="12" ry="8" fill="#fff"'+K4+'/>'+
     '<g class="head">'+
       '<path d="M60 84 L54 30 L96 58 Z" fill="#1F1B2C"'+K+'/><path d="M140 84 L146 30 L104 58 Z" fill="#1F1B2C"'+K+'/>'+
       '<path d="M66 70 L62 44 L84 60 Z" fill="#FB7185"/><path d="M134 70 L138 44 L116 60 Z" fill="#FB7185"/>'+
@@ -750,7 +806,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     '<path d="M58 206 C54 160 70 128 100 126 C130 128 146 160 142 206 Z" fill="#C2571F"'+K+'/>'+
     '<path d="M122 132 C136 146 142 172 142 206 L126 206 C130 176 130 152 122 132 Z" fill="#8E3B12"/><path d="M122 132 C136 146 142 172 142 206 L126 206 C130 176 130 152 122 132 Z" fill="url(#dots)"/>'+
     '<path d="M72 130 L79 146 L86 134 L93 150 L100 136 L107 150 L114 134 L121 146 L128 130 C124 170 110 190 100 206 C90 190 76 170 72 130 Z" fill="#fff" stroke="#111" stroke-width="4" stroke-linejoin="round"/>'+
-    '<ellipse cx="80" cy="201" rx="15" ry="9" fill="#fff"'+K4+'/><ellipse cx="120" cy="201" rx="15" ry="9" fill="#fff"'+K4+'/>'+
+    paw('cm', 80, 158, 60, 130, '#C2571F', '#fff')+'<ellipse cx="120" cy="201" rx="15" ry="9" fill="#fff"'+K4+'/>'+
     '<g class="head">'+
       '<path d="M62 74 L50 22 L90 52 Z" fill="#C2571F"'+K+'/><path d="M50 22 L66 34 L58 42 Z" fill="#8E3B12" stroke="#111" stroke-width="3" stroke-linejoin="round"/>'+
       '<path d="M138 74 L150 22 L110 52 Z" fill="#C2571F"'+K+'/><path d="M150 22 L134 34 L142 42 Z" fill="#8E3B12" stroke="#111" stroke-width="3" stroke-linejoin="round"/>'+
@@ -770,7 +826,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     '<path d="M68 206 C64 162 78 132 100 130 C122 132 136 162 132 206 Z" fill="#E8C38A"'+K+'/>'+
     '<path d="M116 136 C128 148 132 172 132 206 L118 206 C122 178 122 154 116 136 Z" fill="#C39456"/><path d="M116 136 C128 148 132 172 132 206 L118 206 C122 178 122 154 116 136 Z" fill="url(#dots)"/>'+
     '<circle cx="84" cy="174" r="7" fill="#8A5A2B"/><circle cx="110" cy="164" r="4" fill="#8A5A2B"/><circle cx="100" cy="190" r="5" fill="#8A5A2B"/>'+
-    '<ellipse cx="84" cy="201" rx="13" ry="8" fill="#E8C38A"'+K4+'/><ellipse cx="116" cy="201" rx="13" ry="8" fill="#E8C38A"'+K4+'/>'+
+    paw('cm', 84, 162, 64, 134, '#E8C38A', '#E8C38A')+'<ellipse cx="116" cy="201" rx="13" ry="8" fill="#E8C38A"'+K4+'/>'+
     '<path d="M74 134 Q100 150 126 134 L126 145 Q100 161 74 145 Z" fill="#22C55E" stroke="#111" stroke-width="4" stroke-linejoin="round"/><circle cx="100" cy="158" r="6.5" fill="#FACC15" stroke="#111" stroke-width="3"/>'+
     '<g class="head">'+
       '<path d="M70 62 L44 18 C64 22 82 34 90 50 Z" fill="#C39456"'+K+'/><path d="M130 62 L156 18 C136 22 118 34 110 50 Z" fill="#C39456"'+K+'/>'+
