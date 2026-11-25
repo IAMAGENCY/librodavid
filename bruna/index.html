@@ -255,6 +255,49 @@ section.block{padding-block:96px}
 @media (max-width:900px){.styles-grid{grid-template-columns:1fr}}
 @media (max-width:420px){.looks{grid-template-columns:1fr}}
 
+/* ---------- Recorrido del pedido: opciones "Otro/Otra", formulario y resumen ---------- */
+#looks{grid-template-columns:repeat(3,1fr)}
+.advs{grid-template-columns:repeat(2,1fr)!important}
+.scene.look-otro .inset{opacity:1}
+.opt-panel{margin-top:12px;display:flex;flex-direction:column;gap:8px;background:var(--paper);border:2px dashed var(--sun);border-radius:var(--r-md);padding:14px 16px}
+.opt-panel>label{font-weight:800;font-size:.92rem}
+.hint{font-size:.86rem;color:var(--ink-soft)}
+.opt-panel input[type=text],.team-form input[type=text],.team-form select,.topic-other textarea{font:inherit;font-size:1rem;padding:.6em .8em;border:2px solid var(--sky-2);border-radius:12px;background:#fff;color:var(--ink);width:100%;min-width:0}
+.opt-panel input:focus,.team-form input:focus,.team-form select:focus,.topic-other textarea:focus{outline:none;border-color:var(--sea);box-shadow:0 0 0 3px color-mix(in srgb,var(--sea) 25%,transparent)}
+.topic-other{display:flex;flex-direction:column;gap:6px;margin-top:14px;font-weight:800;font-size:.92rem}
+.topic-other textarea{resize:vertical;font-weight:400}
+.file{position:relative;display:inline-flex;align-self:flex-start}
+.file input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}
+.file-btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-display);font-weight:800;font-size:1rem;padding:.55em 1.1em;border-radius:999px;background:var(--sky);border:2px dashed var(--sea);color:var(--ink)}
+.file-btn::before{content:"+";font-size:1.2em;line-height:1}
+.file:focus-within .file-btn{outline:3px solid var(--sea);outline-offset:2px}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumbs:empty{display:none}
+.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:12px;border:3px solid var(--line)}
+.builder-grid{display:grid;grid-template-columns:1.2fr .9fr;gap:32px;align-items:start}
+.team-form{display:flex;flex-direction:column;gap:16px;min-width:0}
+.person{position:relative;border:2px solid var(--sky-2);border-radius:var(--r-lg);background:var(--paper);padding:16px 20px 20px;margin:0;display:flex;flex-direction:column;gap:12px;min-width:0}
+.person legend{font-family:var(--f-display);font-weight:800;font-size:1.3rem;padding:0 6px}
+.person label:not(.file){display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:.92rem;min-width:0}
+.hero-card{border-color:var(--sun);box-shadow:0 6px 0 var(--sun-soft)}
+.row2{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.rm{position:absolute;right:16px;top:10px;border:0;background:none;color:var(--berry);font:800 .9rem var(--f-body);cursor:pointer;padding:4px 6px;border-radius:8px}
+.rm:hover{background:var(--sky)}
+.add-char{align-self:flex-start}
+.add-char small{font-weight:600;opacity:.75;font-family:var(--f-body)}
+.privacy{font-size:.88rem;color:var(--ink-soft)}
+.summary{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);background:var(--paper);border:4px solid var(--line);border-radius:var(--r-lg);box-shadow:0 10px 0 var(--line);padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.summary h3{font-size:1.6rem}
+.summary dl{margin:0;display:grid;gap:10px}
+.summary dt{font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.summary dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+.summary dd.todo{color:var(--ink-soft);font-weight:600;font-style:italic}
+.sum-price{font-family:var(--f-display);font-weight:800;font-size:1.2rem;border-top:2px dashed var(--sky-2);padding-top:12px}
+.sum-cta{justify-content:center}
+.sum-note{font-size:.85rem;color:var(--ink-soft)}
+@media (max-width:900px){.builder-grid{grid-template-columns:1fr}.summary{position:static}}
+@media (max-width:560px){#looks{grid-template-columns:1fr}.row2{grid-template-columns:1fr}}
+
 /* ---------- Aventuras: Bosque / Espacio exterior / Dinosaurios ---------- */
 .bg-forest{position:absolute;inset:0;opacity:0;transition:opacity .45s;pointer-events:none;z-index:0}
 .bg-forest svg{display:block;width:100%;height:100%}
@@ -476,7 +519,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
         </div>
         <ul class="facts" aria-label="Lo esencial">
           <li><b>30</b> páginas ilustradas</li>
-          <li>Pasta dura</li>
+          <li>Pasta dura y propalcote</li>
           <li>Entrega en <b>15 días</b></li>
           <li><b>$189.000</b> COP</li>
         </ul>
@@ -528,10 +571,12 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     <div class="wrap stories">
       <div>
         <div class="sec-head" style="margin-bottom:22px">
-          <p class="eyebrow">Los libros siempre serán una forma hermosa de enseñar</p>
+          <p class="eyebrow">Paso 1 · La historia</p>
           <h2>¿Tienes una historia que contarle a tu peque?</h2>
+          <p>Los libros siempre serán una forma hermosa de enseñar. Elige lo que quieres contarle.</p>
         </div>
         <div class="topics" id="topics"></div>
+        <label class="topic-other" for="topic-other"><span>¿Otra historia? Cuéntanos cuál</span><textarea id="topic-other" rows="2" placeholder="Ej.: quiero que aprenda a compartir con su prima"></textarea></label>
       </div>
       <div>
         <div class="book" id="book">
@@ -560,24 +605,33 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     <div class="wrap styles-grid">
       <div>
         <div class="sec-head" style="margin-bottom:24px">
-          <p class="eyebrow">Línea gráfica</p>
+          <p class="eyebrow">Pasos 2 y 3 · Estilo y aventura</p>
           <h2>¿Cómo imaginas su cuento?</h2>
           <p>Ilustramos a tu peque a partir de sus fotos y de lo que nos cuentes sobre colores, estilo y aventura. Combina las opciones y mira cómo se transforma el equipo de David.</p>
         </div>
-        <p class="pick-label">1. Elige el estilo</p>
+        <p class="pick-label">Paso 2 · Elige el estilo</p>
         <div class="looks" role="radiogroup" aria-label="Estilo de ilustración" id="looks">
           <button class="look-btn" role="radio" aria-checked="true" data-look="acuarela"><b>Caricatura acuarela</b><span>Nuestro estilo: ilustrada y suave, como el libro de David.</span></button>
           <button class="look-btn" role="radio" aria-checked="false" data-look="comic"><b>Cómic brillante</b><span>Personajes tipo cómic, con colores vivos y más energía.</span></button>
+          <button class="look-btn" role="radio" aria-checked="false" data-look="otro"><b>Otro</b><span>Súbenos tu referente: una imagen o un libro que te guste.</span></button>
         </div>
-        <p class="pick-label">2. Elige la aventura</p>
+        <div class="opt-panel" id="ref-panel" hidden>
+          <label for="ref-desc">¿Cuál es tu referente?</label>
+          <input id="ref-desc" type="text" placeholder="Ej.: los colores de un libro que le encanta, o una ilustradora" autocomplete="off">
+          <label class="file" for="ref-file"><input id="ref-file" type="file" accept="image/*"><span class="file-btn">Subir imagen de referencia</span></label>
+          <div class="thumbs" id="ref-thumbs"></div>
+          <p class="hint">Si no tienes referente, lo dejas a nuestro diseño. Cuando veas la propuesta, nos dices si te gusta o qué cambiarías.</p>
+        </div>
+        <p class="pick-label">Paso 3 · Elige la aventura</p>
         <div class="looks advs" role="radiogroup" aria-label="Aventura del cuento" id="advs">
           <button class="look-btn" role="radio" aria-checked="true" data-adv="bosque"><b>Bosque</b><span>Árboles gigantes, hongos y luciérnagas.</span></button>
           <button class="look-btn" role="radio" aria-checked="false" data-adv="espacio"><b>Espacio exterior</b><span>Cascos, estrellas y gravedad cero.</span></button>
           <button class="look-btn" role="radio" aria-checked="false" data-adv="dinos"><b>Dinosaurios</b><span>Dino bebés que juegan con el equipo.</span></button>
+          <button class="look-btn" role="radio" aria-checked="false" data-adv="otra"><b>Otra</b><span>Cuéntanos cuál imaginas.</span></button>
         </div>
-        <div class="ref-card">
-          <b>¿Tienes un referente?</b>
-          <p>Envíanos una imagen o un libro que te guste por sus colores o su ilustración. Si no tienes, lo dejas a nuestro diseño. Cuando veas la propuesta, nos dices si te gusta o qué cambiarías.</p>
+        <div class="opt-panel" id="adv-panel" hidden>
+          <label for="adv-other">¿Qué aventura imaginas?</label>
+          <input id="adv-other" type="text" placeholder="Ej.: en el fondo del mar, superhéroes, un castillo" autocomplete="off">
         </div>
       </div>
       <div>
@@ -594,7 +648,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
           </div>
           <span class="scene-label" id="scene-label">Caricatura acuarela · Bosque</span>
           <span class="pow" id="pow" aria-hidden="true">¡A la aventura!</span>
-          <figure class="inset"><img src="img/portada-david.jpg" alt="" width="590" height="615">Así se ve en el libro real</figure>
+          <figure class="inset"><img id="inset-img" src="img/portada-david.jpg" alt="" width="590" height="615"><span id="inset-cap">Así se ve en el libro real</span></figure>
           <div class="ground"></div>
           <div class="dinos dinos-back dinos-wc" aria-hidden="true"><div class="dn dn-palm"><span class="ch-slot" data-ch="palm-wc"></span></div><div class="dn dn-neck"><span class="ch-slot" data-ch="dn-neck-wc"></span></div></div>
           <div class="dinos dinos-back dinos-cm" aria-hidden="true"><div class="dn dn-palm"><span class="ch-slot" data-ch="palm-cm"></span></div><div class="dn dn-neck"><span class="ch-slot" data-ch="dn-neck-cm"></span></div></div>
@@ -606,6 +660,41 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
         </div>
         <p class="scene-caption" id="scene-caption">Formas redondas, trazos suaves sin línea negra, colores lavados y caritas felices. Es el estilo de “David y la magia de su equipo”.</p>
         <p class="scene-story story" id="scene-story">Ejemplo: “David y el bosque encantado”. El equipo sigue un camino de luciérnagas entre árboles gigantes hasta encontrar el hongo más grande del bosque.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARMA SU CUENTO: protagonista, hasta 2 personajes y resumen del pedido -->
+  <section class="block" id="arma" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Paso 4 · Su equipo</p>
+        <h2>¿Quién vive la aventura?</h2>
+        <p>Tu peque es el protagonista y puede ir acompañado de hasta 2 personajes más: hermanos, abuelos, amigos o mascotas.</p>
+      </div>
+      <div class="builder-grid">
+        <form class="team-form" id="team-form" novalidate>
+          <fieldset class="person hero-card">
+            <legend>Protagonista</legend>
+            <div class="row2">
+              <label for="hero-name">Nombre<input id="hero-name" type="text" placeholder="Ej.: David" autocomplete="off"></label>
+              <label for="hero-age">Edad<input id="hero-age" type="text" placeholder="Ej.: 5 años" autocomplete="off"></label>
+            </div>
+            <label class="file" for="hero-photos"><input id="hero-photos" type="file" accept="image/*" multiple><span class="file-btn">Elegir fotos de tu peque</span></label>
+            <div class="thumbs" id="hero-thumbs"></div>
+          </fieldset>
+          <div id="extras"></div>
+          <button type="button" class="btn btn-ghost add-char" id="add-char">+ Agregar personaje <small>(máximo 2)</small></button>
+          <p class="privacy">Las fotos no se suben a ninguna página: solo las ves aquí. Al reservar nos las envías por WhatsApp.</p>
+        </form>
+        <aside class="summary" id="summary">
+          <p class="eyebrow">Paso 5 · Tu cuento</p>
+          <h3>Resumen de tu pedido</h3>
+          <dl id="sum-list" aria-live="polite"></dl>
+          <p class="sum-price">$189.000 COP · reservas con $94.500</p>
+          <a class="btn btn-wa js-wa sum-cta" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg>Enviar mi pedido por WhatsApp</a>
+          <p class="sum-note">Se abre WhatsApp con este resumen escrito. Después adjunta las fotos en el mismo chat.</p>
+        </aside>
       </div>
     </div>
   </section>
@@ -624,7 +713,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
           <p>Así quedó el libro de David. El tuyo tendrá la historia, los personajes y los colores que elijas.</p>
         </div>
         <ul class="specs">
-          <li><b>Pasta dura</b><span>Hojas ensanduchadas, firmes para pequeñas manos.</span></li>
+          <li><b>Pasta dura y propalcote</b><span>Tapa rígida y hojas en papel propalcote: gruesas y de colores brillantes.</span></li>
           <li><b>30 páginas</b><span>Ilustradas de principio a fin.</span></li>
           <li><b>Tu peque al centro</b><span>Es el personaje principal de su historia.</span></li>
           <li><b>Su gente y sus mascotas</b><span>Personajes adicionales, como Ainhoa, Speed y Panda.</span></li>
@@ -660,7 +749,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
           <ul class="price-list">
             <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--leaf-soft)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--leaf)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Historia escrita a la medida de tu familia</li>
             <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--leaf-soft)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--leaf)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Ilustraciones en el estilo que elijas</li>
-            <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--leaf-soft)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--leaf)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Libro de pasta dura de 30 páginas</li>
+            <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--leaf-soft)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--leaf)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Pasta dura y 30 páginas en propalcote</li>
             <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--leaf-soft)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--leaf)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Apruebas la historia y los personajes antes de imprimir</li>
           </ul>
         </div>
@@ -688,7 +777,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       </div>
       <div class="contact">
         <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener" style="font-size:1.3rem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg>Escríbeme para reservar</a>
-        <div class="phone"><span>WhatsApp</span><output id="phone">315 382 8798</output><button class="copy" id="copy" type="button">Copiar</button></div>
+        <div class="phone"><span>WhatsApp</span><output id="phone">301 339 4141</output><button class="copy" id="copy" type="button">Copiar</button></div>
       </div>
     </div>
   </section>
@@ -706,8 +795,9 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
 <script>
 (function(){
   /* ---------- WhatsApp ---------- */
-  var WA = 'https://wa.me/573153828798?text=' + encodeURIComponent('Hola Bruna Magic Lab, quiero reservar un libro personalizado para mi peque.');
-  document.querySelectorAll('.js-wa').forEach(function(a){ a.href = WA; });
+  var WA_BASE = 'https://wa.me/573013394141?text=';
+  var WA_HELLO = 'Hola Bruna Magic Lab, quiero reservar un libro personalizado para mi peque.';
+  document.querySelectorAll('.js-wa').forEach(function(a){ a.href = WA_BASE + encodeURIComponent(WA_HELLO); });
 
   /* ---------- Personajes ---------- */
   var L = '#2A2340';
@@ -1183,11 +1273,12 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   function fill(tp){ tTitle.textContent = tp.t; tText.textContent = tp.p; tMini.innerHTML = CH[tp.ch]; }
   TOPICS.forEach(function(tp, i){
     var b = document.createElement('button');
-    b.className = 'topic'; b.type = 'button'; b.setAttribute('aria-pressed', i === 4 ? 'true' : 'false');
+    b.className = 'topic'; b.type = 'button'; b.setAttribute('aria-pressed', 'false');
     b.innerHTML = '<span class="ico">' + ICON[tp.id] + '</span><span>' + tp.q + '</span>';
     b.addEventListener('click', function(){
       topicsEl.querySelectorAll('.topic').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); });
       b.setAttribute('aria-pressed', 'true');
+      order.topic = tp.q; touched = true; updateSummary();
       book.classList.add('flipping');
       setTimeout(function(){ fill(tp); book.classList.remove('flipping'); flash(); }, 260);
       showBook();
@@ -1211,20 +1302,29 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   var sStory = document.getElementById('scene-story'), pow = document.getElementById('pow');
   var LOOKS = {
     acuarela:['Caricatura acuarela','Formas redondas, trazos suaves sin línea negra, colores lavados y caritas felices. Es el estilo de “David y la magia de su equipo”.'],
-    comic:['Cómic brillante','Tinta negra gruesa, sombras marcadas con trama, ojos grandes con brillo, colores intensos y poses de acción.']
+    comic:['Cómic brillante','Tinta negra gruesa, sombras marcadas con trama, ojos grandes con brillo, colores intensos y poses de acción.'],
+    otro:['Según tu referente','Ilustramos con el estilo de tu referente. Mientras lo vemos juntos, aquí está el equipo en nuestra acuarela.']
   };
   var ADVS = {
     bosque:['Bosque','Ejemplo: “David y el bosque encantado”. El equipo sigue un camino de luciérnagas entre árboles gigantes hasta encontrar el hongo más grande del bosque.','¡A explorar!'],
     espacio:['Espacio exterior','Ejemplo: “David y el viaje a la luna”. El equipo se pone sus cascos, despega y flota entre estrellas buscando la más brillante.','¡Despegue!'],
-    dinos:['Dinosaurios','Ejemplo: “David y los dino bebés”. Un huevo se mueve en el jardín, de él sale un nuevo amigo y Ainhoa, Speed y Panda le enseñan a jugar.','¡ROAR!']
+    dinos:['Dinosaurios','Ejemplo: “David y los dino bebés”. Un huevo se mueve en el jardín, de él sale un nuevo amigo y Ainhoa, Speed y Panda le enseñan a jugar.','¡ROAR!'],
+    otra:['Otra aventura','Escribe la aventura que imaginas y la ilustramos a la medida de tu peque.','¡Tu aventura!']
   };
   var view = { look:'acuarela', adv:'bosque' };
+  var insetImg = document.getElementById('inset-img'), insetCap = document.getElementById('inset-cap'), refURL = null;
   function render(){
-    scene.className = 'scene look-'+view.look+' theme-'+view.adv+(scene.classList.contains('morph') ? ' morph' : '');
-    sLabel.textContent = LOOKS[view.look][0]+' · '+ADVS[view.adv][0];
+    var drawn = view.look === 'comic' ? 'comic' : 'acuarela';
+    scene.className = 'scene look-'+drawn+(view.look === 'otro' ? ' look-otro' : '')+' theme-'+view.adv+(scene.classList.contains('morph') ? ' morph' : '');
+    var advTxt = document.getElementById('adv-other').value.trim();
+    var advName = view.adv === 'otra' && advTxt ? advTxt : ADVS[view.adv][0];
+    sLabel.textContent = LOOKS[view.look][0]+' · '+(advName.length > 26 ? advName.slice(0, 25)+'…' : advName);
     sCap.textContent = LOOKS[view.look][1];
-    sStory.textContent = ADVS[view.adv][1];
+    sStory.textContent = view.adv === 'otra' && advTxt ? 'Tu aventura: “'+advTxt+'”. La ilustramos a la medida de tu peque.' : ADVS[view.adv][1];
     pow.textContent = ADVS[view.adv][2];
+    var useRef = view.look === 'otro' && refURL;
+    insetImg.src = useRef ? refURL : 'img/portada-david.jpg';
+    insetCap.textContent = useRef ? 'Tu referente' : 'Así se ve en el libro real';
   }
   function radios(group, attr, onPick){
     var btns = group.querySelectorAll('.look-btn');
@@ -1247,23 +1347,122 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     var r = scene.getBoundingClientRect();
     if (r.top < 80 || r.bottom > innerHeight) scene.scrollIntoView({behavior: calm ? 'auto' : 'smooth', block: 'center'});
   }
-  radios(document.getElementById('looks'), 'look', function(v){ view.look = v; render(); showScene(); });
+  radios(document.getElementById('looks'), 'look', function(v){
+    view.look = v; document.getElementById('ref-panel').hidden = v !== 'otro';
+    render(); touched = true; updateSummary();
+    if (v !== 'otro') showScene();
+  });
   /* Al cambiar de aventura: destello y giro, y a mitad del giro aparecen los disfraces */
   radios(document.getElementById('advs'), 'adv', function(v){
     if (v === view.adv) return;
-    view.adv = v;
+    view.adv = v; document.getElementById('adv-panel').hidden = v !== 'otra';
+    touched = true; updateSummary();
     scene.classList.remove('morph'); void scene.offsetWidth; scene.classList.add('morph');
     clearTimeout(scene._r); scene._r = setTimeout(render, calm ? 0 : 280);
     clearTimeout(scene._m); scene._m = setTimeout(function(){ scene.classList.remove('morph'); }, 760);
-    showScene();
+    if (v === 'otra') document.getElementById('adv-other').focus({preventScroll: true}); else showScene();
   });
+
+  /* ---------- Pedido: lo que el cliente va armando en el recorrido ---------- */
+  var order = { topic: null }, touched = false, extraSeq = 0;
+  function $(id){ return document.getElementById(id); }
+  function val(id){ var e = $(id); return e ? e.value.trim() : ''; }
+  function nFiles(input){ return input && input.files ? input.files.length : 0; }
+  function showThumbs(input, box){
+    box.innerHTML = '';
+    Array.prototype.slice.call(input.files || [], 0, 6).forEach(function(f){
+      var img = new Image(); img.alt = ''; img.src = URL.createObjectURL(f); box.appendChild(img);
+    });
+  }
+  function readOrder(){
+    var extras = Array.prototype.map.call(document.querySelectorAll('#extras .person'), function(fs){
+      return { name: fs.querySelector('[data-f=name]').value.trim(), kind: fs.querySelector('[data-f=kind]').value,
+               desc: fs.querySelector('[data-f=desc]').value.trim(), photos: nFiles(fs.querySelector('[data-f=photos]')) };
+    }).filter(function(e){ return e.name || e.desc || e.photos; });
+    return { heroName: val('hero-name'), heroAge: val('hero-age'), heroPhotos: nFiles($('hero-photos')),
+             topic: order.topic, topicOther: val('topic-other'),
+             look: view.look, refDesc: val('ref-desc'), refFile: nFiles($('ref-file')),
+             adv: view.adv, advOther: val('adv-other'), extras: extras };
+  }
+  function photoList(o){
+    var p = [];
+    if (o.heroPhotos) p.push((o.heroName || 'protagonista') + ' (' + o.heroPhotos + ')');
+    o.extras.forEach(function(e, i){ if (e.photos) p.push((e.name || 'personaje ' + (i + 1)) + ' (' + e.photos + ')'); });
+    if (o.look === 'otro' && o.refFile) p.push('imagen de referencia');
+    return p;
+  }
+  function rows(o){
+    var team = o.extras.map(function(e, i){ return (e.name || 'Personaje ' + (i + 1)) + ' (' + e.kind.toLowerCase() + ')' + (e.desc ? ': ' + e.desc : ''); });
+    var ph = photoList(o);
+    return [
+      ['Protagonista', o.heroName ? o.heroName + (o.heroAge ? ', ' + o.heroAge : '') : ''],
+      ['Historia', [o.topic, o.topicOther].filter(Boolean).join(' · ')],
+      ['Estilo', o.look === 'otro' ? 'Según mi referente' + (o.refDesc ? ': ' + o.refDesc : '') : LOOKS[o.look][0]],
+      ['Aventura', o.adv === 'otra' ? (o.advOther ? 'Otra: ' + o.advOther : '') : ADVS[o.adv][0]],
+      ['Personajes adicionales', team.length ? team.join(' · ') : 'Solo el protagonista'],
+      ['Fotos', ph.length ? ph.join(', ') : '']
+    ];
+  }
+  var TODO = { 'Protagonista':'Escribe su nombre en el paso 4', 'Historia':'Elige un tema en el paso 1', 'Aventura':'Escribe cuál en el paso 3', 'Fotos':'Las envías por WhatsApp' };
+  function orderMsg(){
+    if (!touched) return WA_HELLO;
+    var o = readOrder(), lines = ['Hola Bruna Magic Lab, quiero reservar mi libro personalizado ($189.000).', ''];
+    rows(o).forEach(function(r){ if (r[1] && r[0] !== 'Fotos') lines.push('• ' + r[0] + ': ' + r[1]); });
+    var ph = photoList(o);
+    lines.push('', ph.length ? 'Te envío por este chat las fotos de: ' + ph.join(', ') + '.' : 'Te envío las fotos por este chat.');
+    lines.push('¿Me indican cómo hago el anticipo del 50%?');
+    return lines.join('\n');
+  }
+  function updateSummary(){
+    var o = readOrder();
+    $('sum-list').innerHTML = rows(o).map(function(r){
+      var v = r[1] ? r[1].replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }) : '';
+      return '<div><dt>'+r[0]+'</dt><dd'+(v ? '' : ' class="todo"')+'>'+(v || TODO[r[0]] || 'Por completar')+'</dd></div>';
+    }).join('');
+    var href = WA_BASE + encodeURIComponent(orderMsg());
+    document.querySelectorAll('.js-wa').forEach(function(a){ a.href = href; });
+  }
+  function addExtra(){
+    var box = $('extras');
+    if (box.children.length >= 2) return;
+    var id = ++extraSeq, fs = document.createElement('fieldset');
+    fs.className = 'person';
+    fs.innerHTML = '<legend>Personaje</legend><button type="button" class="rm">Quitar</button>'+
+      '<div class="row2"><label for="x'+id+'-name">Nombre<input id="x'+id+'-name" data-f="name" type="text" placeholder="Ej.: Ainhoa" autocomplete="off"></label>'+
+      '<label for="x'+id+'-kind">Es…<select id="x'+id+'-kind" data-f="kind"><option>Mascota</option><option>Persona</option></select></label></div>'+
+      '<label for="x'+id+'-desc">¿Cómo es?<input id="x'+id+'-desc" data-f="desc" type="text" placeholder="Ej.: border collie café, muy juguetona" autocomplete="off"></label>'+
+      '<label class="file" for="x'+id+'-photos"><input id="x'+id+'-photos" data-f="photos" type="file" accept="image/*" multiple><span class="file-btn">Elegir fotos</span></label><div class="thumbs"></div>';
+    fs.querySelector('.rm').addEventListener('click', function(){ fs.remove(); relabel(); updateSummary(); $('add-char').focus(); });
+    fs.querySelector('[data-f=photos]').addEventListener('change', function(e){ showThumbs(e.target, fs.querySelector('.thumbs')); });
+    box.appendChild(fs); relabel(); touched = true; updateSummary();
+    fs.querySelector('[data-f=name]').focus();
+  }
+  function relabel(){
+    var list = $('extras').children;
+    Array.prototype.forEach.call(list, function(fs, i){ fs.querySelector('legend').textContent = 'Personaje ' + (i + 1); });
+    $('add-char').hidden = list.length >= 2;
+  }
+  $('add-char').addEventListener('click', addExtra);
+  $('hero-photos').addEventListener('change', function(e){ showThumbs(e.target, $('hero-thumbs')); });
+  $('ref-file').addEventListener('change', function(e){
+    showThumbs(e.target, $('ref-thumbs'));
+    if (refURL) URL.revokeObjectURL(refURL);
+    refURL = e.target.files[0] ? URL.createObjectURL(e.target.files[0]) : null;
+    render();
+  });
+  $('adv-other').addEventListener('input', render);
+  ['team-form', 'ref-panel', 'adv-panel', 'topic-other'].forEach(function(id){
+    $(id).addEventListener('input', function(){ touched = true; updateSummary(); });
+    $(id).addEventListener('change', function(){ touched = true; updateSummary(); });
+  });
+  updateSummary();
 
   /* ---------- Copiar número ---------- */
   var copyBtn = document.getElementById('copy'), phone = document.getElementById('phone');
   copyBtn.addEventListener('click', function(){
     function done(){ copyBtn.textContent = 'Copiado'; setTimeout(function(){ copyBtn.textContent = 'Copiar'; }, 1600); }
     function fallback(){ var r = document.createRange(); r.selectNodeContents(phone); var s = getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = 'Selecciónalo y cópialo'; }
-    try { navigator.clipboard.writeText('3153828798').then(done, fallback); } catch(e){ fallback(); }
+    try { navigator.clipboard.writeText('3013394141').then(done, fallback); } catch(e){ fallback(); }
   });
 })();
 </script>
