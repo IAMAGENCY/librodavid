@@ -1,0 +1,873 @@
+<title>Bruna Magic Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Libros infantiles personalizados: tu peque es el protagonista de su propio cuento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,600&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: un cielo de cuento. Cada sección es una página que flota sobre el cielo; los personajes del libro viven en los bordes y reaccionan al visitante. */
+:root{
+  --sky:#E9F5FC; --sky-2:#D4EBF8; --paper:#FFFDF7; --ink:#1D3A2A; --ink-soft:#4B6457;
+  --leaf:#4E9A38; --leaf-soft:#DDF0D2; --sun:#F4B92E; --sun-soft:#FDEBBE; --berry:#E8638D; --lilac:#8B78E8; --sea:#1C9FDF;
+  --wa:#178A45; --wa-dark:#0F6633; --orb:#FFE49A; --star:0; --hill:#8FCB6B; --hill-2:#6DB44E;
+  --card-y:#FFD23F; --card-p:#A98BFF; --card-g:#4CCB73; --card-b:#46BDF5; --on-card:#241C38;
+  --line:#2A2340; --shadow:rgba(29,58,42,.14);
+  --f-display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,sans-serif;
+  --f-story:"Fraunces",Georgia,"Times New Roman",serif;
+  --r-lg:28px; --r-md:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --sky:#13203A; --sky-2:#1A2B4A; --paper:#1E2D4B; --ink:#F7F0DA; --ink-soft:#C3CADB;
+  --leaf:#8FD372; --leaf-soft:#243F33; --sun:#F7C95A; --sun-soft:#3B3521; --berry:#F590B0; --lilac:#B3A3F7; --sea:#62C3F2;
+  --wa:#1E9E52; --wa-dark:#0F6633; --orb:#F4EBC9; --star:1; --hill:#3F7A3A; --hill-2:#2F6230; --shadow:rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --sky:#13203A; --sky-2:#1A2B4A; --paper:#1E2D4B; --ink:#F7F0DA; --ink-soft:#C3CADB;
+  --leaf:#8FD372; --leaf-soft:#243F33; --sun:#F7C95A; --sun-soft:#3B3521; --berry:#F590B0; --lilac:#B3A3F7; --sea:#62C3F2;
+  --wa:#1E9E52; --wa-dark:#0F6633; --orb:#F4EBC9; --star:1; --hill:#3F7A3A; --hill-2:#2F6230; --shadow:rgba(0,0,0,.35); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--sky);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+.wrap{max-width:1180px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.05;margin:0;text-wrap:balance;font-weight:800;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sea);outline-offset:3px;border-radius:10px}
+.eyebrow{font-family:var(--f-body);font-weight:800;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--leaf)}
+.story{font-family:var(--f-story);font-style:italic}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;gap:.55em;font-family:var(--f-display);font-weight:800;font-size:1.1rem;text-decoration:none;border:0;border-radius:999px;padding:.7em 1.4em;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;line-height:1.1}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 5px 0 var(--wa-dark)}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--wa-dark)}
+.btn-wa:active{transform:translateY(3px);box-shadow:0 2px 0 var(--wa-dark)}
+.btn-ghost{background:var(--paper);color:var(--ink);box-shadow:0 5px 0 var(--sky-2),inset 0 0 0 2px var(--sky-2)}
+.btn-ghost:hover{transform:translateY(-2px)}
+.btn svg{width:1.25em;height:1.25em;flex:none}
+
+/* Encabezado */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:2px solid var(--sky-2)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:800;font-size:1.3rem;letter-spacing:.02em}
+.logo-mark{width:38px;height:38px;flex:none}
+.logo small{display:block;font-family:var(--f-body);font-weight:700;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:-4px}
+.top nav{display:flex;gap:4px}
+.top nav a{font-family:var(--f-display);font-weight:600;font-size:1.05rem;text-decoration:none;color:var(--sea);padding:.35em .8em;border-radius:999px}
+.top nav a:hover{background:var(--sky)}
+.top .btn{font-size:1rem;padding:.55em 1.1em}
+@media (max-width:860px){.top nav{display:none}}
+@media (max-width:420px){.top .btn span{display:none}.top .btn{padding:.6em}}
+
+/* Personajes (SVG) */
+.ch{display:block;width:100%;height:auto;overflow:visible}
+.ch .bob{animation:bob 3.2s ease-in-out infinite}
+.ch .wave{animation:wave 1.3s ease-in-out infinite}
+.ch .tail{animation:wag .55s ease-in-out infinite alternate}
+.ch .tongue{animation:pant .45s ease-in-out infinite alternate;transform-origin:100px 112px}
+.ch .eyes{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+.ch .head{animation:tilt 4.5s ease-in-out infinite;transform-origin:100px 130px}
+.ch.panda .eyes{animation-delay:1.6s}.ch.speed .eyes{animation-delay:.8s}.ch.ainhoa .eyes{animation-delay:2.7s}
+.ch.speed .bob{animation-delay:-.8s}.ch.panda .bob{animation-delay:-1.9s}.ch.ainhoa .bob{animation-delay:-1.2s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes wave{0%,100%{transform:rotate(4deg)}50%{transform:rotate(-24deg)}}
+@keyframes wag{from{transform:rotate(-10deg)}to{transform:rotate(14deg)}}
+@keyframes pant{from{transform:scaleY(1)}to{transform:scaleY(1.3)}}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+@keyframes tilt{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes hop{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(-16%) rotate(-5deg)}55%{transform:translateY(0) rotate(2deg)}72%{transform:translateY(-5%)}100%{transform:translateY(0)}}
+@keyframes dash{0%{transform:translateX(0)}25%{transform:translateX(14%) rotate(4deg)}50%{transform:translateX(-10%) rotate(-3deg)}100%{transform:translateX(0)}}
+.actor{position:relative;background:none;border:0;padding:0;cursor:pointer;color:inherit;font:inherit;-webkit-tap-highlight-color:transparent}
+.actor.trick .ch{animation:hop .8s cubic-bezier(.3,.7,.4,1)}
+.actor.trick .ch.speed{animation:dash .8s ease-in-out}
+.actor.trick .ch .wave{animation-duration:.35s}
+.actor.trick .ch .tail{animation-duration:.18s}
+.bubble{position:absolute;left:50%;bottom:100%;transform:translate(-50%,8px) scale(.7);opacity:0;pointer-events:none;background:var(--paper);color:var(--ink);font-family:var(--f-display);font-weight:800;font-size:.95rem;line-height:1.15;padding:.5em .85em;border-radius:16px;border:3px solid var(--line);width:max-content;max-width:min(230px,62vw);text-align:center;transition:opacity .2s,transform .25s cubic-bezier(.3,1.6,.5,1);z-index:5}
+.bubble::after{content:"";position:absolute;left:50%;top:100%;width:12px;height:12px;background:var(--paper);border-right:3px solid var(--line);border-bottom:3px solid var(--line);transform:translate(-50%,-6px) rotate(45deg)}
+.actor:hover .bubble,.actor:focus-visible .bubble,.actor.trick .bubble{opacity:1;transform:translate(-50%,0) scale(1)}
+.bubble.l{left:4%;transform:translate(0,8px) scale(.7);transform-origin:left bottom}
+.bubble.r{left:auto;right:4%;transform:translate(0,8px) scale(.7);transform-origin:right bottom}
+.actor:hover .bubble.l,.actor:focus-visible .bubble.l,.actor.trick .bubble.l,.actor:hover .bubble.r,.actor:focus-visible .bubble.r,.actor.trick .bubble.r{transform:translate(0,0) scale(1)}
+.bubble.l::after{left:28%}.bubble.r::after{left:72%}
+.cast-card .bubble{max-width:96%}
+
+/* Hero */
+.hero{padding-block:48px 72px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
+.hero h1{font-size:clamp(2.6rem,6vw,4.6rem);color:var(--ink)}
+.hero h1 .mark{position:relative;white-space:nowrap;color:var(--sea)}
+.hero h1 .mark svg{position:absolute;left:-2%;bottom:-.12em;width:104%;height:.38em}
+.hero .lede{font-size:1.18rem;color:var(--ink-soft);max-width:34em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.facts{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.facts li{background:var(--paper);border:2px solid var(--sky-2);border-radius:999px;padding:.3em .9em;font-weight:700;font-size:.92rem}
+.facts li b{color:var(--leaf)}
+.stage{position:relative;aspect-ratio:1/0.92;width:100%;max-width:560px;justify-self:center}
+.stage .orb{position:absolute;right:6%;top:2%;width:38%;aspect-ratio:1;border-radius:50%;background:var(--orb);box-shadow:0 0 0 18px color-mix(in srgb,var(--orb) 35%,transparent),0 0 0 40px color-mix(in srgb,var(--orb) 15%,transparent)}
+.stage .stars{position:absolute;inset:0 0 40% 0;opacity:var(--star);background-image:radial-gradient(2px 2px at 12% 20%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 30% 8%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 48% 26%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 8% 46%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 58% 6%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 40% 44%,#fff 50%,transparent 51%)}
+.cloud{position:absolute;background:var(--paper);border-radius:999px;height:12%;animation:drift 14s ease-in-out infinite alternate}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud::before{width:45%;aspect-ratio:1;left:14%;bottom:30%}
+.cloud::after{width:32%;aspect-ratio:1;left:50%;bottom:40%}
+.cloud.c1{width:30%;left:2%;top:14%}
+.cloud.c2{width:22%;left:44%;top:30%;animation-duration:18s;animation-delay:-6s;opacity:.85}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(18%)}}
+.hill{position:absolute;left:-6%;right:-6%;bottom:0;height:34%;background:var(--hill);border-radius:50% 50% 0 0/80% 80% 0 0}
+.hill::before{content:"";position:absolute;left:30%;right:-10%;top:-18%;height:70%;background:var(--hill-2);border-radius:50% 50% 0 0/100% 100% 0 0;z-index:-1}
+.flower{position:absolute;width:3.2%;aspect-ratio:1;border-radius:50%;background:var(--sun);box-shadow:0 -9px 0 -2px #fff,0 9px 0 -2px #fff,9px 0 0 -2px #fff,-9px 0 0 -2px #fff}
+.stage .actor{position:absolute}
+.stage .a-david{left:29%;bottom:13%;width:42%;z-index:2}
+.stage .a-ainhoa{left:0;bottom:6%;width:35%;z-index:3}
+.stage .a-speed{right:0;bottom:8%;width:33%;z-index:3}
+.stage .a-panda{left:37%;bottom:3%;width:25%;z-index:4}
+.stage-hint{position:absolute;left:50%;bottom:-36px;transform:translateX(-50%);font-size:.88rem;font-weight:700;color:var(--ink-soft);white-space:nowrap}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.stage{max-width:460px}}
+
+/* Cinta */
+.ribbon{background:var(--sea);color:#fff;overflow:hidden;transform:rotate(-1.5deg);margin-block:8px 0;border-block:4px solid var(--line)}
+.ribbon-track{display:flex;gap:2.2rem;width:max-content;padding-block:12px;font-family:var(--f-display);font-weight:800;font-size:1.35rem;animation:scroll 28s linear infinite}
+.ribbon-track span{display:flex;align-items:center;gap:2.2rem;white-space:nowrap}
+.ribbon-track span::after{content:"";width:14px;height:14px;background:var(--sun);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* Secciones */
+section.block{padding-block:96px}
+.sec-head{display:flex;flex-direction:column;gap:12px;max-width:720px;margin-bottom:44px}
+.sec-head h2{font-size:clamp(2.1rem,4.4vw,3.3rem)}
+.sec-head p{font-size:1.12rem;color:var(--ink-soft)}
+.center{margin-inline:auto;text-align:center;align-items:center}
+
+/* Tarjetas de personajes estilo pandilla */
+.cast{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.cast-card{position:relative;padding-top:max(24px,calc(88% - 120px))}
+.cast-card .actor{display:block;width:100%;position:static}
+.cast-base{position:relative;border-radius:var(--r-lg);height:210px;border:4px solid var(--line);box-shadow:0 8px 0 var(--line);display:flex;flex-direction:column;justify-content:flex-end;padding:18px 20px;color:var(--on-card);text-align:left;transition:transform .2s}
+.cast-card .ch-holder{position:absolute;left:8%;right:8%;bottom:70px;transition:transform .3s cubic-bezier(.3,1.5,.5,1);z-index:2}
+.cast-card .actor:hover .ch-holder,.cast-card .actor:focus-visible .ch-holder{transform:translateY(-10px) scale(1.04)}
+.cast-card .actor:hover .cast-base{transform:translateY(-3px)}
+.cast-base strong{font-family:var(--f-display);font-weight:800;font-size:2rem;line-height:1}
+.cast-base span{font-weight:700;font-size:.95rem;opacity:.85}
+.cast-card .bubble{bottom:auto;top:-6px}
+.c-y .cast-base{background:var(--card-y)}.c-p .cast-base{background:var(--card-p)}.c-g .cast-base{background:var(--card-g)}.c-b .cast-base{background:var(--card-b)}
+.cast-note{margin-top:40px;text-align:center;color:var(--ink-soft);font-weight:700}
+@media (max-width:960px){.cast{grid-template-columns:repeat(2,1fr);row-gap:40px}}
+@media (max-width:560px){.cast{gap:14px;row-gap:28px}.cast-card{padding-top:max(16px,calc(76% - 100px))}.cast-base{height:190px;padding:14px}.cast-base strong{font-size:1.5rem}.cast-base span{font-size:.85rem;line-height:1.25}.cast-card .ch-holder{left:14%;right:14%;bottom:84px}}
+
+/* Historias */
+.stories{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+.topics{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.topic{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--paper);border:2px solid var(--sky-2);border-radius:var(--r-md);padding:10px 16px;font:700 1.02rem/1.3 var(--f-body);color:var(--ink);cursor:pointer;transition:transform .15s,border-color .15s,background .15s}
+.topic:hover{transform:translateX(4px)}
+.topic[aria-pressed="true"]{border-color:var(--leaf);background:var(--leaf-soft);box-shadow:0 4px 0 var(--leaf)}
+.topic .ico{width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center;background:var(--sky)}
+.topic .ico svg{width:26px;height:26px}
+.book{position:relative;display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border-radius:12px 22px 22px 12px;border:4px solid var(--line);box-shadow:0 12px 0 var(--line),0 30px 50px var(--shadow);perspective:1400px;min-height:400px}
+.book::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:22px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,var(--shadow),transparent);pointer-events:none}
+.page{padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.page-img{border-radius:14px;overflow:hidden;flex:1;min-height:220px;background:var(--sky) center/cover no-repeat}
+.page-img img{width:100%;height:100%;object-fit:cover;display:block}
+.page-caption{font-size:.82rem;color:var(--ink-soft);font-weight:700}
+.page-r{transform-origin:left center;transition:transform .45s ease,opacity .45s}
+.book.flipping .page-r{transform:rotateY(-70deg);opacity:.2}
+.page-r .tag{align-self:flex-start;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--sun-soft);color:var(--ink);padding:.3em .7em;border-radius:999px}
+.page-r h3{font-family:var(--f-story);font-style:italic;font-weight:600;font-size:1.6rem;line-height:1.15}
+.page-r p{font-family:var(--f-story);font-style:italic;font-size:1.08rem;line-height:1.55}
+.page-r .mini{width:110px;align-self:flex-end;margin-top:auto}
+.reassure{margin-top:28px;display:flex;gap:16px;align-items:flex-start;background:var(--paper);border-radius:var(--r-md);padding:18px 20px;border:2px dashed var(--leaf)}
+.reassure svg{width:34px;height:34px;flex:none}
+.reassure p{font-weight:600}
+@media (max-width:900px){.stories{grid-template-columns:1fr}}
+@media (max-width:560px){.book{grid-template-columns:1fr}.book::after{display:none}.page-img{min-height:200px}}
+
+/* Estilos gráficos */
+.styles-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:44px;align-items:center}
+.looks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.look-btn{display:flex;flex-direction:column;gap:4px;text-align:left;background:var(--paper);border:3px solid var(--sky-2);border-radius:var(--r-md);padding:14px 16px;cursor:pointer;color:var(--ink);font:inherit;transition:transform .15s,border-color .15s}
+.look-btn:hover{transform:translateY(-2px)}
+.look-btn b{font-family:var(--f-display);font-size:1.25rem;line-height:1.1}
+.look-btn span{font-size:.9rem;color:var(--ink-soft);line-height:1.35}
+.look-btn[aria-checked="true"]{border-color:var(--line);box-shadow:0 5px 0 var(--line)}
+.ref-note{margin-top:18px;font-weight:700;color:var(--ink-soft)}
+.scene{position:relative;aspect-ratio:4/3;border-radius:var(--r-lg);border:4px solid var(--line);overflow:hidden;box-shadow:0 10px 0 var(--line);transition:background .4s}
+.scene .set{position:absolute;inset:auto 3% 3% 3%;display:flex;align-items:flex-end;justify-content:center;gap:1%;transition:opacity .45s ease,transform .5s cubic-bezier(.3,1.4,.5,1);z-index:2}
+.scene .set .a{width:25%}.scene .set .d{width:29%}.scene .set .p{width:18%}.scene .set .s{width:23%}
+.ch.wc-ainhoa .sway{animation-delay:-1s}.ch.wc-speed .sway{animation-delay:-3s}
+.ch.cm-ainhoa .pop{animation-delay:-.25s}.ch.cm-speed .pop{animation-delay:-.7s}
+.scene.look-acuarela .set-cm,.scene.look-comic .set-wc{opacity:0;transform:scale(.8) translateY(8%);pointer-events:none}
+.ch.wc .sway{animation:sway 4.5s ease-in-out infinite;transform-origin:100px 205px}
+.ch.wc-panda .sway{animation-delay:-2s}
+.ch.cm .pop{animation:pop 1.1s ease-in-out infinite;transform-origin:100px 208px}
+.ch.cm-panda .pop{animation-delay:-.45s}
+.ch.cm .wave{animation:punch 1.1s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@keyframes pop{0%,100%{transform:translateY(0) scale(1,1)}40%{transform:translateY(-7px) scale(.98,1.03)}70%{transform:translateY(0) scale(1.03,.97)}}
+@keyframes punch{0%,100%{transform:rotate(0)}50%{transform:rotate(-12deg)}}
+.inset{position:absolute;right:14px;top:14px;width:26%;max-width:150px;margin:0;background:#fff;padding:6px 6px 8px;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.18);transform:rotate(4deg);z-index:3;transition:opacity .3s;font:700 .7rem/1.2 var(--f-body);color:#4B6457;text-align:center}
+.inset img{display:block;width:100%;height:auto;border-radius:3px;margin-bottom:5px}
+.scene.look-comic .inset{opacity:0}
+.ref-card{margin-top:18px;display:flex;flex-direction:column;gap:6px;background:var(--paper);border:2px dashed var(--sun);border-radius:var(--r-md);padding:16px 18px}
+.ref-card b{font-family:var(--f-display);font-size:1.25rem;line-height:1.1}
+.ref-card p{color:var(--ink-soft);font-size:.97rem}
+.scene .ground{position:absolute;left:0;right:0;bottom:0;height:22%}
+.scene-label{position:absolute;left:16px;top:14px;background:var(--paper);color:var(--ink);font-weight:800;font-size:.85rem;padding:.3em .8em;border-radius:999px;border:2px solid var(--line);z-index:3}
+.pow{position:absolute;right:7%;top:12%;font-family:var(--f-display);font-weight:800;font-size:clamp(1.2rem,3vw,1.8rem);background:#FFE14D;color:#241C38;border:4px solid #241C38;padding:.2em .6em;transform:rotate(6deg) scale(0);transition:transform .35s cubic-bezier(.3,1.6,.5,1);clip-path:polygon(0 12%,8% 0,30% 8%,52% 0,74% 8%,94% 0,100% 18%,94% 44%,100% 70%,92% 100%,66% 92%,44% 100%,22% 92%,4% 100%,0 72%,6% 44%);z-index:3}
+.sparkle{position:absolute;width:22px;height:22px;background:#fff;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);opacity:0;transition:opacity .3s}
+.sk1{left:12%;top:18%}.sk2{left:58%;top:10%;width:16px;height:16px}.sk3{right:10%;top:44%;width:28px;height:28px}
+/* caricatura acuarela: papel con grano y manchas de color lavado */
+.scene.look-acuarela{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .42 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(55% 45% at 22% 22%,#CFE9F7 0,transparent 70%),radial-gradient(45% 40% at 70% 28%,#FFF1C9 0,transparent 70%),radial-gradient(70% 55% at 50% 100%,#DDF0C9 0,transparent 70%),#F7F8F1}
+.scene.look-acuarela .ground{background:radial-gradient(60% 100% at 50% 100%,#C2E2A6,transparent 75%)}
+/* cómic brillante: rayos, trama y viñeta con tinta */
+.scene.look-comic{border-color:#111;background:radial-gradient(circle,rgba(17,17,17,.16) 1.5px,transparent 2px) 0 0/12px 12px,repeating-conic-gradient(from 0deg at 50% 62%,#FFD43B 0 9deg,#FFAE1F 9deg 18deg)}
+.scene.look-comic .ground{background:#3B82F6;border-top:5px solid #111}
+.scene.look-comic .pow{transform:rotate(6deg) scale(1)}
+.scene-caption{margin-top:22px;font-weight:700;color:var(--ink-soft);min-height:3.2em}
+@media (max-width:900px){.styles-grid{grid-template-columns:1fr}}
+@media (max-width:420px){.looks{grid-template-columns:1fr}}
+
+/* Libro */
+.book-show{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.cover-wrap{position:relative;max-width:470px;justify-self:center;width:100%}
+.cover{display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 24px 50px var(--shadow),0 6px 0 var(--line);transform:rotate(-3deg);transition:transform .4s ease}
+.cover-wrap:hover .cover{transform:rotate(0) scale(1.02)}
+.cover-wrap .peek{position:absolute;right:-9%;bottom:4%;width:30%;z-index:2}
+.specs{list-style:none;padding:0;margin:26px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.specs li{background:var(--paper);border-radius:var(--r-md);padding:16px 18px;display:flex;flex-direction:column;gap:2px;border:2px solid var(--sky-2)}
+.specs b{font-family:var(--f-display);font-size:1.35rem;line-height:1.1;color:var(--ink)}
+.specs span{font-size:.94rem;color:var(--ink-soft)}
+@media (max-width:860px){.book-show{grid-template-columns:1fr}.cover-wrap{max-width:380px}.cover-wrap .peek{right:-2%}.cover-wrap .peek .bubble{left:auto;right:0;transform:translate(0,8px) scale(.7)}.cover-wrap .peek:hover .bubble,.cover-wrap .peek.trick .bubble{transform:translate(0,0) scale(1)}.cover-wrap .peek .bubble::after{left:75%}}
+main{overflow-x:clip}
+@media (max-width:420px){.specs{grid-template-columns:1fr}}
+
+/* Pasos */
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;counter-reset:s;position:relative}
+.steps::before{content:"";position:absolute;left:6%;right:6%;top:34px;border-top:4px dotted var(--sky-2);z-index:0}
+.steps li{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.steps .num{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:2rem;color:var(--on-card);border:4px solid var(--line);box-shadow:0 5px 0 var(--line)}
+.steps li:nth-child(1) .num{background:var(--card-y)}.steps li:nth-child(2) .num{background:var(--card-b)}.steps li:nth-child(3) .num{background:var(--card-p)}.steps li:nth-child(4) .num{background:var(--card-g)}.steps li:nth-child(5) .num{background:var(--berry)}
+.steps h3{font-size:1.3rem}
+.steps p{font-size:.97rem;color:var(--ink-soft)}
+@media (max-width:960px){.steps{grid-template-columns:1fr 1fr}.steps::before{display:none}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}.steps li{flex-direction:row;align-items:flex-start;gap:16px}.steps .num{width:56px;height:56px;font-size:1.6rem;flex:none}}
+
+/* Precio */
+.price-band{position:relative;background:var(--paper);border:4px solid var(--line);border-radius:36px;box-shadow:0 12px 0 var(--line);padding:44px clamp(20px,5vw,56px);display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center;overflow:hidden}
+.price-band h2{font-size:clamp(2rem,4vw,2.8rem)}
+.price{font-family:var(--f-display);font-weight:800;font-size:clamp(2.6rem,6.2vw,4.4rem);line-height:.95;color:var(--ink);font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:.15em;white-space:nowrap}
+.price small{font-size:.32em;color:var(--leaf)}
+.price-list{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:8px}
+.price-list li{display:flex;gap:10px;align-items:flex-start;font-weight:600}
+.price-list svg{width:22px;height:22px;flex:none;margin-top:2px}
+.deposit{margin-top:14px;display:inline-flex;gap:8px;align-items:baseline;background:var(--sun-soft);padding:.5em 1em;border-radius:14px;font-weight:700}
+.deposit b{font-family:var(--f-display);font-size:1.4rem;font-variant-numeric:tabular-nums}
+.price-side{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.runner{position:absolute;bottom:6px;left:0;width:120px;animation:run 9s linear infinite;pointer-events:none;opacity:.95}
+@keyframes run{from{transform:translateX(-140px)}to{transform:translateX(calc(100vw + 40px))}}
+.price-band .track{position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(90deg,var(--sky-2) 0 18px,transparent 18px 30px)}
+@media (max-width:860px){.price-band{grid-template-columns:1fr;padding-bottom:120px}}
+
+/* Cierre */
+.finale{text-align:center;padding-block:96px 60px}
+.finale h2{font-size:clamp(2.3rem,5vw,3.8rem)}
+.finale .story{font-size:1.25rem;color:var(--ink-soft);margin-top:10px}
+.lineup{display:flex;justify-content:center;align-items:flex-end;gap:2%;max-width:700px;margin:40px auto 0}
+.lineup .actor{flex:1}
+.lineup .l-panda{flex:.7}
+.contact{margin-top:36px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.phone{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;background:var(--paper);border:2px solid var(--sky-2);border-radius:999px;padding:6px 6px 6px 18px}
+.phone output{font-family:var(--f-display);font-weight:800;font-size:1.3rem;user-select:all;font-variant-numeric:tabular-nums}
+@media (max-width:420px){.phone{border-radius:22px;padding:10px 14px}}
+.copy{border:0;background:var(--sky);color:var(--ink);font:800 .9rem var(--f-body);padding:.55em 1em;border-radius:999px;cursor:pointer}
+.copy:hover{background:var(--sky-2)}
+footer{padding-block:28px 40px;border-top:2px solid var(--sky-2);color:var(--ink-soft);font-size:.92rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
+
+.fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:62px;height:62px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 5px 0 var(--wa-dark),0 12px 24px var(--shadow);transition:transform .15s}
+.fab:hover{transform:scale(1.08) rotate(-6deg)}
+.fab svg{width:32px;height:32px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .runner{display:none}
+}
+</style>
+
+<!-- filtro acuarela -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="f-acuarela" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.7"/>
+  </filter>
+  <defs>
+    <radialGradient id="wc-skin" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FCDDBF"/><stop offset=".7" stop-color="#F3B994"/><stop offset="1" stop-color="#E39C78"/></radialGradient>
+    <radialGradient id="wc-hair" cx="40%" cy="30%" r="75%"><stop offset="0" stop-color="#7A5644"/><stop offset="1" stop-color="#3B2820"/></radialGradient>
+    <radialGradient id="wc-shirt" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#B8E39E"/><stop offset=".75" stop-color="#7DBF62"/><stop offset="1" stop-color="#5E9E48"/></radialGradient>
+    <radialGradient id="wc-lens" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#E2F4FD"/><stop offset="1" stop-color="#7EC2EA"/></radialGradient>
+    <radialGradient id="wc-cat" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#7A7582"/><stop offset=".7" stop-color="#4A4553"/><stop offset="1" stop-color="#36323E"/></radialGradient>
+    <radialGradient id="wc-fur" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#E5A066"/><stop offset=".7" stop-color="#BC6630"/><stop offset="1" stop-color="#9C4E22"/></radialGradient>
+    <radialGradient id="wc-ear" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#B4632F"/><stop offset="1" stop-color="#7E3D18"/></radialGradient>
+    <radialGradient id="wc-tan" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#F8EBD0"/><stop offset=".75" stop-color="#E4C79A"/><stop offset="1" stop-color="#CDA772"/></radialGradient>
+    <radialGradient id="wc-white"cx="45%" cy="35%" r="75%"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E6E1EC"/></radialGradient>
+    <filter id="wc-edge" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feGaussianBlur in="d" stdDeviation="0.45"/>
+    </filter>
+    <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.3" fill="#111" opacity=".35"/></pattern>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="Bruna Magic Lab, inicio">
+      <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 10c6-3 11-2 14 1v24c-3-3-8-4-14-1Z" fill="#46BDF5" stroke="#2A2340" stroke-width="2.5" stroke-linejoin="round"/><path d="M34 10c-6-3-11-2-14 1v24c3-3 8-4 14-1Z" fill="#FFD23F" stroke="#2A2340" stroke-width="2.5" stroke-linejoin="round"/><path d="M29 2l1.6 4.4L35 8l-4.4 1.6L29 14l-1.6-4.4L23 8l4.4-1.6Z" fill="#E8638D" stroke="#2A2340" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      <span>Bruna Magic Lab<small>Libros personalizados</small></span>
+    </a>
+    <nav aria-label="Secciones">
+      <a href="#equipo">Personajes</a>
+      <a href="#historias">Historias</a>
+      <a href="#estilos">Estilos</a>
+      <a href="#precio">Precio</a>
+    </nav>
+    <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg><span>Reservar</span></a>
+  </div>
+</header>
+
+<main id="inicio">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Libros infantiles personalizados</p>
+        <h1>Tu peque, <span class="mark">protagonista<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14C50 4 120 2 197 10" fill="none" stroke="var(--sun)" stroke-width="7" stroke-linecap="round"/></svg></span> de su propio cuento</h1>
+        <p class="lede">Creamos un libro ilustrado donde tu hijo o hija vive la historia que quieres contarle: un miedo que superar, un colegio nuevo, un hermanito que llega. Con sus mascotas y las personas que ama.</p>
+        <div class="hero-cta">
+          <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg>Escríbeme para reservar</a>
+          <a class="btn btn-ghost" href="#como">Cómo funciona</a>
+        </div>
+        <ul class="facts" aria-label="Lo esencial">
+          <li><b>30</b> páginas ilustradas</li>
+          <li>Pasta dura</li>
+          <li>Entrega en <b>15 días</b></li>
+          <li><b>$189.000</b> COP</li>
+        </ul>
+      </div>
+
+      <div class="stage" aria-label="David y su equipo: Ainhoa, Speed y Panda">
+        <div class="stars"></div>
+        <div class="orb"></div>
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+        <div class="hill"></div>
+        <span class="flower" style="left:10%;bottom:6%"></span>
+        <span class="flower" style="left:70%;bottom:4%"></span>
+        <span class="flower" style="left:88%;bottom:22%"></span>
+        <button class="actor a-ainhoa" data-ch="ainhoa" aria-label="Saluda a Ainhoa"><span class="bubble l">¡Guau! Yo voy adelante</span><span class="ch-slot" data-ch="ainhoa"></span></button>
+        <button class="actor a-david" data-ch="david" aria-label="Saluda a David"><span class="bubble">¡Mi equipo y yo vivimos aventuras mágicas!</span><span class="ch-slot" data-ch="david"></span></button>
+        <button class="actor a-speed" data-ch="speed" aria-label="Saluda a Speed"><span class="bubble r">¡Nadie me alcanza!</span><span class="ch-slot" data-ch="speed"></span></button>
+        <button class="actor a-panda" data-ch="panda" aria-label="Saluda a Panda"><span class="bubble">Miau… ¿otro capítulo?</span><span class="ch-slot" data-ch="panda"></span></button>
+        <p class="stage-hint">Toca a cada personaje</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ribbon" aria-hidden="true"><div class="ribbon-track">
+    <span>Colegio nuevo</span><span>Miedo a la noche</span><span>Un hermanito</span><span>Dejar el pañal</span><span>Valentía</span><span>Mascotas</span><span>Amistad</span><span>Recordar a alguien</span>
+    <span>Colegio nuevo</span><span>Miedo a la noche</span><span>Un hermanito</span><span>Dejar el pañal</span><span>Valentía</span><span>Mascotas</span><span>Amistad</span><span>Recordar a alguien</span>
+  </div></div>
+
+  <!-- EQUIPO -->
+  <section class="block" id="equipo">
+    <div class="wrap">
+      <div class="sec-head center">
+        <p class="eyebrow">Conoce al equipo</p>
+        <h2>Los personajes de David cobran vida</h2>
+        <p>En cada libro, tu peque es el héroe y quienes ama lo acompañan. Así se ve el equipo de <span class="story">“David y la magia de su equipo”</span>.</p>
+      </div>
+      <div class="cast">
+        <div class="cast-card c-y"><button class="actor" data-ch="david" aria-label="David, el protagonista. Toca para saludar"><span class="bubble">¡Mi equipo y yo vivimos aventuras mágicas!</span><span class="ch-holder"><span class="ch-slot" data-ch="david"></span></span><span class="cast-base"><strong>David</strong><span>El protagonista</span></span></button></div>
+        <div class="cast-card c-p"><button class="actor" data-ch="ainhoa" aria-label="Ainhoa, la border collie. Toca para saludar"><span class="bubble">¡Guau! Yo voy adelante</span><span class="ch-holder"><span class="ch-slot" data-ch="ainhoa"></span></span><span class="cast-base"><strong>Ainhoa</strong><span>La border collie</span></span></button></div>
+        <div class="cast-card c-g"><button class="actor" data-ch="speed" aria-label="Speed, el perrito veloz. Toca para saludar"><span class="bubble">¡Nadie me alcanza!</span><span class="ch-holder"><span class="ch-slot" data-ch="speed"></span></span><span class="cast-base"><strong>Speed</strong><span>El perrito veloz</span></span></button></div>
+        <div class="cast-card c-b"><button class="actor" data-ch="panda" aria-label="Panda, el gatito. Toca para saludar"><span class="bubble">Miau… ¿otro capítulo?</span><span class="ch-holder"><span class="ch-slot" data-ch="panda"></span></span><span class="cast-base"><strong>Panda</strong><span>El gatito del equipo</span></span></button></div>
+      </div>
+      <p class="cast-note">Pueden ser mascotas, hermanos, abuelos o amigos. Tú nos cuentas quién acompaña a tu peque.</p>
+    </div>
+  </section>
+
+  <!-- HISTORIAS -->
+  <section class="block" id="historias" style="padding-top:24px">
+    <div class="wrap stories">
+      <div>
+        <div class="sec-head" style="margin-bottom:22px">
+          <p class="eyebrow">Los libros siempre serán una forma hermosa de enseñar</p>
+          <h2>¿Tienes una historia que contarle a tu peque?</h2>
+        </div>
+        <div class="topics" id="topics"></div>
+      </div>
+      <div>
+        <div class="book" id="book">
+          <div class="page">
+            <div class="page-img"><img src="img/mama-cuento.jpg" alt="Ilustración en acuarela de una mamá leyendo un cuento con su hija en la cama" width="325" height="345"></div>
+            <p class="page-caption">Una historia hecha para leer juntos</p>
+          </div>
+          <div class="page page-r" id="story-page" aria-live="polite">
+            <span class="tag">Ejemplo con David</span>
+            <h3 id="story-title"></h3>
+            <p id="story-text"></p>
+            <div class="mini" id="story-mini"></div>
+          </div>
+        </div>
+        <div class="reassure">
+          <svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="15" fill="var(--leaf-soft)" stroke="var(--leaf)" stroke-width="2.5"/><path d="M10 17.5l4.5 4.5L24 12.5" fill="none" stroke="var(--leaf)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p>No tienes que escribir la historia. Cuéntanos qué te preocupa o qué quieres enseñarle, y nosotros la construimos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTILOS -->
+  <section class="block" id="estilos" style="padding-top:24px">
+    <div class="wrap styles-grid">
+      <div>
+        <div class="sec-head" style="margin-bottom:24px">
+          <p class="eyebrow">Línea gráfica</p>
+          <h2>¿Cómo imaginas su cuento?</h2>
+          <p>Ilustramos a tu peque a partir de sus fotos y de lo que nos cuentes sobre colores y estilo. Mira cómo cambia todo el equipo de David en cada uno.</p>
+        </div>
+        <div class="looks" role="radiogroup" aria-label="Estilo de ilustración" id="looks">
+          <button class="look-btn" role="radio" aria-checked="true" data-look="acuarela"><b>Caricatura acuarela</b><span>Nuestro estilo: ilustrada y suave, como el libro de David.</span></button>
+          <button class="look-btn" role="radio" aria-checked="false" data-look="comic"><b>Cómic brillante</b><span>Personajes tipo cómic, con colores vivos y más energía.</span></button>
+        </div>
+        <div class="ref-card">
+          <b>¿Tienes un referente?</b>
+          <p>Envíanos una imagen o un libro que te guste por sus colores o su ilustración. Si no tienes, lo dejas a nuestro diseño. Cuando veas la propuesta, nos dices si te gusta o qué cambiarías.</p>
+        </div>
+      </div>
+      <div>
+        <div class="scene look-acuarela" id="scene">
+          <span class="scene-label" id="scene-label">Caricatura acuarela</span>
+          <span class="pow" aria-hidden="true">¡A la aventura!</span>
+          <figure class="inset"><img src="img/portada-david.jpg" alt="" width="590" height="615">Así se ve en el libro real</figure>
+          <div class="ground"></div>
+          <div class="set set-wc"><div class="a"><span class="ch-slot" data-ch="wc-ainhoa"></span></div><div class="d"><span class="ch-slot" data-ch="wc-david"></span></div><div class="p"><span class="ch-slot" data-ch="wc-panda"></span></div><div class="s"><span class="ch-slot" data-ch="wc-speed"></span></div></div>
+          <div class="set set-cm"><div class="a"><span class="ch-slot" data-ch="cm-ainhoa"></span></div><div class="d"><span class="ch-slot" data-ch="cm-david"></span></div><div class="p"><span class="ch-slot" data-ch="cm-panda"></span></div><div class="s"><span class="ch-slot" data-ch="cm-speed"></span></div></div>
+        </div>
+        <p class="scene-caption" id="scene-caption">Formas redondas, trazos suaves sin línea negra, colores lavados y caritas felices. Es el estilo de “David y la magia de su equipo”.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIBRO -->
+  <section class="block" id="libro" style="padding-top:24px">
+    <div class="wrap book-show">
+      <div class="cover-wrap">
+        <img class="cover" src="img/portada-david.jpg" alt="Portada del libro “David y la magia de su equipo”, con David abrazado por sus perros Ainhoa y Speed y el gato Panda" width="590" height="615">
+        <button class="actor peek" data-ch="panda" aria-label="Saluda a Panda"><span class="bubble">¡Ese libro es nuestro!</span><span class="ch-slot" data-ch="panda"></span></button>
+      </div>
+      <div>
+        <div class="sec-head" style="margin-bottom:0">
+          <p class="eyebrow">El libro</p>
+          <h2>Un libro para guardar toda la vida</h2>
+          <p>Así quedó el libro de David. El tuyo tendrá la historia, los personajes y los colores que elijas.</p>
+        </div>
+        <ul class="specs">
+          <li><b>Pasta dura</b><span>Hojas ensanduchadas, firmes para pequeñas manos.</span></li>
+          <li><b>30 páginas</b><span>Ilustradas de principio a fin.</span></li>
+          <li><b>Tu peque al centro</b><span>Es el personaje principal de su historia.</span></li>
+          <li><b>Su gente y sus mascotas</b><span>Personajes adicionales, como Ainhoa, Speed y Panda.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASOS -->
+  <section class="block" id="como" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head center">
+        <p class="eyebrow">Paso a paso</p>
+        <h2>Así creamos su cuento</h2>
+      </div>
+      <ol class="steps">
+        <li><span class="num">1</span><div><h3>Reserva</h3><p>Escríbenos por WhatsApp y separa tu libro con el 50% de anticipo.</p></div></li>
+        <li><span class="num">2</span><div><h3>Envía las fotos</h3><p>Fotos de tu peque y de los personajes que quieras sumar.</p></div></li>
+        <li><span class="num">3</span><div><h3>Cuéntanos el tema</h3><p>Qué quieres enseñarle o qué te preocupa, y si tienes un referente de estilo.</p></div></li>
+        <li><span class="num">4</span><div><h3>Aprueba</h3><p>Te mostramos la historia y los personajes. Tú das el visto bueno.</p></div></li>
+        <li><span class="num">5</span><div><h3>Recíbelo</h3><p>Tu libro está listo 15 días después de aprobar la historia.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- PRECIO -->
+  <section class="block" id="precio" style="padding-top:24px">
+    <div class="wrap">
+      <div class="price-band">
+        <div>
+          <p class="eyebrow">Precio</p>
+          <h2 style="margin-top:8px">Un cuento único, hecho solo para tu peque</h2>
+          <ul class="price-list">
+            <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--leaf-soft)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--leaf)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Historia escrita a la medida de tu familia</li>
+            <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--leaf-soft)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--leaf)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Ilustraciones en el estilo que elijas</li>
+            <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--leaf-soft)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--leaf)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Libro de pasta dura de 30 páginas</li>
+            <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--leaf-soft)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--leaf)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Apruebas la historia y los personajes antes de imprimir</li>
+          </ul>
+        </div>
+        <div class="price-side">
+          <p class="price">$189.000 <small>COP</small></p>
+          <p class="deposit">Reserva con el 50%: <b>$94.500</b></p>
+          <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg>Reservar mi libro</a>
+        </div>
+        <div class="track" aria-hidden="true"></div>
+        <div class="runner" aria-hidden="true"><span class="ch-slot" data-ch="speed"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="finale" id="reservar">
+    <div class="wrap">
+      <h2>Déjanos contar esa historia contigo</h2>
+      <p class="story">Tu peque, sus miedos, sus logros y quienes lo acompañan, en un libro que leerán juntos muchas veces.</p>
+      <div class="lineup">
+        <button class="actor l-ainhoa" data-ch="ainhoa" aria-label="Saluda a Ainhoa"><span class="bubble l">¡Guau!</span><span class="ch-slot" data-ch="ainhoa"></span></button>
+        <button class="actor l-david" data-ch="david" aria-label="Saluda a David"><span class="bubble">¡Te esperamos!</span><span class="ch-slot" data-ch="david"></span></button>
+        <button class="actor l-panda" data-ch="panda" aria-label="Saluda a Panda"><span class="bubble">Miau</span><span class="ch-slot" data-ch="panda"></span></button>
+        <button class="actor l-speed" data-ch="speed" aria-label="Saluda a Speed"><span class="bubble r">¡Vamos!</span><span class="ch-slot" data-ch="speed"></span></button>
+      </div>
+      <div class="contact">
+        <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener" style="font-size:1.3rem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg>Escríbeme para reservar</a>
+        <div class="phone"><span>WhatsApp</span><output id="phone">315 382 8798</output><button class="copy" id="copy" type="button">Copiar</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>Bruna Magic Lab</b> · De los creadores de <span class="story">Un amor sin límites</span></span>
+    <span>Libros infantiles personalizados · Colombia</span>
+  </div>
+</footer>
+
+<a class="fab js-wa" href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg></a>
+
+<script>
+(function(){
+  /* ---------- WhatsApp ---------- */
+  var WA = 'https://wa.me/573153828798?text=' + encodeURIComponent('Hola Bruna Magic Lab, quiero reservar un libro personalizado para mi peque.');
+  document.querySelectorAll('.js-wa').forEach(function(a){ a.href = WA; });
+
+  /* ---------- Personajes ---------- */
+  var L = '#2A2340';
+  var O = ' stroke="'+L+'" stroke-width="5" stroke-linejoin="round" class="o"';
+  function limb(d, color, w){ return '<path d="'+d+'" fill="none" stroke="'+L+'" stroke-width="'+(w+9)+'" stroke-linecap="round"/><path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="'+w+'" stroke-linecap="round"/>'; }
+  function eye(cx, cy, rx, ry){ return '<g class="pupil" data-cx="'+cx+'" data-cy="'+cy+'"><ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="'+L+'" class="keep"/><circle cx="'+(cx+2.4)+'" cy="'+(cy-3.2)+'" r="2.4" fill="#fff" class="keep"/></g>'; }
+
+  var SKIN = '#F2B48A', SHIRT = '#5DB043';
+  var CH = {
+    david: '<svg viewBox="0 0 200 210" class="ch david" aria-hidden="true"><g class="bob">'+
+      '<circle cx="57" cy="94" r="10" fill="'+SKIN+'"'+O+'/><circle cx="143" cy="94" r="10" fill="'+SKIN+'"'+O+'/>'+
+      '<path d="M56 206 C56 158 72 136 100 136 C128 136 144 158 144 206 Z" fill="'+SHIRT+'"'+O+'/>'+
+      '<path d="M80 140 L86 206 M120 140 L114 206" stroke="#8B5A33" stroke-width="8" stroke-linecap="round" fill="none"/>'+
+      '<circle cx="86" cy="176" r="4" fill="#F4B92E"/><circle cx="114" cy="176" r="4" fill="#F4B92E"/>'+
+      limb('M64 158 C50 168 46 184 52 192', SHIRT, 10)+'<circle cx="53" cy="195" r="9" fill="'+SKIN+'"'+O+'/>'+
+      '<g class="wave" style="transform-origin:138px 156px">'+limb('M136 156 C150 146 160 130 163 116', SHIRT, 10)+'<circle cx="165" cy="106" r="11" fill="'+SKIN+'"'+O+'/></g>'+
+      '<circle cx="100" cy="90" r="44" fill="'+SKIN+'"'+O+'/>'+
+      '<path d="M56 86 C46 52 68 32 86 40 C92 24 118 22 124 40 C144 32 158 54 146 86 C140 70 128 62 116 66 C108 56 92 58 86 68 C74 62 62 70 56 86 Z" fill="#3A2A22"'+O+'/>'+
+      '<path d="M60 58 Q100 34 142 58" stroke="'+L+'" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M60 58 Q100 34 142 58" stroke="#3FA7E6" stroke-width="6" fill="none" stroke-linecap="round"/>'+
+      '<circle cx="86" cy="45" r="11" fill="#A8DDF6"'+O+'/><circle cx="114" cy="45" r="11" fill="#A8DDF6"'+O+'/>'+
+      '<g class="eyes">'+eye(84,95,6.5,8.5)+eye(116,95,6.5,8.5)+'</g>'+
+      '<circle cx="70" cy="110" r="7" fill="#F08A8A" opacity=".55"/><circle cx="130" cy="110" r="7" fill="#F08A8A" opacity=".55"/>'+
+      '<path d="M86 113 Q100 131 114 113 Z" fill="#C2414B" stroke="'+L+'" stroke-width="4" stroke-linejoin="round"/><path d="M93 122 Q100 117 107 122 Q100 127 93 122Z" fill="#F38BA0"/>'+
+      '</g></svg>',
+
+    ainhoa: '<svg viewBox="0 0 200 210" class="ch ainhoa" aria-hidden="true"><g class="bob">'+
+      '<g class="tail" style="transform-origin:136px 160px"><path d="M134 176 C166 172 186 146 178 110 C170 132 156 146 136 152 Z" fill="#B8612C"'+O+'/><path d="M178 112 C177 124 172 132 166 138 C174 134 181 124 178 112Z" fill="#FFF8EE"/></g>'+
+      '<path d="M58 206 C54 160 70 128 100 126 C130 128 146 160 142 206 Z" fill="#B8612C"'+O+'/>'+
+      '<path d="M72 130 L79 146 L86 134 L93 150 L100 136 L107 150 L114 134 L121 146 L128 130 C124 170 110 190 100 206 C90 190 76 170 72 130 Z" fill="#FFF8EE"/>'+
+      '<ellipse cx="80" cy="200" rx="15" ry="9" fill="#FFF8EE"'+O+'/><ellipse cx="120" cy="200" rx="15" ry="9" fill="#FFF8EE"'+O+'/>'+
+      '<g class="head">'+
+        '<path d="M64 72 C56 54 52 40 56 26 C70 28 84 42 88 54 Z" fill="#8E4520"'+O+'/><path d="M56 26 C64 28 72 34 76 40 L62 46 Z" fill="#6E3315" stroke="'+L+'" stroke-width="3" stroke-linejoin="round"/>'+
+        '<path d="M136 72 C144 54 148 40 144 26 C130 28 116 42 112 54 Z" fill="#8E4520"'+O+'/><path d="M144 26 C136 28 128 34 124 40 L138 46 Z" fill="#6E3315" stroke="'+L+'" stroke-width="3" stroke-linejoin="round"/>'+
+        '<path d="M54 88 C54 62 74 46 100 46 C126 46 146 62 146 88 L154 95 L145 100 L150 110 L138 111 C130 124 116 130 100 130 C84 130 70 124 62 111 L50 110 L55 100 L46 95 Z" fill="#B8612C"'+O+'/>'+
+        '<path d="M100 48 C95 64 90 78 78 96 C82 120 118 120 122 96 C110 78 105 64 100 48 Z" fill="#FFF8EE"/>'+
+        '<ellipse cx="100" cy="108" rx="24" ry="16" fill="#FFF8EE"'+O+'/>'+
+        '<g class="eyes">'+eye(80,84,6,7.5)+eye(120,84,6,7.5)+'</g>'+
+        '<g class="tongue"><path d="M93 112 C92 130 108 130 107 112 Z" fill="#EF7C93" stroke="'+L+'" stroke-width="4" stroke-linejoin="round"/></g>'+
+        '<path d="M86 110 Q100 120 114 110" fill="none" stroke="'+L+'" stroke-width="4" stroke-linecap="round"/>'+
+        '<ellipse cx="100" cy="100" rx="9" ry="6.5" fill="'+L+'" class="keep"/>'+
+      '</g></g></svg>',
+
+    speed: '<svg viewBox="0 0 200 210" class="ch speed" aria-hidden="true"><g class="bob">'+
+      '<g class="tail" style="transform-origin:132px 186px">'+limb('M132 186 C164 186 178 158 172 128', '#E6C99A', 7)+'</g>'+
+      '<path d="M68 206 C64 162 78 132 100 130 C122 132 136 162 132 206 Z" fill="#E6C99A"'+O+'/>'+
+      '<circle cx="84" cy="174" r="7" fill="#A8703F"/><circle cx="114" cy="188" r="5" fill="#A8703F"/><circle cx="110" cy="164" r="4" fill="#A8703F"/>'+
+      '<ellipse cx="84" cy="201" rx="13" ry="8" fill="#E6C99A"'+O+'/><ellipse cx="116" cy="201" rx="13" ry="8" fill="#E6C99A"'+O+'/>'+
+      '<path d="M74 134 Q100 150 126 134 L126 144 Q100 160 74 144 Z" fill="#5DB043" stroke="'+L+'" stroke-width="4" stroke-linejoin="round" class="o"/><circle cx="100" cy="158" r="6" fill="#F4B92E" stroke="'+L+'" stroke-width="3"/>'+
+      '<g class="head">'+
+        '<path d="M70 62 L50 22 C66 26 82 36 88 50 Z" fill="#C79A63"'+O+'/><path d="M130 62 L150 22 C134 26 118 36 112 50 Z" fill="#C79A63"'+O+'/>'+
+        '<path d="M62 74 C62 42 138 42 138 74 C138 96 122 104 118 120 C112 134 88 134 82 120 C78 104 62 96 62 74 Z" fill="#E6C99A"'+O+'/>'+
+        '<circle cx="76" cy="62" r="6" fill="#A8703F"/><circle cx="124" cy="98" r="4" fill="#A8703F"/><circle cx="129" cy="86" r="2.5" fill="#A8703F"/>'+
+        '<g class="eyes">'+eye(84,76,6,7.5)+eye(116,76,6,7.5)+'</g>'+
+        '<ellipse cx="100" cy="118" rx="8" ry="6" fill="'+L+'" class="keep"/>'+
+        '<path d="M92 126 Q100 131 108 126" fill="none" stroke="'+L+'" stroke-width="3.5" stroke-linecap="round"/>'+
+      '</g></g></svg>',
+
+    panda: '<svg viewBox="0 0 200 210" class="ch panda" aria-hidden="true"><g class="bob">'+
+      '<g class="tail" style="transform-origin:128px 188px">'+limb('M128 188 C166 192 178 158 160 138', '#2E2A3A', 8)+'</g>'+
+      '<ellipse cx="100" cy="172" rx="40" ry="34" fill="#2E2A3A"'+O+'/>'+
+      '<ellipse cx="100" cy="180" rx="22" ry="24" fill="#FFFFFF"/>'+
+      '<ellipse cx="84" cy="202" rx="12" ry="8" fill="#FFFFFF"'+O+'/><ellipse cx="116" cy="202" rx="12" ry="8" fill="#FFFFFF"'+O+'/>'+
+      '<g class="head">'+
+        '<path d="M62 80 L60 34 L94 58 Z" fill="#2E2A3A"'+O+'/><path d="M138 80 L140 34 L106 58 Z" fill="#2E2A3A"'+O+'/>'+
+        '<path d="M68 66 L67 46 L84 58 Z" fill="#F39BB3"/><path d="M132 66 L133 46 L116 58 Z" fill="#F39BB3"/>'+
+        '<ellipse cx="100" cy="92" rx="46" ry="40" fill="#2E2A3A"'+O+'/>'+
+        '<path d="M100 66 C90 80 66 90 66 108 C66 128 134 128 134 108 C134 90 110 80 100 66 Z" fill="#FFFFFF"/>'+
+        '<circle cx="80" cy="90" r="11" fill="#F6F2E4" stroke="'+L+'" stroke-width="3"/><circle cx="120" cy="90" r="11" fill="#F6F2E4" stroke="'+L+'" stroke-width="3"/>'+
+        '<g class="eyes">'+eye(80,91,5.5,6.5)+eye(120,91,5.5,6.5)+'</g>'+
+        '<path d="M95 104 L105 104 L100 110 Z" fill="#F07C9A" stroke="'+L+'" stroke-width="2" stroke-linejoin="round"/>'+
+        '<path d="M90 113 Q95 119 100 113 Q105 119 110 113" fill="none" stroke="'+L+'" stroke-width="3" stroke-linecap="round"/>'+
+        '<path d="M50 104 L70 107 M50 115 L70 113 M150 104 L130 107 M150 115 L130 113" stroke="#C9C3D6" stroke-width="2.5" stroke-linecap="round"/>'+
+        '<circle cx="76" cy="112" r="5" fill="#F39BB3" opacity=".6"/><circle cx="124" cy="112" r="5" fill="#F39BB3" opacity=".6"/>'+
+      '</g></g></svg>'
+  };
+  /* --- Caricatura acuarela: sin tinta negra, lavados de color, ojos felices cerrados --- */
+  var hairCurls = [[60,80,13],[66,62,15],[80,48,16],[98,42,17],[116,44,16],[132,54,15],[142,70,13],[146,86,9],[56,96,8],[74,64,11],[92,58,11],[110,58,11],[126,64,11]]
+    .map(function(c){ return '<circle cx="'+c[0]+'" cy="'+c[1]+'" r="'+c[2]+'" fill="url(#wc-hair)"/>'; }).join('');
+  CH['wc-david'] = '<svg viewBox="0 0 200 210" class="ch wc wc-david" aria-hidden="true"><g class="sway"><g filter="url(#wc-edge)">'+
+    '<path d="M58 208 C58 164 74 142 100 142 C126 142 142 164 142 208 Z" fill="url(#wc-shirt)" stroke="#5E8F4A" stroke-width="2" stroke-opacity=".6"/>'+
+    '<path d="M80 146 L85 208 M120 146 L115 208" stroke="#A0704A" stroke-width="6" stroke-linecap="round" fill="none" opacity=".85"/>'+
+    '<path d="M66 160 C52 170 50 186 56 194" stroke="#86C46B" stroke-width="13" stroke-linecap="round" fill="none"/><circle cx="57" cy="196" r="9" fill="url(#wc-skin)"/>'+
+    '<g class="wave" style="transform-origin:136px 158px"><path d="M134 158 C148 148 158 132 161 118" stroke="#86C46B" stroke-width="13" stroke-linecap="round" fill="none"/><circle cx="163" cy="108" r="10" fill="url(#wc-skin)"/></g>'+
+    '<circle cx="56" cy="98" r="9" fill="url(#wc-skin)"/><circle cx="144" cy="98" r="9" fill="url(#wc-skin)"/>'+
+    '<circle cx="100" cy="96" r="45" fill="url(#wc-skin)" stroke="#C98A66" stroke-width="2" stroke-opacity=".5"/>'+
+    hairCurls+
+    '<path d="M70 44 Q100 26 132 42" stroke="#5FAEDC" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>'+
+    '<circle cx="88" cy="36" r="10" fill="url(#wc-lens)" stroke="#4F9CCB" stroke-width="1.5"/><circle cx="114" cy="35" r="10" fill="url(#wc-lens)" stroke="#4F9CCB" stroke-width="1.5"/>'+
+    '<path d="M74 98 Q83 89 92 98 M108 98 Q117 89 126 98" stroke="#5A3A2E" stroke-width="3.5" stroke-linecap="round" fill="none"/>'+
+    '<ellipse cx="70" cy="112" rx="10" ry="6.5" fill="#F2948C" opacity=".45"/><ellipse cx="130" cy="112" rx="10" ry="6.5" fill="#F2948C" opacity=".45"/>'+
+    '<circle cx="66" cy="106" r="1.3" fill="#C27C5A"/><circle cx="71" cy="104" r="1.3" fill="#C27C5A"/><circle cx="134" cy="106" r="1.3" fill="#C27C5A"/><circle cx="129" cy="104" r="1.3" fill="#C27C5A"/>'+
+    '<path d="M82 110 Q100 140 118 110 Q100 116 82 110 Z" fill="#B5464E"/><ellipse cx="100" cy="127" rx="9" ry="5" fill="#EE8F98"/><path d="M86 111 Q100 117 114 111 L112 115 Q100 120 88 115 Z" fill="#fff"/>'+
+    '</g></g></svg>';
+  CH['wc-panda'] = '<svg viewBox="0 0 200 210" class="ch wc wc-panda" aria-hidden="true"><g class="sway"><g filter="url(#wc-edge)">'+
+    '<path d="M130 190 C164 192 172 160 158 142" stroke="#4A4553" stroke-width="11" stroke-linecap="round" fill="none"/>'+
+    '<ellipse cx="100" cy="174" rx="38" ry="32" fill="url(#wc-cat)"/>'+
+    '<ellipse cx="100" cy="182" rx="21" ry="22" fill="url(#wc-white)"/>'+
+    '<ellipse cx="85" cy="203" rx="12" ry="7" fill="url(#wc-white)"/><ellipse cx="115" cy="203" rx="12" ry="7" fill="url(#wc-white)"/>'+
+    '<path d="M64 84 C60 66 62 50 66 40 C78 46 90 54 96 62 Z" fill="url(#wc-cat)"/><path d="M136 84 C140 66 138 50 134 40 C122 46 110 54 104 62 Z" fill="url(#wc-cat)"/>'+
+    '<path d="M70 72 C68 62 69 54 71 49 C78 53 84 57 87 62 Z" fill="#F5B5C6" opacity=".75"/><path d="M130 72 C132 62 131 54 129 49 C122 53 116 57 113 62 Z" fill="#F5B5C6" opacity=".75"/>'+
+    '<ellipse cx="100" cy="96" rx="44" ry="38" fill="url(#wc-cat)"/>'+
+    '<path d="M100 64 C86 78 62 88 62 108 C62 130 138 130 138 108 C138 88 114 78 100 64 Z" fill="url(#wc-white)"/>'+
+    '<path d="M76 96 Q84 88 92 96 M108 96 Q116 88 124 96" stroke="#3A3640" stroke-width="3.2" stroke-linecap="round" fill="none"/>'+
+    '<ellipse cx="76" cy="110" rx="8" ry="5" fill="#F5A3B5" opacity=".5"/><ellipse cx="124" cy="110" rx="8" ry="5" fill="#F5A3B5" opacity=".5"/>'+
+    '<path d="M96 104 L104 104 L100 109 Z" fill="#E98AA0"/>'+
+    '<path d="M91 112 Q95.5 117 100 112 Q104.5 117 109 112" stroke="#3A3640" stroke-width="2.4" stroke-linecap="round" fill="none"/>'+
+    '<path d="M54 104 L72 107 M54 114 L72 112 M146 104 L128 107 M146 114 L128 112" stroke="#9A93A6" stroke-width="1.6" stroke-linecap="round"/>'+
+    '</g></g></svg>';
+
+  CH['wc-ainhoa'] = '<svg viewBox="0 0 200 210" class="ch wc wc-ainhoa" aria-hidden="true"><g class="sway"><g filter="url(#wc-edge)">'+
+    '<g class="tail" style="transform-origin:136px 160px"><path d="M134 176 C166 172 186 146 178 110 C170 132 156 146 136 152 Z" fill="url(#wc-fur)"/><path d="M178 112 C177 124 172 132 166 138 C174 134 181 124 178 112Z" fill="#FFF8EE"/></g>'+
+    '<path d="M58 206 C54 160 70 128 100 126 C130 128 146 160 142 206 Z" fill="url(#wc-fur)"/>'+
+    '<path d="M72 130 C80 146 86 136 92 150 C96 140 104 140 108 150 C114 136 120 146 128 130 C124 170 110 190 100 206 C90 190 76 170 72 130 Z" fill="url(#wc-white)"/>'+
+    '<ellipse cx="80" cy="201" rx="15" ry="8" fill="url(#wc-white)"/><ellipse cx="120" cy="201" rx="15" ry="8" fill="url(#wc-white)"/>'+
+    '<path d="M64 74 C56 56 54 42 58 30 C72 32 84 44 88 56 Z" fill="url(#wc-ear)"/><path d="M136 74 C144 56 146 42 142 30 C128 32 116 44 112 56 Z" fill="url(#wc-ear)"/>'+
+    '<path d="M54 90 C54 62 74 48 100 48 C126 48 146 62 146 90 C150 98 150 106 142 110 C132 124 116 130 100 130 C84 130 68 124 58 110 C50 106 50 98 54 90 Z" fill="url(#wc-fur)"/>'+
+    '<path d="M100 50 C95 64 90 78 78 96 C82 120 118 120 122 96 C110 78 105 64 100 50 Z" fill="url(#wc-white)"/>'+
+    '<ellipse cx="100" cy="108" rx="23" ry="15" fill="url(#wc-white)"/>'+
+    '<path d="M70 86 Q79 78 88 86 M112 86 Q121 78 130 86" stroke="#4A2A1A" stroke-width="3.2" stroke-linecap="round" fill="none"/>'+
+    '<ellipse cx="70" cy="98" rx="8" ry="5" fill="#F2948C" opacity=".4"/><ellipse cx="130" cy="98" rx="8" ry="5" fill="#F2948C" opacity=".4"/>'+
+    '<path d="M86 108 Q100 128 114 108 Q100 113 86 108 Z" fill="#B5464E"/>'+
+    '<g class="tongue"><path d="M93 114 C92 132 108 132 107 114 Z" fill="#EE8F98"/></g>'+
+    '<ellipse cx="100" cy="100" rx="8" ry="5.5" fill="#3A2A26"/>'+
+    '</g></g></svg>';
+  CH['wc-speed'] = '<svg viewBox="0 0 200 210" class="ch wc wc-speed" aria-hidden="true"><g class="sway"><g filter="url(#wc-edge)">'+
+    '<g class="tail" style="transform-origin:132px 186px"><path d="M132 186 C164 186 178 158 172 128" stroke="#D9B887" stroke-width="9" stroke-linecap="round" fill="none"/></g>'+
+    '<path d="M68 206 C64 162 78 132 100 130 C122 132 136 162 132 206 Z" fill="url(#wc-tan)"/>'+
+    '<circle cx="84" cy="174" r="7" fill="#B07D4E" opacity=".55"/><circle cx="114" cy="188" r="5" fill="#B07D4E" opacity=".55"/><circle cx="110" cy="164" r="4" fill="#B07D4E" opacity=".55"/>'+
+    '<ellipse cx="84" cy="201" rx="13" ry="7" fill="url(#wc-tan)"/><ellipse cx="116" cy="201" rx="13" ry="7" fill="url(#wc-tan)"/>'+
+    '<path d="M74 134 Q100 150 126 134 L126 144 Q100 160 74 144 Z" fill="#8FCB6B"/><circle cx="100" cy="157" r="5" fill="#F4C766"/>'+
+    '<path d="M68 64 C56 50 50 36 52 26 C66 30 80 42 86 52 Z" fill="#CFA673"/><path d="M132 64 C144 50 150 36 148 26 C134 30 120 42 114 52 Z" fill="#CFA673"/>'+
+    '<path d="M62 74 C62 42 138 42 138 74 C138 96 122 104 118 120 C112 134 88 134 82 120 C78 104 62 96 62 74 Z" fill="url(#wc-tan)"/>'+
+    '<circle cx="76" cy="62" r="6" fill="#B07D4E" opacity=".55"/><circle cx="124" cy="98" r="4" fill="#B07D4E" opacity=".55"/><circle cx="129" cy="86" r="2.5" fill="#B07D4E" opacity=".55"/>'+
+    '<path d="M76 78 Q84 70 92 78 M108 78 Q116 70 124 78" stroke="#5A3A2E" stroke-width="3.2" stroke-linecap="round" fill="none"/>'+
+    '<ellipse cx="78" cy="92" rx="7" ry="4.5" fill="#F2948C" opacity=".4"/><ellipse cx="122" cy="92" rx="7" ry="4.5" fill="#F2948C" opacity=".4"/>'+
+    '<ellipse cx="100" cy="118" rx="8" ry="5.5" fill="#4A3428"/>'+
+    '<path d="M90 125 Q100 134 110 125" stroke="#7A4E3A" stroke-width="2.5" fill="none" stroke-linecap="round"/>'+
+    '</g></g></svg>';
+
+  /* --- Cómic brillante: tinta negra gruesa, sombras duras con trama, ojos grandes con brillo, pose de acción --- */
+  var K = ' stroke="#111" stroke-width="6" stroke-linejoin="round"', K4 = ' stroke="#111" stroke-width="4" stroke-linejoin="round"';
+  function ink(d, c, w, o){ return '<path d="'+d+'" fill="none" stroke="#111" stroke-width="'+(w+o)+'" stroke-linecap="round"/><path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="'+w+'" stroke-linecap="round"/>'; }
+  function cmEye(cx, cy){ return '<ellipse cx="'+cx+'" cy="'+cy+'" rx="10" ry="12" fill="#fff" stroke="#111" stroke-width="3.5"/><g class="pupil" data-cx="'+cx+'" data-cy="'+cy+'"><circle cx="'+cx+'" cy="'+(cy+1)+'" r="6.5" fill="#7C4A1E"/><circle cx="'+cx+'" cy="'+(cy+1)+'" r="3.2" fill="#111"/><circle cx="'+(cx+2.5)+'" cy="'+(cy-2.5)+'" r="2.2" fill="#fff"/></g>'; }
+  function catEye(cx, cy){ return '<ellipse cx="'+cx+'" cy="'+cy+'" rx="11" ry="13" fill="#fff" stroke="#111" stroke-width="3.5"/><g class="pupil" data-cx="'+cx+'" data-cy="'+cy+'"><ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="7.5" ry="9" fill="#84CC16"/><ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="2.4" ry="7" fill="#111"/><circle cx="'+(cx+3)+'" cy="'+(cy-4)+'" r="2.4" fill="#fff"/></g>'; }
+  CH['cm-david'] = '<svg viewBox="0 0 200 210" class="ch cm cm-david" aria-hidden="true"><g class="pop">'+
+    '<path d="M52 208 L60 160 C64 147 80 140 100 140 C120 140 136 147 140 160 L148 208 Z" fill="#22C55E"'+K+'/>'+
+    '<path d="M120 143 C132 148 138 156 140 166 L148 208 L126 208 C130 182 128 160 120 143 Z" fill="#15803D"/><path d="M120 143 C132 148 138 156 140 166 L148 208 L126 208 C130 182 128 160 120 143 Z" fill="url(#dots)"/>'+
+    ink('M80 146 L86 206', '#7C4A1E', 6, 6)+ink('M120 146 L114 206', '#7C4A1E', 6, 6)+
+    '<path d="M100 158 L104.5 168 L115 169 L107 176 L109.5 186 L100 180.5 L90.5 186 L93 176 L85 169 L95.5 168 Z" fill="#FACC15" stroke="#111" stroke-width="3" stroke-linejoin="round"/>'+
+    ink('M64 160 C50 170 50 184 62 188', '#22C55E', 11, 10)+'<circle cx="64" cy="189" r="10" fill="#F2B48A"'+K4+'/>'+
+    '<g class="wave" style="transform-origin:136px 158px">'+ink('M134 158 C148 142 154 124 154 108', '#22C55E', 11, 10)+'<rect x="141" y="84" width="26" height="25" rx="8" fill="#F2B48A"'+K4+'/><path d="M147 93 L161 93 M147 100 L161 100" stroke="#111" stroke-width="2.5" stroke-linecap="round"/></g>'+
+    '<circle cx="56" cy="96" r="9" fill="#F2B48A"'+K4+'/><circle cx="144" cy="96" r="9" fill="#F2B48A"'+K4+'/>'+
+    '<path d="M56 88 C56 58 76 44 100 44 C124 44 144 58 144 88 C144 114 128 132 100 134 C72 132 56 114 56 88 Z" fill="#F2B48A"'+K+'/>'+
+    '<path d="M126 60 C140 72 143 92 140 110 C134 124 122 131 110 133 C127 117 133 92 126 60 Z" fill="#D98E63"/>'+
+    '<path d="M50 86 L44 60 L60 64 L54 38 L74 50 L78 24 L95 44 L108 18 L116 44 L134 26 L135 52 L154 44 L146 68 L156 82 L141 79 C134 66 122 61 110 63 L104 55 L96 65 C84 61 66 67 50 86 Z" fill="#2B1D17" stroke="#111" stroke-width="5" stroke-linejoin="round"/>'+
+    '<path d="M84 40 L92 52 M110 30 L112 46 M130 40 L126 52" stroke="#7A5644" stroke-width="3" stroke-linecap="round"/>'+
+    '<circle cx="86" cy="50" r="11" fill="#60A5FA"'+K4+'/><circle cx="116" cy="50" r="11" fill="#60A5FA"'+K4+'/><path d="M81 46 L86 42 M111 46 L116 42" stroke="#fff" stroke-width="3" stroke-linecap="round"/>'+
+    '<path d="M70 76 L94 82 M130 76 L106 82" stroke="#111" stroke-width="6" stroke-linecap="round"/>'+
+    '<g class="eyes">'+cmEye(84,98)+cmEye(116,98)+'</g>'+
+    '<path d="M101 104 L96 113 L103 113" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+    '<path d="M78 116 Q100 136 122 116 Z" fill="#7F1D1D" stroke="#111" stroke-width="4" stroke-linejoin="round"/><path d="M81 117 Q100 124 119 117 L118 121 Q100 128 82 121 Z" fill="#fff"/>'+
+    '<path d="M62 112 l7 -5 M67 116 l7 -5 M126 107 l7 5 M131 104 l7 5" stroke="#E11D48" stroke-width="2.5" stroke-linecap="round"/>'+
+    '</g></svg>';
+  CH['cm-panda'] = '<svg viewBox="0 0 200 210" class="ch cm cm-panda" aria-hidden="true"><g class="pop">'+
+    '<g class="tail" style="transform-origin:128px 188px">'+ink('M128 188 C168 192 178 156 158 134', '#1F1B2C', 9, 10)+'</g>'+
+    '<path d="M168 120 L180 112 M174 134 L188 130 M160 108 L164 96" stroke="#111" stroke-width="3" stroke-linecap="round"/>'+
+    '<ellipse cx="100" cy="172" rx="40" ry="34" fill="#1F1B2C"'+K+'/>'+
+    '<path d="M66 160 C68 148 78 142 86 140" stroke="#5B5280" stroke-width="4" stroke-linecap="round" fill="none"/>'+
+    '<ellipse cx="100" cy="180" rx="22" ry="24" fill="#fff"/><path d="M112 162 C122 172 122 192 110 202 C116 188 116 174 112 162 Z" fill="#D9D3E8"/><path d="M112 162 C122 172 122 192 110 202 C116 188 116 174 112 162 Z" fill="url(#dots)"/>'+
+    '<ellipse cx="84" cy="202" rx="12" ry="8" fill="#fff"'+K4+'/><ellipse cx="116" cy="202" rx="12" ry="8" fill="#fff"'+K4+'/>'+
+    '<g class="head">'+
+      '<path d="M60 84 L54 30 L96 58 Z" fill="#1F1B2C"'+K+'/><path d="M140 84 L146 30 L104 58 Z" fill="#1F1B2C"'+K+'/>'+
+      '<path d="M66 70 L62 44 L84 60 Z" fill="#FB7185"/><path d="M134 70 L138 44 L116 60 Z" fill="#FB7185"/>'+
+      '<ellipse cx="100" cy="94" rx="46" ry="40" fill="#1F1B2C"'+K+'/>'+
+      '<path d="M64 80 C68 68 80 60 92 58" stroke="#5B5280" stroke-width="4" stroke-linecap="round" fill="none"/>'+
+      '<path d="M100 64 C86 78 60 88 60 108 C60 130 140 130 140 108 C140 88 114 78 100 64 Z" fill="#fff"/>'+
+      '<path d="M124 82 C136 92 140 104 136 116 C130 124 120 128 112 129 C126 118 130 100 124 82 Z" fill="#D9D3E8"/>'+
+      '<g class="eyes">'+catEye(82,96)+catEye(118,96)+'</g>'+
+      '<path d="M95 108 L105 108 L100 114 Z" fill="#FB7185" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/>'+
+      '<path d="M88 117 Q100 130 112 117 Z" fill="#9F1239" stroke="#111" stroke-width="3" stroke-linejoin="round"/><path d="M92 118 L95 124 L98 118 Z" fill="#fff"/>'+
+      '<path d="M50 104 L72 108 M50 116 L72 114 M150 104 L128 108 M150 116 L128 114" stroke="#111" stroke-width="3" stroke-linecap="round"/>'+
+    '</g></g></svg>';
+
+  CH['cm-ainhoa'] = '<svg viewBox="0 0 200 210" class="ch cm cm-ainhoa" aria-hidden="true"><g class="pop">'+
+    '<g class="tail" style="transform-origin:136px 160px"><path d="M134 176 L176 150 L168 140 L186 118 L164 124 L170 104 C158 126 150 140 136 150 Z" fill="#C2571F"'+K+'/><path d="M170 106 L165 122 L178 119 Z" fill="#fff"/></g>'+
+    '<path d="M58 206 C54 160 70 128 100 126 C130 128 146 160 142 206 Z" fill="#C2571F"'+K+'/>'+
+    '<path d="M122 132 C136 146 142 172 142 206 L126 206 C130 176 130 152 122 132 Z" fill="#8E3B12"/><path d="M122 132 C136 146 142 172 142 206 L126 206 C130 176 130 152 122 132 Z" fill="url(#dots)"/>'+
+    '<path d="M72 130 L79 146 L86 134 L93 150 L100 136 L107 150 L114 134 L121 146 L128 130 C124 170 110 190 100 206 C90 190 76 170 72 130 Z" fill="#fff" stroke="#111" stroke-width="4" stroke-linejoin="round"/>'+
+    '<ellipse cx="80" cy="201" rx="15" ry="9" fill="#fff"'+K4+'/><ellipse cx="120" cy="201" rx="15" ry="9" fill="#fff"'+K4+'/>'+
+    '<g class="head">'+
+      '<path d="M62 74 L50 22 L90 52 Z" fill="#C2571F"'+K+'/><path d="M50 22 L66 34 L58 42 Z" fill="#8E3B12" stroke="#111" stroke-width="3" stroke-linejoin="round"/>'+
+      '<path d="M138 74 L150 22 L110 52 Z" fill="#C2571F"'+K+'/><path d="M150 22 L134 34 L142 42 Z" fill="#8E3B12" stroke="#111" stroke-width="3" stroke-linejoin="round"/>'+
+      '<path d="M52 90 C52 62 74 46 100 46 C126 46 148 62 148 90 L158 98 L146 104 L152 114 L136 114 C128 126 114 132 100 132 C86 132 72 126 64 114 L48 114 L54 104 L42 98 Z" fill="#C2571F"'+K+'/>'+
+      '<path d="M128 56 C142 66 148 80 148 92 L156 98 L145 103 L150 112 L137 112 C140 96 138 72 128 56 Z" fill="#8E3B12"/>'+
+      '<path d="M100 48 C95 64 90 78 78 96 C82 120 118 120 122 96 C110 78 105 64 100 48 Z" fill="#fff" stroke="#111" stroke-width="3" stroke-linejoin="round"/>'+
+      '<ellipse cx="100" cy="110" rx="24" ry="16" fill="#fff"'+K4+'/>'+
+      '<path d="M66 70 L86 75 M134 70 L114 75" stroke="#111" stroke-width="5" stroke-linecap="round"/>'+
+      '<g class="eyes">'+cmEye(80,86)+cmEye(120,86)+'</g>'+
+      '<path d="M84 112 Q100 134 116 112 Q100 118 84 112 Z" fill="#7F1D1D" stroke="#111" stroke-width="3.5" stroke-linejoin="round"/>'+
+      '<g class="tongue"><path d="M93 117 C92 135 108 135 107 117 Z" fill="#FB7185" stroke="#111" stroke-width="3" stroke-linejoin="round"/></g>'+
+      '<path d="M90 98 L110 98 L100 108 Z" fill="#111" stroke="#111" stroke-width="2" stroke-linejoin="round"/><path d="M94 100 L99 100" stroke="#fff" stroke-width="2" stroke-linecap="round"/>'+
+    '</g></g></svg>';
+  CH['cm-speed'] = '<svg viewBox="0 0 200 210" class="ch cm cm-speed" aria-hidden="true"><g class="pop">'+
+    '<path d="M6 118 L40 118 M12 140 L48 140 M2 162 L38 162" stroke="#111" stroke-width="4" stroke-linecap="round"/>'+
+    '<g class="tail" style="transform-origin:132px 186px">'+ink('M132 186 C164 186 178 158 172 128', '#E8C38A', 8, 10)+'</g>'+
+    '<path d="M68 206 C64 162 78 132 100 130 C122 132 136 162 132 206 Z" fill="#E8C38A"'+K+'/>'+
+    '<path d="M116 136 C128 148 132 172 132 206 L118 206 C122 178 122 154 116 136 Z" fill="#C39456"/><path d="M116 136 C128 148 132 172 132 206 L118 206 C122 178 122 154 116 136 Z" fill="url(#dots)"/>'+
+    '<circle cx="84" cy="174" r="7" fill="#8A5A2B"/><circle cx="110" cy="164" r="4" fill="#8A5A2B"/><circle cx="100" cy="190" r="5" fill="#8A5A2B"/>'+
+    '<ellipse cx="84" cy="201" rx="13" ry="8" fill="#E8C38A"'+K4+'/><ellipse cx="116" cy="201" rx="13" ry="8" fill="#E8C38A"'+K4+'/>'+
+    '<path d="M74 134 Q100 150 126 134 L126 145 Q100 161 74 145 Z" fill="#22C55E" stroke="#111" stroke-width="4" stroke-linejoin="round"/><circle cx="100" cy="158" r="6.5" fill="#FACC15" stroke="#111" stroke-width="3"/>'+
+    '<g class="head">'+
+      '<path d="M70 62 L44 18 C64 22 82 34 90 50 Z" fill="#C39456"'+K+'/><path d="M130 62 L156 18 C136 22 118 34 110 50 Z" fill="#C39456"'+K+'/>'+
+      '<path d="M62 74 C62 42 138 42 138 74 C138 96 122 104 118 120 C112 134 88 134 82 120 C78 104 62 96 62 74 Z" fill="#E8C38A"'+K+'/>'+
+      '<path d="M124 50 C134 58 138 66 138 76 C138 96 122 104 118 120 C114 128 108 132 102 133 C114 118 128 94 124 50 Z" fill="#C39456"/>'+
+      '<circle cx="76" cy="60" r="6" fill="#8A5A2B"/><circle cx="129" cy="88" r="3" fill="#8A5A2B"/>'+
+      '<path d="M70 60 L92 66 M130 60 L108 66" stroke="#111" stroke-width="5" stroke-linecap="round"/>'+
+      '<g class="eyes">'+cmEye(84,78)+cmEye(116,78)+'</g>'+
+      '<ellipse cx="100" cy="117" rx="9" ry="6.5" fill="#111"/><circle cx="97" cy="115" r="2" fill="#fff"/>'+
+      '<path d="M88 124 Q100 137 112 124 Z" fill="#7F1D1D" stroke="#111" stroke-width="3" stroke-linejoin="round"/>'+
+    '</g></g></svg>';
+
+  document.querySelectorAll('.ch-slot').forEach(function(s){ s.outerHTML = CH[s.dataset.ch]; });
+
+  /* Ojos que siguen el puntero */
+  var pupils = Array.prototype.slice.call(document.querySelectorAll('.pupil'));
+  var px = null, py = null, ticking = false;
+  function look(){
+    ticking = false;
+    pupils.forEach(function(p){
+      var svg = p.ownerSVGElement; var r = svg.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      var k = r.width / 200;
+      var ex = r.left + (+p.dataset.cx) * k, ey = r.top + (+p.dataset.cy) * (r.height / 210);
+      var dx = px - ex, dy = py - ey, d = Math.hypot(dx, dy) || 1, m = Math.min(3.2, d / 40);
+      p.setAttribute('transform', 'translate(' + (dx / d * m).toFixed(2) + ' ' + (dy / d * m).toFixed(2) + ')');
+    });
+  }
+  addEventListener('pointermove', function(e){ px = e.clientX; py = e.clientY; if (!ticking){ ticking = true; requestAnimationFrame(look); } }, {passive:true});
+
+  /* Trucos al tocar */
+  document.querySelectorAll('.actor').forEach(function(a){
+    a.addEventListener('click', function(){
+      a.classList.remove('trick'); void a.offsetWidth; a.classList.add('trick');
+      clearTimeout(a._t); a._t = setTimeout(function(){ a.classList.remove('trick'); }, 1400);
+    });
+  });
+
+  /* ---------- Historias ---------- */
+  var ICON = {
+    crecer:'<svg viewBox="0 0 26 26"><path d="M13 24V12" stroke="#4E9A38" stroke-width="2.5" stroke-linecap="round"/><path d="M13 14C7 14 4 10 4 6c5 0 9 3 9 8Z" fill="#8FD372" stroke="#2F6230" stroke-width="1.6"/><path d="M13 12c0-5 4-8 9-8 0 5-4 8-9 8Z" fill="#8FD372" stroke="#2F6230" stroke-width="1.6"/><path d="M6 24h14" stroke="#8B5A33" stroke-width="2.5" stroke-linecap="round"/></svg>',
+    noche:'<svg viewBox="0 0 26 26"><path d="M17 3a10 10 0 1 0 6 15A8 8 0 0 1 17 3Z" fill="#F4B92E" stroke="#8B5A33" stroke-width="1.6"/><path d="M20 4l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8Z" fill="#8B78E8"/></svg>',
+    bano:'<svg viewBox="0 0 26 26"><path d="M13 3C9 9 7 12 7 15.5a6 6 0 0 0 12 0C19 12 17 9 13 3Z" fill="#62C3F2" stroke="#1C6F9F" stroke-width="1.6"/><path d="M10.5 16a2.5 2.5 0 0 0 2.5 2.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    familia:'<svg viewBox="0 0 26 26"><path d="M13 22S3 16 3 9.5A5 5 0 0 1 13 7a5 5 0 0 1 10 2.5C23 16 13 22 13 22Z" fill="#F590B0" stroke="#A53A61" stroke-width="1.6"/><path d="M13 10v6M10 13h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',
+    colegio:'<svg viewBox="0 0 26 26"><rect x="5" y="7" width="16" height="16" rx="4" fill="#8FD372" stroke="#2F6230" stroke-width="1.6"/><path d="M9 7V5a4 4 0 0 1 8 0v2" fill="none" stroke="#2F6230" stroke-width="1.6"/><path d="M13 12l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4Z" fill="#F4B92E"/></svg>',
+    recordar:'<svg viewBox="0 0 26 26"><path d="M13 22S4 16.5 4 10.5A4.5 4.5 0 0 1 13 8.5a4.5 4.5 0 0 1 9 2C22 16.5 13 22 13 22Z" fill="#FFD1DC" stroke="#A53A61" stroke-width="1.6"/><path d="M17 4c1 2 3 2 4 1-1 2 0 4 1 4" fill="none" stroke="#4E9A38" stroke-width="1.6" stroke-linecap="round"/></svg>'
+  };
+  var TOPICS = [
+    {id:'crecer', q:'¿Está creciendo y viviendo algo nuevo?', t:'David y el día en que todo cambió', p:'David está creciendo y cada día descubre algo nuevo. Con Ainhoa, Speed y Panda aprende que crecer da un poquito de susto y también trae aventuras increíbles.', ch:'david'},
+    {id:'noche', q:'¿Le da miedo la noche?', t:'La noche de las estrellas amigas', p:'Cuando se apaga la luz, Panda le muestra a David que el cielo está lleno de estrellas que lo cuidan. Ainhoa se queda junto a la cama hasta que se duerme.', ch:'panda'},
+    {id:'bano', q:'¿Ir al baño ha sido un reto?', t:'¡Lo logré solito!', p:'Speed corre, Ainhoa espera y Panda aplaude. David descubre que ir al baño es un paso de niño grande, y que equivocarse también está bien.', ch:'speed'},
+    {id:'familia', q:'¿Llega alguien nuevo a la familia?', t:'Un corazón con espacio para uno más', p:'Llega alguien nuevo a casa. David aprende a ser hermano mayor, y su equipo le recuerda que en la familia el amor alcanza para todos.', ch:'ainhoa'},
+    {id:'colegio', q:'¿Empieza el colegio o cambia de colegio?', t:'David y el colegio grande', p:'Un colegio más grande, nuevos amigos y otra profesora. David entra con valentía, porque sabe que Ainhoa, Speed y Panda lo esperan a la salida para escuchar todo lo que vivió.', ch:'david'},
+    {id:'recordar', q:'¿Hay alguien a quien quieren recordar siempre?', t:'Siempre en el corazón', p:'Una historia para recordar a alguien que quieren mucho. David guarda sus momentos favoritos en un libro mágico que puede abrir cada vez que lo extrañe.', ch:'panda'}
+  ];
+  var topicsEl = document.getElementById('topics'), book = document.getElementById('book');
+  var tTitle = document.getElementById('story-title'), tText = document.getElementById('story-text'), tMini = document.getElementById('story-mini');
+  function fill(tp){ tTitle.textContent = tp.t; tText.textContent = tp.p; tMini.innerHTML = CH[tp.ch]; }
+  TOPICS.forEach(function(tp, i){
+    var b = document.createElement('button');
+    b.className = 'topic'; b.type = 'button'; b.setAttribute('aria-pressed', i === 4 ? 'true' : 'false');
+    b.innerHTML = '<span class="ico">' + ICON[tp.id] + '</span><span>' + tp.q + '</span>';
+    b.addEventListener('click', function(){
+      topicsEl.querySelectorAll('.topic').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      book.classList.add('flipping');
+      setTimeout(function(){ fill(tp); book.classList.remove('flipping'); }, 260);
+    });
+    topicsEl.appendChild(b);
+  });
+  fill(TOPICS[4]);
+
+  /* ---------- Estilos ---------- */
+  var scene = document.getElementById('scene'), sLabel = document.getElementById('scene-label'), sCap = document.getElementById('scene-caption');
+  var LOOKS = {
+    acuarela:['Caricatura acuarela','Formas redondas, trazos suaves sin línea negra, colores lavados y caritas felices. Es el estilo de “David y la magia de su equipo”.'],
+    comic:['Cómic brillante','Tinta negra gruesa, sombras marcadas con trama, ojos grandes con brillo, colores intensos y poses de acción.']
+  };
+  var lookBtns = document.querySelectorAll('.look-btn');
+  function setLook(key, btn){
+    lookBtns.forEach(function(x){ x.setAttribute('aria-checked', 'false'); x.tabIndex = -1; });
+    btn.setAttribute('aria-checked', 'true'); btn.tabIndex = 0;
+    scene.className = 'scene look-' + key; sLabel.textContent = LOOKS[key][0]; sCap.textContent = LOOKS[key][1];
+  }
+  lookBtns.forEach(function(b, i){
+    b.tabIndex = i === 0 ? 0 : -1;
+    b.addEventListener('click', function(){ setLook(b.dataset.look, b); });
+    b.addEventListener('keydown', function(e){
+      var d = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
+      if (!d) return; e.preventDefault();
+      var n = lookBtns[(i + d + lookBtns.length) % lookBtns.length]; n.focus(); setLook(n.dataset.look, n);
+    });
+  });
+
+  /* ---------- Copiar número ---------- */
+  var copyBtn = document.getElementById('copy'), phone = document.getElementById('phone');
+  copyBtn.addEventListener('click', function(){
+    function done(){ copyBtn.textContent = 'Copiado'; setTimeout(function(){ copyBtn.textContent = 'Copiar'; }, 1600); }
+    function fallback(){ var r = document.createRange(); r.selectNodeContents(phone); var s = getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = 'Selecciónalo y cópialo'; }
+    try { navigator.clipboard.writeText('3153828798').then(done, fallback); } catch(e){ fallback(); }
+  });
+})();
+</script>

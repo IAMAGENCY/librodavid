@@ -1,0 +1,8 @@
+dist/
+.vercel/
+node_modules/
+.vercel-auth/
+
+.vercel
+bruna/img/flyer-precio.jpg
+bruna/img/flyer-historias.jpg
