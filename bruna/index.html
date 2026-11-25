@@ -300,16 +300,27 @@ section.block{padding-block:96px}
 .ferns.fl{left:-3%}.ferns.fr{right:-3%;transform:scaleX(-1)}
 .dn{position:absolute}
 .dn svg{display:block;width:100%;height:auto}
-.dn-egg{left:0;bottom:1%;width:16%}
-.dn-egg .egg{position:absolute;left:0;top:0}
-.dn-egg .dino{animation:peek 3.2s ease-in-out infinite}
-@keyframes peek{0%,100%{transform:translateY(28%)}35%,70%{transform:translateY(0)}52%{transform:translateY(-5%) rotate(-5deg)}}
-.dn-back{left:45%;bottom:10%;width:12%}
-.dn-back .dino{animation:dhop 1.4s ease-in-out infinite;transform-origin:50% 100%}
-@keyframes dhop{0%,100%{transform:translateY(0) scale(1.04,.96)}45%{transform:translateY(-28%) scale(.97,1.04)}}
-.dn-run{bottom:0;left:52%;width:13%;animation:dinorun 6s ease-in-out infinite}
-.dn-run .dino{animation:dhop .45s ease-in-out infinite;transform-origin:50% 100%}
-@keyframes dinorun{0%{left:48%;transform:scaleX(1)}46%{left:80%;transform:scaleX(1)}50%{left:80%;transform:scaleX(-1)}96%{left:48%;transform:scaleX(-1)}100%{left:48%;transform:scaleX(1)}}
+.dinos-back{z-index:1}
+.dn-palm{left:-5%;bottom:13%;width:17%}
+.dn-neck{left:6%;bottom:14%;width:40%}
+.dino .lneck{animation:nod 3.2s ease-in-out infinite}
+@keyframes nod{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(6deg)}}
+.dn-pte{left:0;top:5%;width:17%;animation:pterofly 10s linear infinite}
+@keyframes pterofly{0%{transform:translate(-120%,45%)}25%{transform:translate(110%,0)}50%{transform:translate(270%,40%)}75%{transform:translate(420%,6%)}100%{transform:translate(620%,40%)}}
+.ptero .wl{animation:flapl .45s ease-in-out infinite alternate}
+.ptero .wr{animation:flapr .45s ease-in-out infinite alternate}
+@keyframes flapl{from{transform:rotate(-16deg)}to{transform:rotate(16deg)}}
+@keyframes flapr{from{transform:rotate(16deg)}to{transform:rotate(-16deg)}}
+.dn-egg{left:0;bottom:0;width:15%}
+.dn-egg .egg{position:absolute;left:0;top:0;width:100%}
+.dn-egg .dino{animation:peek 3.4s ease-in-out infinite}
+@keyframes peek{0%,100%{transform:translateY(55%)}35%,72%{transform:translateY(0)}52%{transform:translateY(-4%) rotate(-5deg)}}
+.trex .thead{animation:roar 2.4s ease-in-out infinite}
+@keyframes roar{0%,70%,100%{transform:rotate(0)}80%{transform:rotate(-9deg)}90%{transform:rotate(3deg)}}
+.dn-run{bottom:0;left:50%;width:19%;animation:dinorun 7s ease-in-out infinite}
+.dn-run .dino{animation:trot .4s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes trot{0%,100%{transform:translateY(0)}50%{transform:translateY(-8%)}}
+@keyframes dinorun{0%{left:44%;transform:scaleX(1)}46%{left:76%;transform:scaleX(1)}50%{left:76%;transform:scaleX(-1)}96%{left:44%;transform:scaleX(-1)}100%{left:44%;transform:scaleX(1)}}
 .dino .dtail{animation:wag .4s ease-in-out infinite alternate}
 /* movimientos según la aventura */
 .scene.theme-espacio .set .ch .sway,.scene.theme-espacio .set .ch .pop,.scene.theme-dinos .set .ch .sway,.scene.theme-dinos .set .ch .pop{animation:none}
@@ -566,15 +577,16 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
           </div>
           <div class="bg-dino" aria-hidden="true">
             <span class="volcano"></span><span class="smoke sm1"></span><span class="smoke sm2"></span><span class="smoke sm3"></span>
-            <svg class="ferns fl" viewBox="0 0 100 100"><path d="M50 100 C46 70 30 50 6 40 M50 100 C52 66 64 40 92 26 M50 100 C50 70 48 40 50 6" stroke="#4E9A38" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M30 56 l-8 -10 M22 48 l-10 -4 M66 50 l8 -12 M76 40 l12 -4 M49 40 l-9 -8 M50 24 l9 -8" stroke="#6DB44E" stroke-width="7" stroke-linecap="round"/></svg>
             <svg class="ferns fr" viewBox="0 0 100 100"><path d="M50 100 C46 70 30 50 6 40 M50 100 C52 66 64 40 92 26 M50 100 C50 70 48 40 50 6" stroke="#4E9A38" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M30 56 l-8 -10 M22 48 l-10 -4 M66 50 l8 -12 M76 40 l12 -4 M49 40 l-9 -8 M50 24 l9 -8" stroke="#6DB44E" stroke-width="7" stroke-linecap="round"/></svg>
           </div>
           <span class="scene-label" id="scene-label">Caricatura acuarela · Pradera</span>
           <span class="pow" id="pow" aria-hidden="true">¡A la aventura!</span>
           <figure class="inset"><img src="img/portada-david.jpg" alt="" width="590" height="615">Así se ve en el libro real</figure>
           <div class="ground"></div>
-          <div class="dinos dinos-wc" aria-hidden="true"><div class="dn dn-back"><span class="ch-slot" data-ch="dino-wc-b"></span></div><div class="dn dn-egg"><span class="ch-slot" data-ch="dino-wc-a"></span><span class="ch-slot" data-ch="egg-wc"></span></div><div class="dn dn-run"><span class="ch-slot" data-ch="dino-wc-c"></span></div></div>
-          <div class="dinos dinos-cm" aria-hidden="true"><div class="dn dn-back"><span class="ch-slot" data-ch="dino-cm-b"></span></div><div class="dn dn-egg"><span class="ch-slot" data-ch="dino-cm-a"></span><span class="ch-slot" data-ch="egg-cm"></span></div><div class="dn dn-run"><span class="ch-slot" data-ch="dino-cm-c"></span></div></div>
+          <div class="dinos dinos-back dinos-wc" aria-hidden="true"><div class="dn dn-palm"><span class="ch-slot" data-ch="palm-wc"></span></div><div class="dn dn-neck"><span class="ch-slot" data-ch="dn-neck-wc"></span></div></div>
+          <div class="dinos dinos-back dinos-cm" aria-hidden="true"><div class="dn dn-palm"><span class="ch-slot" data-ch="palm-cm"></span></div><div class="dn dn-neck"><span class="ch-slot" data-ch="dn-neck-cm"></span></div></div>
+          <div class="dinos dinos-wc" aria-hidden="true"><div class="dn dn-pte"><span class="ch-slot" data-ch="dn-pte-wc"></span></div><div class="dn dn-egg"><span class="ch-slot" data-ch="dn-rex-wc"></span><span class="ch-slot" data-ch="egg-wc"></span></div><div class="dn dn-run"><span class="ch-slot" data-ch="dn-tri-wc"></span></div></div>
+          <div class="dinos dinos-cm" aria-hidden="true"><div class="dn dn-pte"><span class="ch-slot" data-ch="dn-pte-cm"></span></div><div class="dn dn-egg"><span class="ch-slot" data-ch="dn-rex-cm"></span><span class="ch-slot" data-ch="egg-cm"></span></div><div class="dn dn-run"><span class="ch-slot" data-ch="dn-tri-cm"></span></div></div>
           <div class="set set-wc"><div class="a"><span class="ch-slot" data-ch="wc-ainhoa"></span><span class="ch-slot" data-ch="ov-wc-ainhoa"></span></div><div class="d"><span class="ch-slot" data-ch="wc-david"></span><span class="ch-slot" data-ch="ov-wc-david"></span></div><div class="p"><span class="ch-slot" data-ch="wc-panda"></span><span class="ch-slot" data-ch="ov-wc-panda"></span></div><div class="s"><span class="ch-slot" data-ch="wc-speed"></span><span class="ch-slot" data-ch="ov-wc-speed"></span></div></div>
           <div class="set set-cm"><div class="a"><span class="ch-slot" data-ch="cm-ainhoa"></span><span class="ch-slot" data-ch="ov-cm-ainhoa"></span></div><div class="d"><span class="ch-slot" data-ch="cm-david"></span><span class="ch-slot" data-ch="ov-cm-david"></span></div><div class="p"><span class="ch-slot" data-ch="cm-panda"></span><span class="ch-slot" data-ch="ov-cm-panda"></span></div><div class="s"><span class="ch-slot" data-ch="cm-speed"></span><span class="ch-slot" data-ch="ov-cm-speed"></span></div></div>
           <span class="poof" aria-hidden="true"></span>
@@ -956,35 +968,117 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     });
   });
 
-  /* Dino bebés originales (acuarela suave o cómic) */
-  function dino(kind, body, belly, spike){
-    var cm = kind === 'cm', ln = cm ? ' stroke="#111" stroke-width="4" stroke-linejoin="round"' : '';
-    var eyeM = cm ? '<circle cx="88" cy="42" r="7.5" fill="#fff" stroke="#111" stroke-width="3"/><circle cx="90" cy="43" r="3.6" fill="#111"/><circle cx="91.5" cy="41" r="1.3" fill="#fff"/>'
-                  : '<path d="M83 44 q5 -6 10 0" stroke="#3A2A26" stroke-width="3" fill="none" stroke-linecap="round"/>';
-    return '<svg viewBox="0 0 120 110" class="dino" aria-hidden="true"><g'+(cm ? '' : ' filter="url(#wc-edge)"')+'>'+
-      '<g class="dtail" style="transform-origin:44px 80px"><path d="M44 70 C26 74 12 86 4 100 C20 98 34 92 48 86 Z" fill="'+body+'"'+ln+'/></g>'+
-      '<path d="M62 32 L66 20 L74 28 L80 16 L86 26 L94 18 L98 30 Z" fill="'+spike+'"'+ln+'/>'+
-      '<ellipse cx="50" cy="101" rx="9" ry="6" fill="'+body+'"'+ln+'/><ellipse cx="72" cy="101" rx="9" ry="6" fill="'+body+'"'+ln+'/>'+
-      '<ellipse cx="60" cy="78" rx="26" ry="23" fill="'+body+'"'+ln+'/>'+
-      '<ellipse cx="65" cy="84" rx="15" ry="14" fill="'+belly+'"/>'+
-      '<ellipse cx="82" cy="48" rx="25" ry="21" fill="'+body+'"'+ln+'/>'+
-      (cm ? '<path d="M76 74 l9 5" stroke="#111" stroke-width="10" stroke-linecap="round"/>' : '')+'<path d="M76 74 l9 5" stroke="'+body+'" stroke-width="6" stroke-linecap="round"/>'+
-      eyeM+'<ellipse cx="97" cy="54" rx="4.5" ry="2.6" fill="#F2948C" opacity=".6"/>'+
-      '<path d="M92 60 q7 5 12 -2" stroke="'+(cm ? '#111' : '#3A5A2A')+'" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="103" cy="45" r="1.4" fill="#3A2A26"/>'+
+  /* Dinosaurios bebé de especies reconocibles (dibujo propio): cuello largo, triceratops, T-rex y pterodáctilo */
+  function dz(kind){
+    var cm = kind === 'cm';
+    return { cm: cm, ln: cm ? ' stroke="#111" stroke-width="4" stroke-linejoin="round"' : '', open: cm ? '<g>' : '<g filter="url(#wc-edge)">', dark: cm ? '#111' : '#3A2A26' };
+  }
+  function dEye(cx, cy, r, cm){
+    return cm ? '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#fff" stroke="#111" stroke-width="3"/><circle cx="'+(cx+1.5)+'" cy="'+(cy+1)+'" r="'+(r*.55)+'" fill="#111"/><circle cx="'+(cx+r*.45)+'" cy="'+(cy-r*.3)+'" r="'+(r*.22)+'" fill="#fff"/>'
+              : '<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(r*.55)+'" ry="'+(r*.7)+'" fill="#3A2A26"/><circle cx="'+(cx+r*.2)+'" cy="'+(cy-r*.3)+'" r="'+(r*.22)+'" fill="#fff"/>';
+  }
+  function thick(d, color, w, cm){ return (cm ? '<path d="'+d+'" stroke="#111" stroke-width="'+(w+8)+'" stroke-linecap="round" fill="none"/>' : '')+'<path d="'+d+'" stroke="'+color+'" stroke-width="'+w+'" stroke-linecap="round" fill="none"/>'; }
+  /* Cuello largo (braquiosaurio) mirando a la derecha */
+  function longneck(kind, c){
+    var z = dz(kind);
+    return '<svg viewBox="0 0 200 170" class="dino" aria-hidden="true">'+z.open+
+      '<g class="dtail" style="transform-origin:42px 116px"><path d="M42 106 C24 114 12 126 4 142 C20 140 36 132 48 124 Z" fill="'+c.body+'"'+z.ln+'/></g>'+
+      '<rect x="60" y="118" width="17" height="40" rx="8" fill="'+c.shade+'"'+z.ln+'/><rect x="112" y="118" width="17" height="40" rx="8" fill="'+c.shade+'"'+z.ln+'/>'+
+      '<ellipse cx="82" cy="110" rx="50" ry="32" fill="'+c.body+'"'+z.ln+'/>'+
+      '<ellipse cx="88" cy="124" rx="34" ry="13" fill="'+c.belly+'"/>'+
+      '<circle cx="64" cy="94" r="6" fill="'+c.spot+'"/><circle cx="82" cy="88" r="4.5" fill="'+c.spot+'"/><circle cx="98" cy="94" r="5" fill="'+c.spot+'"/>'+
+      '<rect x="44" y="122" width="18" height="40" rx="8" fill="'+c.body+'"'+z.ln+'/><rect x="96" y="122" width="18" height="40" rx="8" fill="'+c.body+'"'+z.ln+'/>'+
+      '<g class="lneck" style="transform-origin:116px 100px">'+thick('M112 104 C124 82 132 58 146 40', c.body, 22, z.cm)+
+        '<ellipse cx="154" cy="32" rx="22" ry="16" fill="'+c.body+'"'+z.ln+'/>'+dEye(160, 27, 7, z.cm)+
+        '<ellipse cx="170" cy="37" rx="4.5" ry="2.6" fill="#F2948C" opacity=".6"/>'+
+        '<path d="M160 41 q8 4 13 -3" stroke="'+z.dark+'" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="173" cy="27" r="1.6" fill="'+z.dark+'"/>'+
+      '</g></g></svg>';
+  }
+  /* Triceratops mirando a la derecha */
+  function triceratops(kind, c){
+    var z = dz(kind);
+    return '<svg viewBox="0 0 170 120" class="dino" aria-hidden="true">'+z.open+
+      '<g class="dtail" style="transform-origin:34px 76px"><path d="M36 66 L4 80 L36 88 Z" fill="'+c.body+'"'+z.ln+'/></g>'+
+      '<rect x="54" y="82" width="14" height="30" rx="6" fill="'+c.shade+'"'+z.ln+'/><rect x="92" y="82" width="14" height="30" rx="6" fill="'+c.shade+'"'+z.ln+'/>'+
+      '<ellipse cx="68" cy="74" rx="40" ry="28" fill="'+c.body+'"'+z.ln+'/>'+
+      '<ellipse cx="72" cy="88" rx="26" ry="11" fill="'+c.belly+'"/>'+
+      '<rect x="40" y="88" width="16" height="26" rx="7" fill="'+c.body+'"'+z.ln+'/><rect x="78" y="88" width="16" height="26" rx="7" fill="'+c.body+'"'+z.ln+'/>'+
+      '<circle cx="118" cy="52" r="30" fill="'+c.frill+'"'+z.ln+'/><circle cx="118" cy="52" r="18" fill="'+c.frill2+'"/>'+
+      '<ellipse cx="132" cy="70" rx="26" ry="20" fill="'+c.body+'"'+z.ln+'/>'+
+      '<path d="M124 54 L130 24 L138 52 Z" fill="'+c.horn+'"'+z.ln+'/><path d="M140 56 L152 30 L152 58 Z" fill="'+c.horn+'"'+z.ln+'/><path d="M152 66 L166 58 L158 74 Z" fill="'+c.horn+'"'+z.ln+'/>'+
+      dEye(138, 64, 7, z.cm)+'<ellipse cx="148" cy="74" rx="4.5" ry="2.6" fill="#F2948C" opacity=".6"/>'+
+      '<path d="M140 80 q10 6 18 -2" stroke="'+z.dark+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
       '</g></svg>';
   }
-  function egg(kind){
-    var cm = kind === 'cm';
-    return '<svg viewBox="0 0 120 110" class="egg" aria-hidden="true"><g'+(cm ? '' : ' filter="url(#wc-edge)"')+'><path d="M26 74 L34 64 L42 74 L50 62 L58 74 L66 62 L74 74 L82 64 L90 74 L96 70 C98 96 82 108 61 108 C40 108 24 96 26 74 Z" fill="#FFF6E0"'+(cm ? ' stroke="#111" stroke-width="4" stroke-linejoin="round"' : ' stroke="#D9CBA8" stroke-width="2"')+'/><circle cx="44" cy="92" r="5" fill="#F6C66B" opacity=".8"/><circle cx="74" cy="96" r="4" fill="#9BD38A" opacity=".8"/></g></svg>';
+  /* T-rex de pie, mirando a la derecha (también es el que sale del huevo) */
+  function trex(kind, c){
+    var z = dz(kind);
+    return '<svg viewBox="0 0 150 160" class="dino trex" aria-hidden="true">'+z.open+
+      '<g class="dtail" style="transform-origin:46px 116px"><path d="M44 108 C26 118 12 134 4 152 C22 146 40 136 54 126 Z" fill="'+c.body+'"'+z.ln+'/></g>'+
+      '<rect x="66" y="122" width="16" height="32" rx="7" fill="'+c.shade+'"'+z.ln+'/>'+
+      '<ellipse cx="60" cy="104" rx="30" ry="36" fill="'+c.body+'"'+z.ln+' transform="rotate(-15 60 104)"/>'+
+      '<ellipse cx="68" cy="110" rx="15" ry="24" fill="'+c.belly+'" transform="rotate(-15 68 110)"/>'+
+      '<path d="M42 124 C38 140 40 150 48 154 L66 154 C66 146 62 138 64 124 Z" fill="'+c.body+'"'+z.ln+'/>'+
+      thick('M80 100 l10 6', c.body, 6, z.cm)+thick('M78 112 l10 5', c.body, 6, z.cm)+
+      '<g class="thead" style="transform-origin:76px 74px">'+
+        '<path d="M60 26 L66 16 L72 24 L78 14 L84 22" fill="none" stroke="'+c.spike+'" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>'+
+        '<path d="M56 50 C56 22 86 12 112 18 C134 22 140 40 136 54 C132 66 118 72 100 72 C82 72 60 70 56 50 Z" fill="'+c.body+'"'+z.ln+'/>'+
+        '<path d="M92 58 Q114 66 134 52" stroke="'+z.dark+'" stroke-width="3" fill="none" stroke-linecap="round"/>'+
+        '<path d="M104 60 L107 66 L110 60 Z M116 59 L119 65 L122 58 Z" fill="#fff"'+(z.cm ? ' stroke="#111" stroke-width="1.5"' : '')+'/>'+
+        dEye(96, 34, 8.5, z.cm)+'<ellipse cx="108" cy="48" rx="5" ry="3" fill="#F2948C" opacity=".6"/><circle cx="128" cy="32" r="2" fill="'+z.dark+'"/>'+
+      '</g></g></svg>';
   }
-  CH['dino-wc-a'] = dino('wc', '#9BD38A', '#EEF7D8', '#F6C66B');
-  CH['dino-wc-b'] = dino('wc', '#C3A8F0', '#F3EEFB', '#F59AB8');
-  CH['dino-wc-c'] = dino('wc', '#8FD0D9', '#E8F7F8', '#F6C66B');
-  CH['dino-cm-a'] = dino('cm', '#22C55E', '#D9F99D', '#FACC15');
-  CH['dino-cm-b'] = dino('cm', '#A855F7', '#F5D0FE', '#FB7185');
-  CH['dino-cm-c'] = dino('cm', '#06B6D4', '#CFFAFE', '#F97316');
-  CH['egg-wc'] = egg('wc');
-  CH['egg-cm'] = egg('cm');
+  /* Pterodáctilo volando */
+  function ptero(kind, c){
+    var z = dz(kind);
+    return '<svg viewBox="0 0 170 110" class="dino ptero" aria-hidden="true">'+z.open+
+      '<g class="wing wl" style="transform-origin:80px 56px"><path d="M80 52 L8 26 C20 48 30 62 46 72 C58 66 70 62 80 62 Z" fill="'+c.wing+'"'+z.ln+'/></g>'+
+      '<g class="wing wr" style="transform-origin:92px 56px"><path d="M92 52 L160 20 C152 44 140 58 126 68 C114 62 102 60 92 62 Z" fill="'+c.wing+'"'+z.ln+'/></g>'+
+      '<path d="M84 24 L64 10 L82 32 Z" fill="'+c.body+'"'+z.ln+'/>'+
+      '<ellipse cx="86" cy="64" rx="15" ry="19" fill="'+c.body+'"'+z.ln+'/>'+
+      '<ellipse cx="87" cy="70" rx="8" ry="11" fill="'+c.belly+'"/>'+
+      '<ellipse cx="92" cy="34" rx="15" ry="13" fill="'+c.body+'"'+z.ln+'/>'+
+      '<path d="M104 32 L132 38 L104 42 Z" fill="'+c.beak+'"'+z.ln+'/>'+
+      dEye(95, 31, 6, z.cm)+'<ellipse cx="100" cy="40" rx="3.5" ry="2" fill="#F2948C" opacity=".6"/>'+
+      '</g></svg>';
+  }
+  /* Huevo moteado (cubre la parte baja del T-rex que se asoma) */
+  function egg(kind){
+    var z = dz(kind);
+    return '<svg viewBox="0 0 150 160" class="egg" aria-hidden="true">'+z.open+
+      '<path d="M28 114 L38 102 L48 114 L58 100 L68 114 L78 100 L88 114 L98 102 L108 114 L116 108 C122 140 100 160 72 160 C44 160 22 142 28 114 Z" fill="'+(z.cm ? '#F2B65A' : '#F1C88A')+'"'+(z.cm ? z.ln : ' stroke="#D9A866" stroke-width="2"')+'/>'+
+      '<circle cx="50" cy="132" r="6" fill="#B9772F" opacity=".8"/><circle cx="84" cy="140" r="5" fill="#B9772F" opacity=".8"/><circle cx="70" cy="124" r="3.5" fill="#B9772F" opacity=".8"/><circle cx="98" cy="126" r="4" fill="#B9772F" opacity=".8"/>'+
+      '</g></svg>';
+  }
+  /* Palmera */
+  function palm(kind){
+    var z = dz(kind), leaf = z.cm ? '#22C55E' : '#7CC46A', leaf2 = z.cm ? '#16A34A' : '#5FA94E';
+    return '<svg viewBox="0 0 100 160" class="palm" aria-hidden="true">'+z.open+
+      thick('M50 160 C52 120 46 84 56 46', z.cm ? '#9A5B2A' : '#B07A4E', 12, z.cm)+
+      '<path d="M48 140 l10 -2 M48 120 l10 -2 M50 100 l10 -2 M52 80 l10 -2 M54 62 l9 -2" stroke="'+(z.cm ? '#111' : '#8A5A33')+'" stroke-width="2" stroke-linecap="round"/>'+
+      '<path d="M56 46 C40 30 20 32 4 46 C22 40 38 42 56 50 Z" fill="'+leaf+'"'+z.ln+'/><path d="M56 46 C70 26 90 26 98 40 C84 34 70 38 58 50 Z" fill="'+leaf2+'"'+z.ln+'/>'+
+      '<path d="M56 44 C50 24 56 8 70 2 C64 16 62 30 58 46 Z" fill="'+leaf+'"'+z.ln+'/><path d="M56 46 C40 46 26 58 22 74 C34 62 46 54 58 50 Z" fill="'+leaf2+'"'+z.ln+'/><path d="M58 46 C74 48 86 60 88 74 C78 62 68 54 56 50 Z" fill="'+leaf+'"'+z.ln+'/>'+
+      '<circle cx="56" cy="50" r="5" fill="#8A5A33"/><circle cx="62" cy="52" r="5" fill="#7A4A23"/>'+
+      '</g></svg>';
+  }
+  var DC = {
+    wc: { neck:{body:'#8EC5EC', shade:'#6FA9D4', belly:'#E3F2FB', spot:'#B7DDF4'},
+          tri:{body:'#F4A79C', shade:'#E08A80', belly:'#FBE1DC', frill:'#F8C08A', frill2:'#FBD8B0', horn:'#FFF3D6'},
+          rex:{body:'#A6D98A', shade:'#86C46B', belly:'#EEF7D8', spike:'#F6C66B'},
+          pte:{body:'#F4A7C6', wing:'#EE90B6', belly:'#FBE3EE', beak:'#F8C08A'} },
+    cm: { neck:{body:'#3B82F6', shade:'#2563EB', belly:'#BFDBFE', spot:'#93C5FD'},
+          tri:{body:'#EF4444', shade:'#DC2626', belly:'#FECACA', frill:'#F97316', frill2:'#FDBA74', horn:'#FFF3D6'},
+          rex:{body:'#22C55E', shade:'#16A34A', belly:'#D9F99D', spike:'#FACC15'},
+          pte:{body:'#EC4899', wing:'#DB2777', belly:'#FBCFE8', beak:'#FACC15'} }
+  };
+  ['wc','cm'].forEach(function(k){
+    CH['dn-neck-'+k] = longneck(k, DC[k].neck);
+    CH['dn-tri-'+k] = triceratops(k, DC[k].tri);
+    CH['dn-rex-'+k] = trex(k, DC[k].rex);
+    CH['dn-pte-'+k] = ptero(k, DC[k].pte);
+    CH['egg-'+k] = egg(k);
+    CH['palm-'+k] = palm(k);
+  });
 
   document.querySelectorAll('.ch-slot').forEach(function(s){ s.outerHTML = CH[s.dataset.ch]; });
 
