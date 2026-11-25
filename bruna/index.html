@@ -16,15 +16,9 @@
   --f-body:"Nunito","Segoe UI",system-ui,sans-serif;
   --f-story:"Fraunces",Georgia,"Times New Roman",serif;
   --r-lg:28px; --r-md:18px;
+  /* Un solo look: cielo celeste de día, igual que los flyers. No cambia con el modo oscuro del teléfono. */
+  color-scheme:only light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --sky:#13203A; --sky-2:#1A2B4A; --paper:#1E2D4B; --ink:#F7F0DA; --ink-soft:#C3CADB;
-  --leaf:#8FD372; --leaf-soft:#243F33; --sun:#F7C95A; --sun-soft:#3B3521; --berry:#F590B0; --lilac:#B3A3F7; --sea:#62C3F2;
-  --wa:#1E9E52; --wa-dark:#0F6633; --orb:#F4EBC9; --star:1; --hill:#3F7A3A; --hill-2:#2F6230; --shadow:rgba(0,0,0,.35); color-scheme:dark}}
-:root[data-theme="dark"]{
-  --sky:#13203A; --sky-2:#1A2B4A; --paper:#1E2D4B; --ink:#F7F0DA; --ink-soft:#C3CADB;
-  --leaf:#8FD372; --leaf-soft:#243F33; --sun:#F7C95A; --sun-soft:#3B3521; --berry:#F590B0; --lilac:#B3A3F7; --sea:#62C3F2;
-  --wa:#1E9E52; --wa-dark:#0F6633; --orb:#F4EBC9; --star:1; --hill:#3F7A3A; --hill-2:#2F6230; --shadow:rgba(0,0,0,.35); color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -91,6 +85,9 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;backgroun
 .actor:hover .bubble.l,.actor:focus-visible .bubble.l,.actor.trick .bubble.l,.actor:hover .bubble.r,.actor:focus-visible .bubble.r,.actor.trick .bubble.r{transform:translate(0,0) scale(1)}
 .bubble.l::after{left:28%}.bubble.r::after{left:72%}
 .cast-card .bubble{max-width:96%}
+.bubble.side{bottom:auto;top:30%;left:88%;max-width:min(190px,34vw);transform:translate(0,6px) scale(.7);transform-origin:left center}
+.actor:hover .bubble.side,.actor:focus-visible .bubble.side,.actor.trick .bubble.side{transform:translate(0,0) scale(1)}
+.bubble.side::after{left:-1px;top:50%;transform:translate(-50%,-50%) rotate(135deg)}
 
 /* Hero */
 .hero{padding-block:48px 72px;position:relative;overflow:hidden}
@@ -149,11 +146,12 @@ section.block{padding-block:96px}
 .cast-card .actor:hover .cast-base{transform:translateY(-3px)}
 .cast-base strong{font-family:var(--f-display);font-weight:800;font-size:2rem;line-height:1}
 .cast-base span{font-weight:700;font-size:.95rem;opacity:.85}
-.cast-card .bubble{bottom:auto;top:-6px}
+.cast-card .bubble{top:auto;bottom:calc(100% + 4px)}
+#equipo .sec-head{margin-bottom:96px}
 .c-y .cast-base{background:var(--card-y)}.c-p .cast-base{background:var(--card-p)}.c-g .cast-base{background:var(--card-g)}.c-b .cast-base{background:var(--card-b)}
 .cast-note{margin-top:40px;text-align:center;color:var(--ink-soft);font-weight:700}
-@media (max-width:960px){.cast{grid-template-columns:repeat(2,1fr);row-gap:40px}}
-@media (max-width:560px){.cast{gap:14px;row-gap:28px}.cast-card{padding-top:max(16px,calc(76% - 100px))}.cast-base{height:190px;padding:14px}.cast-base strong{font-size:1.5rem}.cast-base span{font-size:.85rem;line-height:1.25}.cast-card .ch-holder{left:14%;right:14%;bottom:84px}}
+@media (max-width:960px){.cast{grid-template-columns:repeat(2,1fr);row-gap:100px}}
+@media (max-width:560px){.cast{gap:14px;row-gap:96px}.cast-card{padding-top:max(16px,calc(76% - 100px))}.cast-base{height:190px;padding:14px}.cast-base strong{font-size:1.5rem}.cast-base span{font-size:.85rem;line-height:1.25}.cast-card .ch-holder{left:14%;right:14%;bottom:84px}}
 
 /* Historias */
 .stories{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
@@ -175,6 +173,10 @@ section.block{padding-block:96px}
 .page-r h3{font-family:var(--f-story);font-style:italic;font-weight:600;font-size:1.6rem;line-height:1.15}
 .page-r p{font-family:var(--f-story);font-style:italic;font-size:1.08rem;line-height:1.55}
 .page-r .mini{width:110px;align-self:flex-end;margin-top:auto}
+.book{scroll-margin-top:90px;transition:box-shadow .3s}
+.book.just-changed{box-shadow:0 12px 0 var(--line),0 0 0 6px var(--sun),0 30px 50px var(--shadow)}
+.back-topics{display:none;margin-top:18px}
+@media (max-width:900px){.back-topics{display:inline-flex}}
 .reassure{margin-top:28px;display:flex;gap:16px;align-items:flex-start;background:var(--paper);border-radius:var(--r-md);padding:18px 20px;border:2px dashed var(--leaf)}
 .reassure svg{width:34px;height:34px;flex:none}
 .reassure p{font-weight:600}
@@ -369,7 +371,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
         <button class="actor a-ainhoa" data-ch="ainhoa" aria-label="Saluda a Ainhoa"><span class="bubble l">¡Guau! Yo voy adelante</span><span class="ch-slot" data-ch="ainhoa"></span></button>
         <button class="actor a-david" data-ch="david" aria-label="Saluda a David"><span class="bubble">¡Mi equipo y yo vivimos aventuras mágicas!</span><span class="ch-slot" data-ch="david"></span></button>
         <button class="actor a-speed" data-ch="speed" aria-label="Saluda a Speed"><span class="bubble r">¡Nadie me alcanza!</span><span class="ch-slot" data-ch="speed"></span></button>
-        <button class="actor a-panda" data-ch="panda" aria-label="Saluda a Panda"><span class="bubble">Miau… ¿otro capítulo?</span><span class="ch-slot" data-ch="panda"></span></button>
+        <button class="actor a-panda" data-ch="panda" aria-label="Saluda a Panda"><span class="bubble side">Miau… ¿otro capítulo?</span><span class="ch-slot" data-ch="panda"></span></button>
         <p class="stage-hint">Toca a cada personaje</p>
       </div>
     </div>
@@ -421,6 +423,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
             <div class="mini" id="story-mini"></div>
           </div>
         </div>
+        <button class="btn btn-ghost back-topics" type="button" id="back-topics">↑ Elegir otro tema</button>
         <div class="reassure">
           <svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="15" fill="var(--leaf-soft)" stroke="var(--leaf)" stroke-width="2.5"/><path d="M10 17.5l4.5 4.5L24 12.5" fill="none" stroke="var(--leaf)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <p>No tienes que escribir la historia. Cuéntanos qué te preocupa o qué quieres enseñarle, y nosotros la construimos.</p>
@@ -834,11 +837,22 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       topicsEl.querySelectorAll('.topic').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); });
       b.setAttribute('aria-pressed', 'true');
       book.classList.add('flipping');
-      setTimeout(function(){ fill(tp); book.classList.remove('flipping'); }, 260);
+      setTimeout(function(){ fill(tp); book.classList.remove('flipping'); flash(); }, 260);
+      showBook();
     });
     topicsEl.appendChild(b);
   });
   fill(TOPICS[4]);
+  var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Si el libro no se ve completo en pantalla, llevarlo a la vista para que se note el cambio */
+  function showBook(){
+    var r = book.getBoundingClientRect();
+    if (r.top < 80 || r.bottom > innerHeight) book.scrollIntoView({behavior: calm ? 'auto' : 'smooth', block: r.height + 100 > innerHeight ? 'start' : 'center'});
+  }
+  function flash(){ book.classList.add('just-changed'); clearTimeout(book._f); book._f = setTimeout(function(){ book.classList.remove('just-changed'); }, 900); }
+  document.getElementById('back-topics').addEventListener('click', function(){
+    topicsEl.scrollIntoView({behavior: calm ? 'auto' : 'smooth', block: 'center'});
+  });
 
   /* ---------- Estilos ---------- */
   var scene = document.getElementById('scene'), sLabel = document.getElementById('scene-label'), sCap = document.getElementById('scene-caption');

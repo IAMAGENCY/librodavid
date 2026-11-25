@@ -31,6 +31,7 @@ ${headPart.trim()}
 <meta property="og:url" content="https://bruna-magic-lab.vercel.app/">
 <meta property="og:image" content="https://bruna-magic-lab.vercel.app/img/portada-david.jpg">
 <meta name="theme-color" content="#E9F5FC">
+<meta name="color-scheme" content="only light">
 <link rel="icon" href="${favicon}">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 ${style}
