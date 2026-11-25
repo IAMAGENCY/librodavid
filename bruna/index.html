@@ -664,13 +664,13 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     </div>
   </section>
 
-  <!-- ARMA SU CUENTO: protagonista, hasta 2 personajes y resumen del pedido -->
+  <!-- ARMA SU CUENTO: protagonista, personajes que quiera y resumen del pedido -->
   <section class="block" id="arma" style="padding-top:24px">
     <div class="wrap">
       <div class="sec-head">
         <p class="eyebrow">Paso 4 · Su equipo</p>
         <h2>¿Quién vive la aventura?</h2>
-        <p>Tu peque es el protagonista y puede ir acompañado de hasta 2 personajes más: hermanos, abuelos, amigos o mascotas.</p>
+        <p>Tu peque es el protagonista y puede ir acompañado de los personajes que quieras: hermanos, abuelos, amigos o mascotas.</p>
       </div>
       <div class="builder-grid">
         <form class="team-form" id="team-form" novalidate>
@@ -684,7 +684,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
             <div class="thumbs" id="hero-thumbs"></div>
           </fieldset>
           <div id="extras"></div>
-          <button type="button" class="btn btn-ghost add-char" id="add-char">+ Agregar personaje <small>(máximo 2)</small></button>
+          <button type="button" class="btn btn-ghost add-char" id="add-char">+ Agregar personaje</button>
           <p class="privacy">Las fotos no se suben a ninguna página: solo las ves aquí. Al reservar nos las envías por WhatsApp.</p>
         </form>
         <aside class="summary" id="summary">
@@ -1424,7 +1424,6 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   }
   function addExtra(){
     var box = $('extras');
-    if (box.children.length >= 2) return;
     var id = ++extraSeq, fs = document.createElement('fieldset');
     fs.className = 'person';
     fs.innerHTML = '<legend>Personaje</legend><button type="button" class="rm">Quitar</button>'+
@@ -1440,7 +1439,6 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   function relabel(){
     var list = $('extras').children;
     Array.prototype.forEach.call(list, function(fs, i){ fs.querySelector('legend').textContent = 'Personaje ' + (i + 1); });
-    $('add-char').hidden = list.length >= 2;
   }
   $('add-char').addEventListener('click', addExtra);
   $('hero-photos').addEventListener('change', function(e){ showThumbs(e.target, $('hero-thumbs')); });
