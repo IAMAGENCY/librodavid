@@ -5,7 +5,7 @@
 const SHEET_NAME = 'Leads';
 const HEADERS = [
   'fecha', 'origen', 'nombre', 'whatsapp', 'correo', 'autoriza_whatsapp', 'autoriza_correo',
-  'protagonista', 'edad', 'historia', 'estilo', 'aventura', 'libro', 'personajes', 'pagina'
+  'protagonista', 'edad', 'historia', 'estilo', 'aventura', 'libro', 'personajes', 'pagina', 'regalo'
 ];
 
 function doPost(e) {

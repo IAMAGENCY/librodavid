@@ -328,6 +328,27 @@ section.block{padding-block:96px}
 @media (max-width:860px){.save-card{grid-template-columns:1fr}}
 @media (max-width:480px){.lead-row{grid-template-columns:1fr}}
 
+/* ---------- Regalo ---------- */
+.gift-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.givers{list-style:none;padding:0;margin:0 0 12px;display:flex;flex-wrap:wrap;gap:8px}
+.givers li{background:var(--paper);border:2px solid var(--berry);color:var(--ink);border-radius:999px;padding:.35em 1em;font-weight:800;font-size:.95rem}
+.occasions{color:var(--ink-soft);font-weight:600;margin-bottom:18px}
+.gift-actions{margin-bottom:22px}
+.gift-tip{display:flex;flex-direction:column;gap:8px;align-items:flex-start;background:var(--paper);border:2px dashed var(--berry);border-radius:var(--r-md);padding:16px 18px}
+.gift-tip b{font-family:var(--f-display);font-size:1.2rem;line-height:1.1}
+.gift-tip p{color:var(--ink-soft);font-size:.95rem}
+.gift-art{position:relative;width:100%;max-width:340px;aspect-ratio:1/1.05;justify-self:center}
+.gift-panda{position:absolute;left:29%;width:42%;bottom:31%;z-index:1;animation:giftpeek 3.6s ease-in-out infinite}
+.gift-box{position:absolute;left:6%;width:88%;bottom:4%;z-index:2;display:block}
+.gift-lid{position:absolute;left:2%;width:96%;top:0;z-index:3;display:block;transform-origin:20% 80%;animation:lidfloat 3.6s ease-in-out infinite}
+@keyframes giftpeek{0%,100%{transform:translateY(45%)}35%,78%{transform:translateY(0)}55%{transform:translateY(-4%) rotate(-4deg)}}
+@keyframes lidfloat{0%,100%{transform:translateY(42%) rotate(0)}35%,78%{transform:translateY(-4%) rotate(-16deg)}}
+.gift-spark{position:absolute;width:20px;height:20px;background:var(--sun);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:mgspark 2.4s ease-in-out infinite;z-index:4}
+.gift-spark.g1{left:8%;top:30%}.gift-spark.g2{right:6%;top:22%;width:14px;height:14px;animation-delay:.8s}.gift-spark.g3{right:14%;top:52%;width:12px;height:12px;animation-delay:1.5s}
+.person.gift-card{border-color:var(--berry)}
+.person .check{flex-direction:row!important;font-weight:600!important}
+@media (max-width:860px){.gift-grid{grid-template-columns:1fr}.gift-art{max-width:280px;order:-1}}
+
 /* ---------- Paso 4: acabado del libro ---------- */
 .formats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
 .format{position:relative;display:flex;flex-direction:column;gap:6px;text-align:left;background:var(--paper);border:3px solid var(--sky-2);border-radius:var(--r-lg);padding:18px 18px 20px;cursor:pointer;font:inherit;color:var(--ink);transition:transform .15s,border-color .15s,box-shadow .15s}
@@ -587,6 +608,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       <a href="#equipo">Personajes</a>
       <a href="#historias">Historias</a>
       <a href="#estilos">Estilos</a>
+      <a href="#regalo">Regalar</a>
       <a href="#precio">Precio</a>
     </nav>
     <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg><span>Reservar</span></a>
@@ -651,6 +673,37 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
         <div class="cast-card c-b"><button class="actor" data-ch="panda" aria-label="Panda, el gatito. Toca para saludar"><span class="bubble">Miau… ¿otro capítulo?</span><span class="ch-holder"><span class="ch-slot" data-ch="panda"></span></span><span class="cast-base"><strong>Panda</strong><span>El gatito del equipo</span></span></button></div>
       </div>
       <p class="cast-note">Pueden ser mascotas, hermanos, abuelos o amigos. Tú nos cuentas quién acompaña a tu peque.</p>
+    </div>
+  </section>
+
+  <!-- REGALO: para abuelos, tíos, padrinos y amigos de la familia -->
+  <section class="block gift" id="regalo" style="padding-top:24px">
+    <div class="wrap gift-grid">
+      <div class="gift-copy">
+        <div class="sec-head" style="margin-bottom:20px">
+          <p class="eyebrow">¿Es un regalo?</p>
+          <h2>El regalo que van a leer una y otra vez</h2>
+          <p>Abuelos, tíos, padrinos y amigos de la familia también pueden crear el cuento. Tú eliges la historia y el estilo, y lo convertimos en un libro único con su peque como protagonista.</p>
+        </div>
+        <ul class="givers" aria-label="Quién puede regalarlo">
+          <li>Abuelos</li><li>Tíos y tías</li><li>Padrinos y madrinas</li><li>Amigos de la familia</li>
+        </ul>
+        <p class="occasions">Ideal para cumpleaños, Navidad, bautizos, primera comunión o la llegada de un hermanito.</p>
+        <div class="gift-actions">
+          <button class="btn btn-wa" type="button" id="gift-start">Crear su cuento de regalo</button>
+        </div>
+        <div class="gift-tip">
+          <b>¿No tienes fotos recientes?</b>
+          <p>Pídeselas a la familia sin arruinar la sorpresa. Te dejamos el mensaje listo para enviarlo por WhatsApp.</p>
+          <a class="btn btn-ghost" id="gift-photos" href="#" target="_blank" rel="noopener">Pedir fotos por WhatsApp</a>
+        </div>
+      </div>
+      <div class="gift-art" aria-hidden="true">
+        <span class="gift-spark g1"></span><span class="gift-spark g2"></span><span class="gift-spark g3"></span>
+        <div class="gift-panda"><span class="ch-slot" data-ch="panda"></span></div>
+        <svg class="gift-box" viewBox="0 0 200 120"><rect x="10" y="8" width="180" height="104" rx="10" fill="#E8638D" stroke="#2A2340" stroke-width="5"/><circle cx="40" cy="40" r="6" fill="#fff" opacity=".45"/><circle cx="160" cy="84" r="7" fill="#fff" opacity=".45"/><circle cx="54" cy="88" r="4" fill="#fff" opacity=".45"/><circle cx="150" cy="34" r="4" fill="#fff" opacity=".45"/><rect x="88" y="8" width="24" height="104" fill="#FFD43B" stroke="#2A2340" stroke-width="5"/></svg>
+        <svg class="gift-lid" viewBox="0 0 220 90"><path d="M110 40 C84 4 52 10 62 32 C68 44 92 44 110 40 Z" fill="#FFD43B" stroke="#2A2340" stroke-width="5" stroke-linejoin="round"/><path d="M110 40 C136 4 168 10 158 32 C152 44 128 44 110 40 Z" fill="#FFD43B" stroke="#2A2340" stroke-width="5" stroke-linejoin="round"/><rect x="6" y="40" width="208" height="36" rx="10" fill="#F07AA6" stroke="#2A2340" stroke-width="5"/><rect x="98" y="40" width="24" height="36" fill="#FFD43B" stroke="#2A2340" stroke-width="5"/><circle cx="110" cy="38" r="10" fill="#FFC23D" stroke="#2A2340" stroke-width="5"/></svg>
+      </div>
     </div>
   </section>
 
@@ -818,6 +871,14 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
             </div>
             <label class="file" for="hero-photos"><input id="hero-photos" type="file" accept="image/*" multiple><span class="file-btn">Elegir fotos de tu peque</span></label>
             <div class="thumbs" id="hero-thumbs"></div>
+          </fieldset>
+          <fieldset class="person gift-card">
+            <legend>¿Es un regalo?</legend>
+            <label class="check" for="gift-yes"><input id="gift-yes" type="checkbox"><span>Sí, es un regalo para un peque especial</span></label>
+            <div class="row2" id="gift-fields" hidden>
+              <label for="gift-from">¿De parte de quién?<input id="gift-from" type="text" placeholder="Ej.: la abuela Marta" autocomplete="off"></label>
+              <label for="gift-occasion">¿Para qué ocasión?<select id="gift-occasion"><option value="">Elige una</option><option>Cumpleaños</option><option>Navidad</option><option>Bautizo</option><option>Primera comunión</option><option>Llegada de un hermanito</option><option>Otra ocasión</option></select></label>
+            </div>
           </fieldset>
           <div id="extras"></div>
           <button type="button" class="btn btn-ghost add-char" id="add-char">+ Agregar personaje</button>
@@ -1540,7 +1601,8 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     return { heroName: val('hero-name'), heroAge: val('hero-age'), heroPhotos: nFiles($('hero-photos')),
              topic: order.topic, topicOther: val('topic-other'),
              look: view.look, refDesc: val('ref-desc'), refFile: nFiles($('ref-file')),
-             adv: view.adv, advOther: val('adv-other'), format: order.format, extras: extras };
+             adv: view.adv, advOther: val('adv-other'), format: order.format, extras: extras,
+             gift: $('gift-yes').checked, giftFrom: val('gift-from'), giftOcc: $('gift-occasion').value };
   }
   function photoList(o){
     var p = [];
@@ -1559,8 +1621,9 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       ['Aventura', o.adv === 'otra' ? (o.advOther ? 'Otra: ' + o.advOther : '') : ADVS[o.adv][0]],
       ['Libro', o.format ? FORMATS[o.format] : ''],
       ['Personajes adicionales', team.length ? team.join(' · ') : 'Solo el protagonista'],
+      ['Regalo', o.gift ? ['Sí', o.giftFrom ? 'de parte de ' + o.giftFrom : '', o.giftOcc].filter(Boolean).join(' · ') : null],
       ['Fotos', ph.length ? ph.join(', ') : '']
-    ];
+    ].filter(function(x){ return x[1] !== null; });
   }
   var TODO = { 'Libro':'Elige el acabado en el paso 4', 'Protagonista':'Escribe su nombre en el paso 5', 'Historia':'Elige un tema en el paso 1', 'Aventura':'Escribe cuál en el paso 3', 'Fotos':'Las envías por WhatsApp' };
   function orderMsg(){
@@ -1667,6 +1730,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       autoriza_whatsapp: contact.okwa ? 'sí' : 'no', autoriza_correo: contact.okmail ? 'sí' : 'no',
       protagonista: o.heroName, edad: o.heroAge, historia: r['Historia'] || '', estilo: touched ? r['Estilo'] : '',
       aventura: touched ? r['Aventura'] || '' : '', libro: r['Libro'] || '', personajes: o.extras.map(function(e){ return e.name || e.kind; }).join(', '),
+      regalo: o.gift ? r['Regalo'] : 'No',
       pagina: location.href.split('#')[0]
     };
   }
@@ -1757,12 +1821,27 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     });
   });
 
+  /* ---------- Regalo: abuelos, tíos, padrinos y amigos de la familia ---------- */
+  function setGift(on){ $('gift-yes').checked = on; $('gift-fields').hidden = !on; }
+  $('gift-yes').addEventListener('change', function(e){ setGift(e.target.checked); if (e.target.checked) track('regalo'); });
+  $('gift-start').addEventListener('click', function(){
+    setGift(true); touched = true; updateSummary(); track('regalo', { desde: 'seccion' });
+    $('historias').scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
+  });
+  /* Mensaje para pedir fotos a la familia sin contar la sorpresa (WhatsApp elige a quién enviarlo) */
+  function photoAsk(){
+    var who = val('hero-name');
+    return 'https://wa.me/?text=' + encodeURIComponent('¡Hola! Estoy preparando una sorpresa: un cuento personalizado donde ' + (who || 'tu peque') + ' es el protagonista. ¿Me ayudas con 3 o 4 fotos recientes donde se le vea bien la carita? Es un secreto, ¡no le cuentes!');
+  }
+  $('gift-photos').href = photoAsk();
+  $('gift-photos').addEventListener('click', function(){ this.href = photoAsk(); track('regalo_pedir_fotos'); });
+
   /* ---------- Guardado automático del avance en este navegador (sin fotos) ---------- */
   var SAVE_KEY = 'bml-cuento-v1', restoring = false;
   function snapshot(){
     var o = readOrder();
     return { topic: o.topic, topicOther: o.topicOther, look: view.look, refDesc: o.refDesc, adv: view.adv, advOther: o.advOther,
-             format: order.format, heroName: o.heroName, heroAge: o.heroAge,
+             format: order.format, heroName: o.heroName, heroAge: o.heroAge, gift: o.gift, giftFrom: o.giftFrom, giftOcc: o.giftOcc,
              extras: o.extras.map(function(e){ return { name: e.name, kind: e.kind, desc: e.desc }; }) };
   }
   var baseUpdate = updateSummary;
@@ -1795,6 +1874,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       fmtBtns.forEach(function(b){ var on = b.dataset.format === s.format; b.setAttribute('aria-checked', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; });
     }
     $('hero-name').value = s.heroName || ''; $('hero-age').value = s.heroAge || '';
+    $('gift-yes').checked = !!s.gift; $('gift-fields').hidden = !s.gift; $('gift-from').value = s.giftFrom || ''; $('gift-occasion').value = s.giftOcc || '';
     (s.extras || []).forEach(function(e){
       var fs = addExtra(true);
       fs.querySelector('[data-f=name]').value = e.name || '';
