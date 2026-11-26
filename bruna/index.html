@@ -255,6 +255,43 @@ section.block{padding-block:96px}
 @media (max-width:900px){.styles-grid{grid-template-columns:1fr}}
 @media (max-width:420px){.looks{grid-template-columns:1fr}}
 
+[hidden]{display:none!important}
+/* ---------- Captura de contactos: tarjeta "Guarda tu cuento", pop-up y aviso ---------- */
+.save-band{padding-block:8px 72px}
+.save-card{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:center;background:var(--paper);border:4px solid var(--line);border-radius:var(--r-lg);box-shadow:0 10px 0 var(--sun);padding:28px clamp(18px,4vw,40px)}
+.save-copy h3{font-size:clamp(1.6rem,3.2vw,2.2rem);margin:6px 0 10px}
+.save-copy p:last-child{color:var(--ink-soft)}
+.lead-form{display:flex;flex-direction:column;gap:12px;min-width:0}
+.lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lead-form label:not(.check){display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:.92rem;min-width:0}
+.lead-form label small{font-weight:600;color:var(--ink-soft)}
+.lead-form input[type=text],.lead-form input[type=tel],.lead-form input[type=email]{font:inherit;font-size:1rem;padding:.6em .8em;border:2px solid var(--sky-2);border-radius:12px;background:#fff;color:var(--ink);width:100%;min-width:0}
+.lead-form input:focus{outline:none;border-color:var(--sea);box-shadow:0 0 0 3px color-mix(in srgb,var(--sea) 25%,transparent)}
+.lead-form [aria-invalid="true"]{border-color:var(--berry)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--berry) 22%,transparent)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;line-height:1.4;cursor:pointer}
+.check input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--leaf)}
+.legal{font-size:.82rem;color:var(--ink-soft)}
+.legal a,footer a{color:inherit;font-weight:700}
+.lead-btn{align-self:flex-start}
+.lead-btn:disabled{opacity:.6;cursor:wait}
+.lead-msg{font-weight:700;font-size:.95rem;min-height:1.4em}
+.lead-msg.ok{color:#2F6B22}
+.lead-msg.err{color:#B4234F}
+.sum-actions{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between}
+.link-btn{border:0;background:none;padding:4px 0;font:800 .92rem var(--f-body);color:var(--sea);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.link-btn.muted{color:var(--ink-soft);font-weight:700}
+.lead-dialog{width:min(480px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;border:4px solid var(--line);border-radius:var(--r-lg);box-shadow:0 12px 0 var(--sun);padding:26px 24px 22px;background:var(--paper);color:var(--ink)}
+.lead-dialog::backdrop{background:rgba(29,58,42,.45);backdrop-filter:blur(2px)}
+.lead-dialog[open]{animation:dlgin .35s cubic-bezier(.3,1.4,.5,1)}
+@keyframes dlgin{from{transform:translateY(20px) scale(.95);opacity:0}to{transform:none;opacity:1}}
+.lead-dialog h3{font-size:1.8rem;margin:4px 0 8px}
+.lead-dialog #dlg-text{color:var(--ink-soft);margin-bottom:14px}
+.dlg-art{width:96px;margin:-6px auto 4px}
+.dlg-close{position:absolute;right:12px;top:10px;width:38px;height:38px;border-radius:50%;border:0;background:var(--sky);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--line);color:#fff;font-weight:800;padding:.7em 1.2em;border-radius:999px;box-shadow:0 8px 20px var(--shadow);max-width:calc(100vw - 32px);text-align:center}
+@media (max-width:860px){.save-card{grid-template-columns:1fr}}
+@media (max-width:480px){.lead-row{grid-template-columns:1fr}}
+
 /* ---------- Paso 4: acabado del libro ---------- */
 .formats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
 .format{position:relative;display:flex;flex-direction:column;gap:6px;text-align:left;background:var(--paper);border:3px solid var(--sky-2);border-radius:var(--r-lg);padding:18px 18px 20px;cursor:pointer;font:inherit;color:var(--ink);transition:transform .15s,border-color .15s,box-shadow .15s}
@@ -679,6 +716,31 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     </div>
   </section>
 
+  <!-- GUARDAR: captura suave a mitad del recorrido -->
+  <section class="save-band" id="guardar" aria-labelledby="save-title">
+    <div class="wrap">
+      <div class="save-card">
+        <div class="save-copy">
+          <p class="eyebrow">Tu cuento ya va tomando forma</p>
+          <h3 id="save-title">Guarda tu cuento y termínalo cuando quieras</h3>
+          <p>Déjanos tu WhatsApp y te escribimos con el resumen de lo que elegiste para que lo retomes cuando estés listo.</p>
+        </div>
+        <form class="lead-form" id="save-form" novalidate>
+          <div class="lead-row">
+            <label for="s-name">Tu nombre<input id="s-name" name="nombre" type="text" autocomplete="name"></label>
+            <label for="s-wa">WhatsApp<input id="s-wa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="300 000 0000"></label>
+          </div>
+          <label for="s-mail">Correo <small>(opcional)</small><input id="s-mail" name="correo" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com"></label>
+          <label class="check" for="s-okwa"><input id="s-okwa" name="autoriza_whatsapp" type="checkbox"><span>Autorizo que Bruna Magic Lab me escriba por WhatsApp sobre mi cuento y sus novedades.</span></label>
+          <label class="check" for="s-okmail"><input id="s-okmail" name="autoriza_correo" type="checkbox"><span>Acepto recibir novedades por correo.</span></label>
+          <p class="legal">Al guardar aceptas los <a href="terminos.html" target="_blank" rel="noopener">términos y condiciones y la política de datos</a>.</p>
+          <button class="btn btn-wa lead-btn" type="submit">Guardar mi cuento</button>
+          <p class="lead-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- LIBRO: paso 4, elegir el acabado (mismo precio) -->
   <section class="block" id="libro" style="padding-top:24px">
     <div class="wrap book-show">
@@ -732,6 +794,10 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
           <p class="sum-price">$189.000 COP · reservas con $94.500</p>
           <a class="btn btn-wa js-wa sum-cta" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg>Enviar mi pedido por WhatsApp</a>
           <p class="sum-note">Se abre WhatsApp con este resumen escrito. Después adjunta las fotos en el mismo chat.</p>
+          <div class="sum-actions">
+            <button type="button" class="link-btn" id="sum-save">¿Aún no lo envías? Guarda tu cuento</button>
+            <button type="button" class="link-btn muted" id="sum-reset">Empezar de nuevo</button>
+          </div>
         </aside>
       </div>
     </div>
@@ -802,9 +868,31 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
 <footer>
   <div class="wrap">
     <span><b>Bruna Magic Lab</b> · De los creadores de <span class="story">Un amor sin límites</span></span>
-    <span>Libros infantiles personalizados · Colombia</span>
+    <span>Libros infantiles personalizados · Colombia · <a href="terminos.html" target="_blank" rel="noopener">Términos y condiciones</a></span>
   </div>
 </footer>
+
+<!-- Pop-up: al intentar salir. Si ya empezó su cuento, lo invita a guardarlo; si no, a la Edición Mágica -->
+<dialog class="lead-dialog" id="lead-dialog" aria-labelledby="dlg-title">
+  <button class="dlg-close" type="button" aria-label="Cerrar" data-close>×</button>
+  <div class="dlg-art" aria-hidden="true"><span class="ch-slot" data-ch="david"></span></div>
+  <p class="eyebrow" id="dlg-eyebrow">Antes de irte</p>
+  <h3 id="dlg-title">Guarda tu cuento</h3>
+  <p id="dlg-text">Lo que elegiste se queda guardado y te escribimos por WhatsApp para que lo termines cuando quieras.</p>
+  <form class="lead-form" id="dlg-form" novalidate>
+    <div class="lead-row">
+      <label for="d-name">Tu nombre<input id="d-name" name="nombre" type="text" autocomplete="name"></label>
+      <label for="d-wa">WhatsApp<input id="d-wa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="300 000 0000"></label>
+    </div>
+    <label for="d-mail">Correo <small>(opcional)</small><input id="d-mail" name="correo" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com"></label>
+    <label class="check" for="d-okwa"><input id="d-okwa" name="autoriza_whatsapp" type="checkbox"><span>Autorizo que Bruna Magic Lab me escriba por WhatsApp sobre mi cuento y sus novedades.</span></label>
+    <label class="check" for="d-okmail"><input id="d-okmail" name="autoriza_correo" type="checkbox"><span>Acepto recibir novedades por correo.</span></label>
+    <p class="legal">Al enviar aceptas los <a href="terminos.html" target="_blank" rel="noopener">términos y condiciones y la política de datos</a>.</p>
+    <button class="btn btn-wa lead-btn" type="submit" id="dlg-submit">Guardar mi cuento</button>
+    <p class="lead-msg" role="status" aria-live="polite"></p>
+  </form>
+</dialog>
+<div class="toast" id="toast" role="status" hidden></div>
 
 <a class="fab js-wa" href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg></a>
 
@@ -1294,7 +1382,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     b.addEventListener('click', function(){
       topicsEl.querySelectorAll('.topic').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); });
       b.setAttribute('aria-pressed', 'true');
-      order.topic = tp.q; touched = true; updateSummary();
+      order.topic = tp.q; touched = true; updateSummary(); track('paso_historia', {historia: tp.q});
       book.classList.add('flipping');
       setTimeout(function(){ fill(tp); book.classList.remove('flipping'); flash(); }, 260);
       showBook();
@@ -1365,14 +1453,14 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   }
   radios(document.getElementById('looks'), 'look', function(v){
     view.look = v; document.getElementById('ref-panel').hidden = v !== 'otro';
-    render(); touched = true; updateSummary();
+    render(); touched = true; updateSummary(); track('paso_estilo', {estilo: v});
     if (v !== 'otro') showScene();
   });
   /* Al cambiar de aventura: destello y giro, y a mitad del giro aparecen los disfraces */
   radios(document.getElementById('advs'), 'adv', function(v){
     if (v === view.adv) return;
     view.adv = v; document.getElementById('adv-panel').hidden = v !== 'otra';
-    touched = true; updateSummary();
+    touched = true; updateSummary(); track('paso_aventura', {aventura: v});
     scene.classList.remove('morph'); void scene.offsetWidth; scene.classList.add('morph');
     clearTimeout(scene._r); scene._r = setTimeout(render, calm ? 0 : 280);
     clearTimeout(scene._m); scene._m = setTimeout(function(){ scene.classList.remove('morph'); }, 760);
@@ -1439,7 +1527,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     var href = WA_BASE + encodeURIComponent(orderMsg());
     document.querySelectorAll('.js-wa').forEach(function(a){ a.href = href; });
   }
-  function addExtra(){
+  function addExtra(quiet){
     var box = $('extras');
     var id = ++extraSeq, fs = document.createElement('fieldset');
     fs.className = 'person';
@@ -1450,8 +1538,11 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       '<label class="file" for="x'+id+'-photos"><input id="x'+id+'-photos" data-f="photos" type="file" accept="image/*" multiple><span class="file-btn">Elegir fotos</span></label><div class="thumbs"></div>';
     fs.querySelector('.rm').addEventListener('click', function(){ fs.remove(); relabel(); updateSummary(); $('add-char').focus(); });
     fs.querySelector('[data-f=photos]').addEventListener('change', function(e){ showThumbs(e.target, fs.querySelector('.thumbs')); });
-    box.appendChild(fs); relabel(); touched = true; updateSummary();
+    box.appendChild(fs); relabel();
+    if (quiet === true) return fs;
+    touched = true; updateSummary(); track('personaje_agregado');
     fs.querySelector('[data-f=name]').focus();
+    return fs;
   }
   function relabel(){
     var list = $('extras').children;
@@ -1463,7 +1554,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   function pickFormat(b){
     fmtBtns.forEach(function(x){ x.setAttribute('aria-checked', 'false'); x.tabIndex = -1; });
     b.setAttribute('aria-checked', 'true'); b.tabIndex = 0;
-    order.format = b.dataset.format; touched = true; updateSummary();
+    order.format = b.dataset.format; touched = true; updateSummary(); track('paso_libro', {libro: b.dataset.format});
   }
   fmtBtns.forEach(function(b, i){
     b.tabIndex = i === 0 ? 0 : -1;
@@ -1474,7 +1565,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       var n = fmtBtns[(i + d + fmtBtns.length) % fmtBtns.length]; n.focus(); pickFormat(n);
     });
   });
-  $('add-char').addEventListener('click', addExtra);
+  $('add-char').addEventListener('click', function(){ addExtra(); });
   $('hero-photos').addEventListener('change', function(e){ showThumbs(e.target, $('hero-thumbs')); });
   $('ref-file').addEventListener('change', function(e){
     showThumbs(e.target, $('ref-thumbs'));
@@ -1487,6 +1578,182 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     $(id).addEventListener('input', function(){ touched = true; updateSummary(); });
     $(id).addEventListener('change', function(){ touched = true; updateSummary(); });
   });
+  /* ---------- Captura de contactos (leads) ----------
+     LEADS_URL: dirección de la aplicación web de Google Apps Script que escribe en la hoja
+     (ver google-sheets/LEEME.md). Mientras esté vacía, los contactos quedan en cola en este
+     navegador y se envían cuando la dirección exista. */
+  var LEADS_URL = '';
+  var t0 = Date.now(), sentWA = false;
+  function track(name, params){
+    try {
+      (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: name }, params || {}));
+      if (typeof window.fbq === 'function') window.fbq('trackCustom', name, params || {});
+    } catch(e){}
+  }
+  function store(k, v){ try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v)); } catch(e){} }
+  function load(k){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch(e){ return null; } }
+  function postLead(data){
+    var queue = load('bml-cola') || [];
+    if (!LEADS_URL){ queue.push(data); store('bml-cola', queue); return Promise.resolve(); }
+    return fetch(LEADS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+      .catch(function(){ queue.push(data); store('bml-cola', queue); });
+  }
+  function flushQueue(){
+    var queue = load('bml-cola');
+    if (!LEADS_URL || !queue || !queue.length) return;
+    store('bml-cola', null);
+    queue.forEach(postLead);
+  }
+  function leadData(origen, contact){
+    var o = readOrder(), r = {};
+    rows(o).forEach(function(x){ r[x[0]] = x[1]; });
+    return {
+      fecha: new Date().toISOString(), origen: origen,
+      nombre: contact.nombre, whatsapp: contact.whatsapp, correo: contact.correo,
+      autoriza_whatsapp: contact.okwa ? 'sí' : 'no', autoriza_correo: contact.okmail ? 'sí' : 'no',
+      protagonista: o.heroName, edad: o.heroAge, historia: r['Historia'] || '', estilo: touched ? r['Estilo'] : '',
+      aventura: touched ? r['Aventura'] || '' : '', libro: r['Libro'] || '', personajes: o.extras.map(function(e){ return e.name || e.kind; }).join(', '),
+      pagina: location.href.split('#')[0]
+    };
+  }
+  /* Valida y envía un formulario de contacto. onDone se llama cuando queda guardado. */
+  function wireLeadForm(form, getOrigen, onDone){
+    var msg = form.querySelector('.lead-msg');
+    function f(n){ return form.querySelector('[name=' + n + ']'); }
+    function bad(input, text){ input.setAttribute('aria-invalid', 'true'); msg.textContent = text; msg.className = 'lead-msg err'; input.focus(); return false; }
+    form.addEventListener('input', function(e){ e.target.removeAttribute('aria-invalid'); });
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var nombre = f('nombre').value.trim(), wa = f('whatsapp').value.replace(/[^\d+]/g, ''), correo = f('correo').value.trim();
+      if (!nombre) return bad(f('nombre'), 'Escribe tu nombre.');
+      if (wa.replace(/\D/g, '').length < 10) return bad(f('whatsapp'), 'Escribe tu número de WhatsApp de 10 dígitos.');
+      if (correo && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) return bad(f('correo'), 'Revisa tu correo, parece incompleto.');
+      if (!f('autoriza_whatsapp').checked) return bad(f('autoriza_whatsapp'), 'Marca la autorización de WhatsApp para poder escribirte.');
+      var contact = { nombre: nombre, whatsapp: wa, correo: correo, okwa: true, okmail: f('autoriza_correo').checked };
+      var origen = getOrigen();
+      form.querySelector('.lead-btn').disabled = true;
+      postLead(leadData(origen, contact)).then(function(){
+        store('bml-contacto', contact); store('bml-guardado', '1');
+        track(origen === 'edicion-magica' ? 'edicion_magica' : 'guardar_cuento', { origen: origen });
+        if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+        msg.className = 'lead-msg ok';
+        msg.textContent = origen === 'edicion-magica' ? '¡Listo! Serás de los primeros en conocer la Edición Mágica.' : '¡Listo, tu cuento quedó guardado! Te escribiremos al WhatsApp que dejaste.';
+        form.querySelector('.lead-btn').disabled = false;
+        if (onDone) onDone();
+      });
+    });
+  }
+  wireLeadForm($('save-form'), function(){ return 'guardar'; });
+
+  /* Pop-up de salida: una vez por visita, nunca si ya dejó sus datos o ya abrió WhatsApp */
+  var dlg = $('lead-dialog'), dlgMode = 'guardar';
+  var DLG = {
+    guardar: { eyebrow: 'Antes de irte', title: 'Guarda tu cuento', text: 'Lo que elegiste se queda guardado y te escribimos por WhatsApp para que lo termines cuando quieras.', btn: 'Guardar mi cuento' },
+    magica:  { eyebrow: 'Muy pronto', title: 'Únete a la Edición Mágica', text: 'Una nueva colección de cuentos llegará después de este primer libro. Deja tu contacto y sé de los primeros en conocerla.', btn: 'Quiero la Edición Mágica' }
+  };
+  function canPopup(){
+    if (sentWA || typeof dlg.showModal !== 'function' || dlg.open) return false;
+    try { if (sessionStorage.getItem('bml-popup') || localStorage.getItem('bml-guardado')) return false; } catch(e){}
+    return true;
+  }
+  function openDialog(mode){
+    dlgMode = mode;
+    $('dlg-eyebrow').textContent = DLG[mode].eyebrow; $('dlg-title').textContent = DLG[mode].title;
+    $('dlg-text').textContent = DLG[mode].text; $('dlg-submit').textContent = DLG[mode].btn;
+    var m = dlg.querySelector('.lead-msg'); m.textContent = ''; m.className = 'lead-msg';
+    dlg.showModal();
+    try { sessionStorage.setItem('bml-popup', '1'); } catch(e){}
+    track('popup_' + mode);
+  }
+  wireLeadForm($('dlg-form'), function(){ return dlgMode === 'magica' ? 'edicion-magica' : 'salida-guardar'; }, function(){ setTimeout(function(){ dlg.close(); }, 1800); });
+  dlg.querySelector('[data-close]').addEventListener('click', function(){ dlg.close(); });
+  dlg.addEventListener('click', function(e){ if (e.target === dlg) dlg.close(); });
+  /* Computador: cuando el mouse sale por arriba para cerrar la pestaña */
+  document.addEventListener('mouseout', function(e){
+    if (!e.relatedTarget && e.clientY <= 0 && Date.now() - t0 > 15000 && canPopup()) openDialog(touched ? 'guardar' : 'magica');
+  });
+  /* Celular: cuando lleva un rato quieto sin avanzar */
+  if (matchMedia('(pointer: coarse)').matches){
+    var idle;
+    var arm = function(){
+      clearTimeout(idle);
+      idle = setTimeout(function(){ if (Date.now() - t0 > 25000 && !document.hidden && canPopup()) openDialog(touched ? 'guardar' : 'magica'); }, 45000);
+    };
+    ['touchstart', 'scroll', 'input'].forEach(function(ev){ addEventListener(ev, arm, { passive: true }); });
+    arm();
+  }
+  $('sum-save').addEventListener('click', function(){
+    var m = dlg.querySelector('.lead-msg');
+    if (typeof dlg.showModal !== 'function'){ $('guardar').scrollIntoView({ behavior: 'smooth' }); return; }
+    dlgMode = 'guardar';
+    $('dlg-eyebrow').textContent = 'Para después'; $('dlg-title').textContent = 'Guarda tu cuento';
+    $('dlg-text').textContent = DLG.guardar.text; $('dlg-submit').textContent = DLG.guardar.btn;
+    m.textContent = ''; m.className = 'lead-msg';
+    dlg.showModal(); track('popup_guardar_resumen');
+  });
+  /* Al abrir WhatsApp: no volver a mostrar el pop-up y, si ya conocemos su contacto, registrarlo en la hoja */
+  document.querySelectorAll('.js-wa').forEach(function(a){
+    a.addEventListener('click', function(){
+      sentWA = true; track('abrir_whatsapp', { pedido_armado: touched });
+      if (typeof window.fbq === 'function') window.fbq('track', 'Contact');
+      var c = load('bml-contacto');
+      if (c && touched) postLead(leadData('abrio-whatsapp', c));
+    });
+  });
+
+  /* ---------- Guardado automático del avance en este navegador (sin fotos) ---------- */
+  var SAVE_KEY = 'bml-cuento-v1', restoring = false;
+  function snapshot(){
+    var o = readOrder();
+    return { topic: o.topic, topicOther: o.topicOther, look: view.look, refDesc: o.refDesc, adv: view.adv, advOther: o.advOther,
+             format: order.format, heroName: o.heroName, heroAge: o.heroAge,
+             extras: o.extras.map(function(e){ return { name: e.name, kind: e.kind, desc: e.desc }; }) };
+  }
+  var baseUpdate = updateSummary;
+  updateSummary = function(){ baseUpdate(); if (touched && !restoring) store(SAVE_KEY, snapshot()); };
+  function setRadio(groupId, attr, value){
+    document.querySelectorAll('#' + groupId + ' .look-btn').forEach(function(b){
+      var on = b.dataset[attr] === value; b.setAttribute('aria-checked', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1;
+    });
+  }
+  function toast(text){
+    var t = $('toast'); t.textContent = text; t.hidden = false;
+    clearTimeout(t._h); t._h = setTimeout(function(){ t.hidden = true; }, 4200);
+  }
+  function restore(){
+    var s = load(SAVE_KEY);
+    if (!s) return;
+    restoring = true;
+    var tp = TOPICS.filter(function(x){ return x.q === s.topic; })[0];
+    if (tp){
+      order.topic = tp.q; fill(tp);
+      topicsEl.querySelectorAll('.topic').forEach(function(b){ b.setAttribute('aria-pressed', b.textContent === tp.q ? 'true' : 'false'); });
+    }
+    $('topic-other').value = s.topicOther || '';
+    if (LOOKS[s.look]){ view.look = s.look; setRadio('looks', 'look', s.look); $('ref-panel').hidden = s.look !== 'otro'; }
+    $('ref-desc').value = s.refDesc || '';
+    if (ADVS[s.adv]){ view.adv = s.adv; setRadio('advs', 'adv', s.adv); $('adv-panel').hidden = s.adv !== 'otra'; }
+    $('adv-other').value = s.advOther || '';
+    if (s.format){
+      order.format = s.format;
+      fmtBtns.forEach(function(b){ var on = b.dataset.format === s.format; b.setAttribute('aria-checked', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; });
+    }
+    $('hero-name').value = s.heroName || ''; $('hero-age').value = s.heroAge || '';
+    (s.extras || []).forEach(function(e){
+      var fs = addExtra(true);
+      fs.querySelector('[data-f=name]').value = e.name || '';
+      fs.querySelector('[data-f=kind]').value = e.kind || 'Mascota';
+      fs.querySelector('[data-f=desc]').value = e.desc || '';
+    });
+    touched = true; render(); restoring = false;
+    toast('Retomamos tu cuento donde lo dejaste.');
+  }
+  $('sum-reset').addEventListener('click', function(){
+    store(SAVE_KEY, null);
+    location.href = location.pathname + location.search;
+  });
+  restore();
+  flushQueue();
   updateSummary();
 
   /* ---------- Copiar número ---------- */

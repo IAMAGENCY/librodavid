@@ -46,4 +46,5 @@ rmSync(OUT, { recursive: true, force: true });
 mkdirSync(join(OUT, 'img'), { recursive: true });
 writeFileSync(join(OUT, 'index.html'), html);
 for (const f of IMAGES) copyFileSync(join(SRC, 'img', f), join(OUT, 'img', f));
-console.log(`dist/ listo: index.html + ${IMAGES.length} imágenes`);
+copyFileSync(join(SRC, 'terminos.html'), join(OUT, 'terminos.html'));
+console.log(`dist/ listo: index.html + terminos.html + ${IMAGES.length} imágenes`);
