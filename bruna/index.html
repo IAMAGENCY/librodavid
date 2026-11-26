@@ -289,6 +289,42 @@ section.block{padding-block:96px}
 .dlg-art{width:96px;margin:-6px auto 4px}
 .dlg-close{position:absolute;right:12px;top:10px;width:38px;height:38px;border-radius:50%;border:0;background:var(--sky);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--line);color:#fff;font-weight:800;padding:.7em 1.2em;border-radius:999px;box-shadow:0 8px 20px var(--shadow);max-width:calc(100vw - 32px);text-align:center}
+/* Edición Mágica: el pop-up cambia a "modo magia" (cielo violeta, estrellas, dorado y David mago) */
+.lead-dialog .art-magic,.lead-dialog .dlg-stars,.lead-dialog .dlg-spark{display:none}
+.lead-dialog>*:not(.dlg-close):not(.dlg-stars):not(.dlg-spark){position:relative;z-index:1}
+.lead-dialog.is-magic{--mg-gold:#FFD86B;background:radial-gradient(120% 75% at 50% 0%,#7B3FD6 0,#3A1D7A 48%,#1C1145 100%);border-color:var(--mg-gold);box-shadow:0 0 0 4px rgba(255,216,107,.22),0 18px 60px rgba(91,44,158,.6);color:#F1EAFF}
+.lead-dialog.is-magic::backdrop{background:radial-gradient(circle at 50% 40%,rgba(91,44,158,.55),rgba(20,10,40,.78))}
+.lead-dialog.is-magic .art-normal{display:none}
+.lead-dialog.is-magic .art-magic{display:block}
+.lead-dialog.is-magic .dlg-art{width:112px;margin:44px auto 6px}
+.lead-dialog.is-magic .dlg-stars{display:block;position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(1.6px 1.6px at 10% 12%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 30% 6%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 72% 10%,#FFE98A 50%,transparent 51%),radial-gradient(1.4px 1.4px at 88% 26%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 6% 40%,#fff 50%,transparent 51%),radial-gradient(1.6px 1.6px at 94% 52%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 14% 70%,#FFE98A 50%,transparent 51%),radial-gradient(1.4px 1.4px at 86% 84%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 50% 94%,#fff 50%,transparent 51%);animation:skyblink 2.6s ease-in-out infinite alternate}
+@keyframes skyblink{from{opacity:.4}to{opacity:1}}
+.lead-dialog.is-magic .dlg-spark{display:block;position:absolute;width:18px;height:18px;background:var(--mg-gold);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);pointer-events:none;animation:mgspark 2.6s ease-in-out infinite}
+.lead-dialog.is-magic .k1{left:10%;top:9%}
+.lead-dialog.is-magic .k2{right:18%;top:16%;width:12px;height:12px;animation-delay:.7s}
+.lead-dialog.is-magic .k3{left:6%;top:36%;width:10px;height:10px;animation-delay:1.3s}
+.lead-dialog.is-magic .k4{right:7%;top:40%;width:14px;height:14px;animation-delay:1.9s}
+@keyframes mgspark{0%,100%{transform:scale(.35) rotate(0);opacity:.3}50%{transform:scale(1.1) rotate(45deg);opacity:1}}
+.lead-dialog.is-magic .eyebrow{color:var(--mg-gold)}
+.lead-dialog.is-magic h3{background:linear-gradient(90deg,#FFD86B,#FFF4C7,#F7A8FF,#FFD86B);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:mgshimmer 4s linear infinite}
+@keyframes mgshimmer{to{background-position:200% 0}}
+.lead-dialog.is-magic #dlg-text{color:#DCD0FF}
+.lead-dialog.is-magic .lead-form label,.lead-dialog.is-magic .check{color:#F1EAFF}
+.lead-dialog.is-magic .lead-form label small,.lead-dialog.is-magic .legal{color:#C9B8F5}
+.lead-dialog.is-magic .legal a{color:var(--mg-gold)}
+.lead-dialog.is-magic .lead-form input[type=text],.lead-dialog.is-magic .lead-form input[type=tel],.lead-dialog.is-magic .lead-form input[type=email]{background:rgba(255,255,255,.1);border-color:rgba(255,216,107,.45);color:#fff}
+.lead-dialog.is-magic .lead-form input::placeholder{color:rgba(241,234,255,.55)}
+.lead-dialog.is-magic .lead-form input:focus{border-color:var(--mg-gold);box-shadow:0 0 0 3px rgba(255,216,107,.3)}
+.lead-dialog.is-magic .check input{accent-color:#FFD86B}
+.lead-dialog.is-magic .lead-btn{position:relative;overflow:hidden;background:linear-gradient(90deg,#FFD86B,#FFC23D,#FFD86B);color:#2B1458;box-shadow:0 5px 0 #B9851E,0 0 22px rgba(255,216,107,.5)}
+.lead-dialog.is-magic .lead-btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.75) 50%,transparent 70%);transform:translateX(-100%);animation:mgsweep 2.8s ease-in-out infinite}
+@keyframes mgsweep{60%,100%{transform:translateX(100%)}}
+.lead-dialog.is-magic .lead-msg.ok{color:var(--mg-gold)}
+.lead-dialog.is-magic .lead-msg.err{color:#FFB3C7}
+.lead-dialog.is-magic .dlg-close{background:rgba(255,255,255,.15);color:#fff;z-index:2}
+.ch.magic .wand-star{transform-box:fill-box;transform-origin:center;animation:mgspark 1.6s ease-in-out infinite}
+.ch.magic .wand-spark{transform-box:fill-box;transform-origin:center;animation:mgspark 1.2s ease-in-out infinite}
+.ch.magic .wand-spark.s2{animation-delay:.4s}.ch.magic .wand-spark.s3{animation-delay:.8s}
 @media (max-width:860px){.save-card{grid-template-columns:1fr}}
 @media (max-width:480px){.lead-row{grid-template-columns:1fr}}
 
@@ -564,7 +600,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       <div class="hero-copy">
         <p class="eyebrow">Libros infantiles personalizados</p>
         <h1>Tu peque, <span class="mark">protagonista<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14C50 4 120 2 197 10" fill="none" stroke="var(--sun)" stroke-width="7" stroke-linecap="round"/></svg></span> de su propio cuento</h1>
-        <p class="lede">Creamos un libro ilustrado donde tu hijo o hija vive la historia que quieres contarle: un miedo que superar, un colegio nuevo, un hermanito que llega. Con sus mascotas y las personas que ama.</p>
+        <p class="lede">Creamos un libro ilustrado donde tu peque vive la historia que quieres contarle: un miedo que superar, un colegio nuevo, un hermanito que llega. Con sus mascotas y las personas que ama.</p>
         <div class="hero-cta">
           <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.3-.6.6-.6 1-.6l.6 1.5-.6.9c.5 1.2 1.6 2.2 2.8 2.8l.9-.6 1.5.6c0 .4 0 .8-.6 1.1-1.6.8-5.9-2.4-5.6-5.7Z" fill="#fff"/></svg>Escríbeme para reservar</a>
           <a class="btn btn-ghost" href="#como">Cómo funciona</a>
@@ -875,7 +911,9 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
 <!-- Pop-up: al intentar salir. Si ya empezó su cuento, lo invita a guardarlo; si no, a la Edición Mágica -->
 <dialog class="lead-dialog" id="lead-dialog" aria-labelledby="dlg-title">
   <button class="dlg-close" type="button" aria-label="Cerrar" data-close>×</button>
-  <div class="dlg-art" aria-hidden="true"><span class="ch-slot" data-ch="david"></span></div>
+  <span class="dlg-stars" aria-hidden="true"></span>
+  <span class="dlg-spark k1" aria-hidden="true"></span><span class="dlg-spark k2" aria-hidden="true"></span><span class="dlg-spark k3" aria-hidden="true"></span><span class="dlg-spark k4" aria-hidden="true"></span>
+  <div class="dlg-art" aria-hidden="true"><span class="art-normal"><span class="ch-slot" data-ch="david"></span></span><span class="art-magic"><span class="ch-slot" data-ch="david-magic"></span></span></div>
   <p class="eyebrow" id="dlg-eyebrow">Antes de irte</p>
   <h3 id="dlg-title">Guarda tu cuento</h3>
   <p id="dlg-text">Lo que elegiste se queda guardado y te escribimos por WhatsApp para que lo termines cuando quieras.</p>
@@ -1329,6 +1367,22 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
       '</g>'+leaves+flies+'</svg>';
   }
 
+  /* David mago (Edición Mágica): sombrero de estrellas en la cabeza y varita en la mano que saluda */
+  (function(){
+    var arm = greetArm(SHIRT, SKIN, L, 5, 10, 9);
+    var hat = '<g class="wizard-hat">'+
+      '<path d="M62 52 C70 20 92 -18 128 -44 C120 -14 122 18 138 52 Z" fill="#6D3FD1" stroke="'+L+'" stroke-width="5" stroke-linejoin="round"/>'+
+      '<path d="M128 -44 C136 -40 142 -32 140 -24 C134 -30 130 -34 124 -36 Z" fill="#6D3FD1" stroke="'+L+'" stroke-width="4" stroke-linejoin="round"/>'+
+      '<path d="M66 40 Q100 30 134 40 L136 50 Q100 40 64 50 Z" fill="#FFD43B" stroke="'+L+'" stroke-width="4" stroke-linejoin="round"/>'+
+      '<path d="M96 10 l3 6 6 1 -4.5 4 1 6 -5.5 -3 -5.5 3 1 -6 -4.5 -4 6 -1 Z" fill="#FFD43B"/><circle cx="114" cy="-8" r="3" fill="#FFE98A"/><circle cx="82" cy="30" r="2.4" fill="#FFE98A"/><circle cx="118" cy="24" r="2" fill="#FFE98A"/>'+
+      '<ellipse cx="100" cy="52" rx="60" ry="11" fill="#5A2FB8" stroke="'+L+'" stroke-width="5"/></g>';
+    var wand = '<path d="M176 92 L200 50" stroke="'+L+'" stroke-width="8" stroke-linecap="round"/><path d="M176 92 L200 50" stroke="#8B5A33" stroke-width="4" stroke-linecap="round"/>'+
+      '<path class="wand-star" d="M202 34 l4 9 10 1.5 -7.5 6.5 2 10 -8.5 -5 -8.5 5 2 -10 -7.5 -6.5 10 -1.5 Z" fill="#FFD43B" stroke="'+L+'" stroke-width="3" stroke-linejoin="round"/>'+
+      '<circle class="wand-spark" cx="222" cy="30" r="3" fill="#FFF4C7"/><circle class="wand-spark s2" cx="190" cy="26" r="2.4" fill="#FFF4C7"/><circle class="wand-spark s3" cx="218" cy="58" r="2" fill="#FFF4C7"/>';
+    var magicArm = arm.replace('<g class="forearm">', '<g class="forearm">'+wand);
+    CH['david-magic'] = CH.david.replace('class="ch david greet"', 'class="ch david greet magic"').replace('</g>'+arm, hat+'</g>'+magicArm);
+  })();
+
   document.querySelectorAll('.ch-slot').forEach(function(s){ s.outerHTML = CH[s.dataset.ch]; });
 
   /* Ojos que siguen el puntero */
@@ -1661,6 +1715,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     $('dlg-eyebrow').textContent = DLG[mode].eyebrow; $('dlg-title').textContent = DLG[mode].title;
     $('dlg-text').textContent = DLG[mode].text; $('dlg-submit').textContent = DLG[mode].btn;
     var m = dlg.querySelector('.lead-msg'); m.textContent = ''; m.className = 'lead-msg';
+    dlg.classList.toggle('is-magic', mode === 'magica');
     dlg.showModal();
     try { sessionStorage.setItem('bml-popup', '1'); } catch(e){}
     track('popup_' + mode);
@@ -1689,6 +1744,7 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
     $('dlg-eyebrow').textContent = 'Para después'; $('dlg-title').textContent = 'Guarda tu cuento';
     $('dlg-text').textContent = DLG.guardar.text; $('dlg-submit').textContent = DLG.guardar.btn;
     m.textContent = ''; m.className = 'lead-msg';
+    dlg.classList.remove('is-magic');
     dlg.showModal(); track('popup_guardar_resumen');
   });
   /* Al abrir WhatsApp: no volver a mostrar el pop-up y, si ya conocemos su contacto, registrarlo en la hoja */
