@@ -1791,14 +1791,25 @@ footer b{font-family:var(--f-display);color:var(--ink);font-size:1.05rem}
   document.addEventListener('mouseout', function(e){
     if (!e.relatedTarget && e.clientY <= 0 && Date.now() - t0 > 15000 && canPopup()) openDialog(touched ? 'guardar' : 'magica');
   });
-  /* Celular: cuando lleva un rato quieto sin avanzar */
+  /* Celular (no hay mouse): tres señales de que la persona se va, siempre tras 10 s en la página.
+     1) 18 s quieta  2) desliza rápido hacia arriba con el dedo  3) vuelve después de irse a otra app */
   if (matchMedia('(pointer: coarse)').matches){
-    var idle;
-    var arm = function(){
-      clearTimeout(idle);
-      idle = setTimeout(function(){ if (Date.now() - t0 > 25000 && !document.hidden && canPopup()) openDialog(touched ? 'guardar' : 'magica'); }, 45000);
-    };
-    ['touchstart', 'scroll', 'input'].forEach(function(ev){ addEventListener(ev, arm, { passive: true }); });
+    var idle, lastY = scrollY, lastT = Date.now(), lastMove = 0, hiddenAt = 0;
+    var fire = function(){ if (Date.now() - t0 > 10000 && !document.hidden && canPopup()) openDialog(touched ? 'guardar' : 'magica'); };
+    var arm = function(){ clearTimeout(idle); idle = setTimeout(fire, 18000); };
+    ['touchstart', 'input'].forEach(function(ev){ addEventListener(ev, arm, { passive: true }); });
+    addEventListener('touchmove', function(){ lastMove = Date.now(); }, { passive: true });
+    addEventListener('scroll', function(){
+      arm();
+      var now = Date.now(), y = scrollY;
+      /* Solo cuenta el deslizamiento hecho con el dedo, no los saltos automáticos de la página */
+      if (now - lastMove > 1200 || now - lastT > 700){ lastY = y; lastT = now; return; }
+      if (lastY - y > 500){ lastY = y; lastT = now; fire(); }
+    }, { passive: true });
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) hiddenAt = Date.now();
+      else if (hiddenAt && Date.now() - hiddenAt > 3000) setTimeout(fire, 600);
+    });
     arm();
   }
   $('sum-save').addEventListener('click', function(){
